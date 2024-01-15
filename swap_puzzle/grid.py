@@ -18,6 +18,9 @@ class Grid():
         The state of the grid, a list of list such that state[i][j] is the number in the cell (i, j), i.e., in the i-th line and j-th column. 
         Note: lines are numbered 0..m and columns are numbered 0..n.
     """
+    m=0
+    n=0
+    state=[[]]
     
     def __init__(self, m, n, initial_state = []):
         """
@@ -42,7 +45,7 @@ class Grid():
         """
         Prints the state of the grid as text.
         """
-        output = f"The grid is in the following state:\n"
+        output = "The grid is in the following state:\n"
         for i in range(self.m): 
             output += f"{self.state[i]}\n"
         return output
@@ -58,7 +61,14 @@ class Grid():
         Checks is the current state of the grid is sorte and returns the answer as a boolean.
         """
         # TODO: implement this function (and remove the line "raise NotImplementedError").
-        raise NotImplementedError
+        for i in range (self.n):        #pour chaque ligne, les elements doivent être croissants
+            for j in range(self.m):
+                if ((self.state[i][j+1]>=self.state[i][j])
+                or (self.state[i][j]<=self.state[i+1][j])==False):
+                    return False
+        return True
+
+            
 
     def swap(self, cell1, cell2):
         """
@@ -70,7 +80,13 @@ class Grid():
             The two cells to swap. They must be in the format (i, j) where i is the line and j the column number of the cell. 
         """
         # TODO: implement this function (and remove the line "raise NotImplementedError").
-        raise NotImplementedError
+        cell1=(i1,j1)
+        cell2=(i2,j2)
+        if ((((i1==i2) and abs(j1-j2)==1) or ((j1==j2) and abs(i1-i2)==1)) and (i1,i2 <= self.n-1) and (j1,j2 <= self.m-1)and (i1,i2 >= 0) and (j1,j2 >= 0))
+        tmp=self.state[i1][j1]
+        self.state[i1][j1]=self.state[i2][j2]
+        self.state[i2][j2]=tmp
+
 
     def swap_seq(self, cell_pair_list):
         """
