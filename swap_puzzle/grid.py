@@ -3,6 +3,8 @@ This is the grid module. It contains the Grid class and its associated methods.
 """
 
 import random
+import numpy as np
+
 
 class Grid():
     """
@@ -57,30 +59,9 @@ class Grid():
         return f"<grid.Grid: m={self.m}, n={self.n}>"
 
     def show(self):
-        for i in range (self.m):
-            for j in range(self.n):
-                if (j==self.m-1):
-                    print(self.state[i][j]) 
-                    print("\n")
-                else:
-                    print(self.state[i][j])
-                    print('')
-
+        print(np.matrix(self.state))
 
     def is_sorted(self):
-        """
-        Checks is the current state of the grid is sorte and returns the answer as a boolean.
-        """
-        # TODO: implement this function (and remove the line "raise NotImplementedError").
-        for i in range (self.m-1):        #pour chaque ligne, les elements doivent être croissants
-            for j in range(self.n-1):
-                if ((self.state[i][j+1]>=self.state[i][j])
-                and (self.state[i][j]<=self.state[i+1][j])==False):
-                    print(False)
-                else:
-                    print(True)
-
-    def is_sorted_2(self):
         """
         Checks is the current state of the grid is sorte and returns the answer as a boolean.
         """
@@ -90,13 +71,13 @@ class Grid():
         for i in range (m):
             for j in range (n-1):        #pour chaque ligne, les elements doivent être croissants
                 if (self.state[i][j]>self.state[i][j+1]):
-        return False
+                    return False
     
         for i in range (m-1):
             for j in range (n):        
-            print(self.state[i][j])
-            if (self.state[i][j]>self.state[i+1][j]):
-                return False
+           
+                if (self.state[i][j]>self.state[i+1][j]):
+                    return False
         return True
 
 
@@ -163,7 +144,7 @@ class Grid():
             grid = Grid(m, n, initial_state)
         return grid
 
-Grille_ex=Grid(3,2,[[1,2],[3,11],[6,5]])
+Grille_ex=Grid(3,2,[[1,2],[3,4],[5,6]])
 Grille_ex.show()
 print(Grille_ex.is_sorted())
 
