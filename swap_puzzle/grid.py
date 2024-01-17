@@ -56,17 +56,50 @@ class Grid():
         """
         return f"<grid.Grid: m={self.m}, n={self.n}>"
 
+    def show(self):
+        for i in range (self.m):
+            for j in range(self.n):
+                if (j==self.m-1):
+                    print(self.state[i][j]) 
+                    print("\n")
+                else:
+                    print(self.state[i][j])
+                    print('')
+
+
     def is_sorted(self):
         """
         Checks is the current state of the grid is sorte and returns the answer as a boolean.
         """
         # TODO: implement this function (and remove the line "raise NotImplementedError").
-        for i in range (self.n):        #pour chaque ligne, les elements doivent être croissants
-            for j in range(self.m):
+        for i in range (self.m-1):        #pour chaque ligne, les elements doivent être croissants
+            for j in range(self.n-1):
                 if ((self.state[i][j+1]>=self.state[i][j])
-                or (self.state[i][j]<=self.state[i+1][j])==False):
-                    return False
+                and (self.state[i][j]<=self.state[i+1][j])==False):
+                    print(False)
+                else:
+                    print(True)
+
+    def is_sorted_2(self):
+        """
+        Checks is the current state of the grid is sorte and returns the answer as a boolean.
+        """
+        # TODO: implement this function (and remove the line "raise NotImplementedError").
+        m=self.m
+        n=self.n
+        for i in range (m):
+            for j in range (n-1):        #pour chaque ligne, les elements doivent être croissants
+                if (self.state[i][j]>self.state[i][j+1]):
+        return False
+    
+        for i in range (m-1):
+            for j in range (n):        
+            print(self.state[i][j])
+            if (self.state[i][j]>self.state[i+1][j]):
+                return False
         return True
+
+
 
             
 
@@ -82,10 +115,11 @@ class Grid():
         # TODO: implement this function (and remove the line "raise NotImplementedError").
         cell1=(i1,j1)
         cell2=(i2,j2)
-        if ((((i1==i2) and abs(j1-j2)==1) or ((j1==j2) and abs(i1-i2)==1)) and (i1,i2 <= self.n-1) and (j1,j2 <= self.m-1)and (i1,i2 >= 0) and (j1,j2 >= 0))
-        tmp=self.state[i1][j1]
-        self.state[i1][j1]=self.state[i2][j2]
-        self.state[i2][j2]=tmp
+        if ((((i1==i2) and abs(j1-j2)==1) or ((j1==j2) and abs(i1-i2)==1)) 
+        and (i1,i2 <= self.n-1) and (j1,j2 <= self.m-1)and (i1,i2 >= 0) and (j1,j2 >= 0)):
+            tmp=self.state[i1][j1]
+            self.state[i1][j1]=self.state[i2][j2]
+            self.state[i2][j2]=tmp
 
 
     def swap_seq(self, cell_pair_list):
@@ -129,4 +163,7 @@ class Grid():
             grid = Grid(m, n, initial_state)
         return grid
 
+Grille_ex=Grid(3,2,[[1,2],[3,11],[6,5]])
+Grille_ex.show()
+print(Grille_ex.is_sorted())
 
