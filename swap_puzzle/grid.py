@@ -69,14 +69,8 @@ class Grid():
         m=self.m
         n=self.n
         for i in range (m):
-            for j in range (n-1):        #pour chaque j, les elements doivent être croissants
-                if (self.state[i][j]>self.state[i][j+1]):
-                    return False
-    
-        for i in range (m-1):
             for j in range (n):        
-           
-                if (self.state[i][j]>self.state[i+1][j]):
+                if not (self.state[i][j]==i*n+j+1):   
                     return False
         return True
 
@@ -114,8 +108,8 @@ class Grid():
             So the format should be [((i1, j1), (i2, j2)), ((i1', j1'), (i2', j2')), ...].
         """
         # TODO: implement this function (and remove the line "raise NotImplementedError").
-        for cell_pair in range (cell_pair_liste):
-            (cell1,cell2)=cell_pair
+        for i in range (len(cell_pair_list)):
+            (cell1,cell2)=cell_pair_list[i]
             self.swap(cell1,cell2)
 
     @classmethod
@@ -154,19 +148,22 @@ class Grid():
         m=self.m
         while not(self.is_sorted()):
             print(self.is_sorted())
-            i=random.randint(0,n-1)
+            self.show()
+            
+            i=random.randint(0,m-1)
             j=random.randint(0,n-1)
+            print((i,j))
             direction=random.randint(0,3)
-            if (i==n-1 and j==n-1 and (direction%2==0)):  # coin bas a droite
+            if (i==m-1 and j==n-1 and (direction%2==0)):  # coin bas a droite
                 self.swap((i,j),(i-1,j))
                 res=res+[((i,j),(i-1,j))]
-            elif (i==n-1 and j==n-1 and (direction%2==1)):
+            elif (i==m-1 and j==n-1 and (direction%2==1)):
                 self.swap((i,j),(i,j-1))
                 res=res+[((i,j),(i,j-1))]
-            elif (i==n-1 and j==0 and (direction%2==0)): #coin bas gauche
+            elif (i==m-1 and j==0 and (direction%2==0)): #coin bas gauche
                 self.swap((i,j),(i,j+1))
                 res=res+[((i,j),(i,j+1))]
-            elif (i==n-1 and j==0 and (direction%2==1)):
+            elif (i==m-1 and j==0 and (direction%2==1)):
                 self.swap((i,j),(i-1,j))
                 res=res+[((i,j),(i-1,j))]
             elif (i==0 and j==0 and (direction%2==0)):  #coin haut gauche
@@ -192,7 +189,7 @@ class Grid():
                     self.swap((i,j),(i,j-1))
                     res=res+[((i,j),(i,j-1))]
                 
-            elif (i==n-1 ): # derniere ligne
+            elif (i==m-1 ): # derniere ligne
                 if (direction==0):
                     self.swap((i,j),(i-1,j))
                     res=res+[((i,j),(i-1,j))]
@@ -236,8 +233,8 @@ class Grid():
                 elif(direction==3):
                     self.swap((i,j),(i+1,j))
                     res=res+[((i,j),(i+1,j))]
-
-
+        self.show()
+        return res
 
 
 
@@ -255,27 +252,48 @@ class Grid():
             for j in range(n-1):
                 if (self.is_sorted()):
                     return res
-                else:
-                    if (self.state[i][j]>self.state[i][j+1]):
-                        self.swap((i,j),(i,j+1))
-                        res=res+[((i,j),(i,j+1))]
-                    if (self.state[i][j]>self.state[i][j+1]):
-                        self.swap((i,j),(i+1,j))
-                        res=res+[((i,j),(i+1,j))]
-                        
+                elif:
+                    (i==m-1 and j==n-1 ):  # coin bas a droite
+                        if (self.state[i][j]>self.state[i][j-1]):
+                            self.swap((i,j),(i,j-1))
+                            res=res+[((i,j),(i,j-1))]
+                        if (self.state[i][j]>self.state[i][j-1]):
+                            self.swap((i,j),(i-1,j))
+                            res=res+[((i,j),(i-1,j))]
+                elif:
+                    (i==n-1):
+                        if (self.state[i][j]>self.state[i][j+1]):
+                            self.swap((i,j),(i,j+1))
+                            res=res+[((i,j),(i,j+1))]
+                elif:
+                    (j==n-1):
+                        if (self.state[i][j]>self.state[i+1][j]):
+                            self.swap((i,j),(i+1,j))
+                            res=res+[((i,j),(i+1,j))]    
+                elif:
+                    
+
+def tests_swap(m,n,i1,j1,i2,j2,state):
+
+    Grille_ex=Grid(m,n,state)
+    Grille_ex.show()
+    Grille_ex.swap((i1,j1),(i2,j2))
+    Grille_ex.show()
+  
+def tests_swap_seq(m,n,liste_swap,state):
+
+    Grille_ex=Grid(m,n,state)
+    Grille_ex.show()
+    Grille_ex.swap_seq(liste_swap)
+    Grille_ex.show()
+
+def test_hasard(m,n,state):
+
+    Grille_ex2=Grid(m,n,state)
+    print(len(Grille_ex2.get_solveur_hasard()))
 
 
+#test_hasard(2,4,[[8,6,5,4],[7,3,2,1]])   37877 operations
 
-
-Grille_ex=Grid(3,2,[[1,2],[3,4],[6,5]])
-Grille_ex.show()
-print(Grille_ex.is_sorted())
-Grille_ex.swap((2,0),(2,1))
-Grille_ex.show()
-print(Grille_ex.is_sorted())
-
-
-Grille_ex2=Grid(2,2,[[2,1],[3,4]])
-Grille_ex2.get_solveur_hasard()
-print(Grille_ex2.is_sorted())
+#tests_swap_seq(3,3,[((0,0),(0,1)),((1,2),(1,1))],[[9,8,7],[6,5,4],[3,2,1]])
 
