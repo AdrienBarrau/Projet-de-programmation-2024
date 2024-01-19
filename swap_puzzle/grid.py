@@ -76,8 +76,6 @@ class Grid():
 
 
 
-            
-
     def swap(self, cell1, cell2):
         """
         Implements the self. operation between two cells. Raises an exception if the self. is not allowed.
@@ -236,6 +234,25 @@ class Grid():
         self.show()
         return res
 
+    def go_to(self,(i,j),(i1,j1)):     # on va d'abord a droite(ou a gauche) puis en haut!
+        
+        res=[]
+        while not (j==j1):    #on traite d'abord les colonnes pour ne pas casser le trie
+            if (j>j1):
+                self.swap((i,j),(i,j-1))       #on se rapproche de la cible
+                res=res+self.swap((i,j),(i,j-1))
+            else:
+                self.swap((i,j),(i,j+1))       #on se rapproche de la cible
+                res=res+self.swap((i,j),(i,j+1))
+
+        while not (j==j1):    
+            if (i>i1):
+                self.swap((i-1,j),(i,j))       #on se rapproche de la cible
+                res=res+self.swap((i-1,j),(i,j))
+            else:
+                self.swap((i+1,j),(i,j-1))       #on se rapproche de la cible
+                res=res+self.swap((i+1,j),(i,j))
+        return res
 
 
     def get_solution_naive(self):
@@ -248,31 +265,15 @@ class Grid():
         m=self.m 
         n=self.n
         res=[]
-        for i in range(m-1):
-            for j in range(n-1):
-                if (self.is_sorted()):
-                    return res
-                elif:
-                    (i==m-1 and j==n-1 ):  # coin bas a droite
-                        if (self.state[i][j]>self.state[i][j-1]):
-                            self.swap((i,j),(i,j-1))
-                            res=res+[((i,j),(i,j-1))]
-                        if (self.state[i][j]>self.state[i][j-1]):
-                            self.swap((i,j),(i-1,j))
-                            res=res+[((i,j),(i-1,j))]
-                elif:
-                    (i==n-1):
-                        if (self.state[i][j]>self.state[i][j+1]):
-                            self.swap((i,j),(i,j+1))
-                            res=res+[((i,j),(i,j+1))]
-                elif:
-                    (j==n-1):
-                        if (self.state[i][j]>self.state[i+1][j]):
-                            self.swap((i,j),(i+1,j))
-                            res=res+[((i,j),(i+1,j))]    
-                elif:
-                    
-
+        k=0    #k va de 1 jusqu'a n*m-1
+        while (self.is_sorted()):
+            for i in range (m):
+                for j in range(n):
+                    if (self.state[i][j]==k):   # k=i1*n+j1+1  donc k-1=i1*n+j
+                        i1=int(k-1/n)      #quotient de la division euclidienne de k-1 par n
+                        j1=(k-1)%n      #reste dans la division euclidienne de k-1 par n
+                        res=res+self.go_to((i,j),(i1,j1))   #on deplace la case (i,j) vers (i1,j1)
+        return res
 def tests_swap(m,n,i1,j1,i2,j2,state):
 
     Grille_ex=Grid(m,n,state)
