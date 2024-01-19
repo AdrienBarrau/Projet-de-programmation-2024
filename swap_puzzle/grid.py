@@ -234,24 +234,30 @@ class Grid():
         self.show()
         return res
 
-    def go_to(self,(i,j),(i1,j1)):     # on va d'abord a droite(ou a gauche) puis en haut!
+    def go_to(self,cell1,cell2):     # on va d'abord a droite(ou a gauche) puis en haut!
         
+        (i,j)=cell1
+        (i1,j1)=cell2
         res=[]
         while not (j==j1):    #on traite d'abord les colonnes pour ne pas casser le trie
             if (j>j1):
                 self.swap((i,j),(i,j-1))       #on se rapproche de la cible
-                res=res+self.swap((i,j),(i,j-1))
+                res=res+[(i,j),(i,j-1)]
+                j=j-1
             else:
                 self.swap((i,j),(i,j+1))       #on se rapproche de la cible
-                res=res+self.swap((i,j),(i,j+1))
-
-        while not (j==j1):    
+                res=res+[(i,j),(i,j+1)]
+                j=j+1
+        while not (i==i1): 
+              
             if (i>i1):
                 self.swap((i-1,j),(i,j))       #on se rapproche de la cible
-                res=res+self.swap((i-1,j),(i,j))
+                res=res+[(i-1,j),(i,j)]
+                i=i-1
             else:
                 self.swap((i+1,j),(i,j-1))       #on se rapproche de la cible
-                res=res+self.swap((i+1,j),(i,j))
+                res=res+[(i+1,j),(i,j)]
+                i=i+1
         return res
 
 
@@ -265,15 +271,24 @@ class Grid():
         m=self.m 
         n=self.n
         res=[]
-        k=0    #k va de 1 jusqu'a n*m-1
-        while (self.is_sorted()):
+        k=1    #k va de 1 jusqu'a n*m-1
+        while not (self.is_sorted()):
             for i in range (m):
                 for j in range(n):
-                    if (self.state[i][j]==k):   # k=i1*n+j1+1  donc k-1=i1*n+j
-                        i1=int(k-1/n)      #quotient de la division euclidienne de k-1 par n
+                    if (self.state[i][j]==k):   # k=i1*n+j1+1  donc k-1=i1*n+j1
+                        
+                        i1=int((k-1)/n)      #quotient de la division euclidienne de k-1 par n
                         j1=(k-1)%n      #reste dans la division euclidienne de k-1 par n
                         res=res+self.go_to((i,j),(i1,j1))   #on deplace la case (i,j) vers (i1,j1)
+                        k=k+1
+                
         return res
+
+
+#faire un random_grid_generator
+            
+
+
 def tests_swap(m,n,i1,j1,i2,j2,state):
 
     Grille_ex=Grid(m,n,state)
@@ -293,8 +308,17 @@ def test_hasard(m,n,state):
     Grille_ex2=Grid(m,n,state)
     print(len(Grille_ex2.get_solveur_hasard()))
 
+def test_solution_naive(m,n,state):   # on a forcement len(res)<(m+n)*m*n
+    Grille_ex2=Grid(m,n,state)
+    Grille_ex2.show()
+    print(len(Grille_ex2.get_solution_naive()))
+    Grille_ex2.show()
+    
+
+
 
 #test_hasard(2,4,[[8,6,5,4],[7,3,2,1]])   37877 operations
 
 #tests_swap_seq(3,3,[((0,0),(0,1)),((1,2),(1,1))],[[9,8,7],[6,5,4],[3,2,1]])
 
+test_solution_naive(4,4,[[15,14,13,12],[9,8,7,10],[11,6,5,4],[16,3,2,1]])  
