@@ -99,7 +99,7 @@ class Graph:
         path: list[NodeType] | None
             The shortest path from src to dst. Returns None if dst is not reachable from src
         """ 
-        seen=[]                          # on fait un tableau qui contient les noeuds visités
+        seen=[src]                          # on fait un tableau qui contient les noeuds visités
         to_explore=[src] 
         tableau_pere=[[src] for i in range (self.nb_nodes+1)]                #tableau de tableau qui contiennent les ancetres des noeuds(pour pouvoir reconstituer le parcours)                 
         while not (to_explore==[]):
@@ -113,12 +113,17 @@ class Graph:
                 voisins=self.graph[noeud_cur]
                 for v in (voisins):
                     if not(v in seen):
-                        print(v)
                         seen.append(v)
-                        tableau_pere[v].append(noeud_cur)
+                        if not (noeud_cur in tableau_pere[v]):        
+                            tableau_pere[v].append(noeud_cur)
                         to_explore.append(v)
-                        del(to_explore[0])
+                del(to_explore[0])
         return None
+
+    def all_states_graph(self,m,n):                                     # graphe de toutes les grilles
+        tableau=[[(i*m+j+1) for j in range(m)] for i in range (n)]      # grille résolue
+        grille=Grid(m,n,tableau)                                     
+        graphe=Graph([])                                               #il y a (m*n)! grilles possibles
 
 
 
@@ -157,10 +162,12 @@ class Graph:
 
 
 
-graphe_ex=Graph ([1,2,3])
+graphe_ex=Graph ([1,2,3,4,5,6])
 graphe_ex.add_edge(1,2)
 graphe_ex.add_edge(2,3)
 print(graphe_ex)
 print(graphe_ex.bfs(1,3))
 graphe_ex.add_edge(1,3)
 print(graphe_ex.bfs(1,3))
+
+print(graphe_ex.bfs(1,4))
