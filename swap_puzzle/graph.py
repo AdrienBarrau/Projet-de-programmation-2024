@@ -99,8 +99,28 @@ class Graph:
         path: list[NodeType] | None
             The shortest path from src to dst. Returns None if dst is not reachable from src
         """ 
-        # TODO: implement this function (and remove the line "raise NotImplementedError").
-        raise NotImplementedError
+        seen=[]                          # on fait un tableau qui contient les noeuds visités
+        to_explore=[src] 
+        tableau_pere=[[src] for i in range (self.nb_nodes+1)]                #tableau de tableau qui contiennent les ancetres des noeuds(pour pouvoir reconstituer le parcours)                 
+        while not (to_explore==[]):
+            noeud_cur=to_explore[0]
+            if (noeud_cur==dst):
+                                                                     #on inclu la destination dans le parcours d'ancetres
+                tableau_pere[noeud_cur].append(dst)
+                return tableau_pere[noeud_cur]
+
+            else:
+                voisins=self.graph[noeud_cur]
+                for v in (voisins):
+                    if not(v in seen):
+                        print(v)
+                        seen.append(v)
+                        tableau_pere[v].append(noeud_cur)
+                        to_explore.append(v)
+                        del(to_explore[0])
+        return None
+
+
 
     @classmethod
     def graph_from_file(cls, file_name):
@@ -134,3 +154,13 @@ class Graph:
                     raise Exception("Format incorrect")
         return graph
 
+
+
+
+graphe_ex=Graph ([1,2,3])
+graphe_ex.add_edge(1,2)
+graphe_ex.add_edge(2,3)
+print(graphe_ex)
+print(graphe_ex.bfs(1,3))
+graphe_ex.add_edge(1,3)
+print(graphe_ex.bfs(1,3))
