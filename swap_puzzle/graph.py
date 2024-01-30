@@ -126,7 +126,6 @@ class Graph:
         graphe=Graph([])                                               #il y a (m*n)! grilles possibles
 
 
-
     @classmethod
     def graph_from_file(cls, file_name):
         """
@@ -176,3 +175,8 @@ graphe_ex.add_edge(5,6)
 graphe_ex.add_edge(2,6)
 print(graphe_ex)
 print(graphe_ex.bfs(1,6))
+
+graphe_test=Graph.graph_from_file('graph1.in')
+print(graphe_test.bfs(5,14))
+print(graphe_test.bfs(3,15))
+print(graphe_test.bfs(2,16))
