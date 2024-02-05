@@ -239,7 +239,7 @@ class Grid():
         (i,j)=cell1
         (i1,j1)=cell2
         res=[]
-        while not (j==j1):    #on traite d'abord les colonnes pour ne pas casser le trie
+        while not (j==j1):    #on traite d'abord les colonnes pour ne pas casser le tri
             if (j>j1):
                 self.swap((i,j),(i,j-1))       #on se rapproche de la cible
                 res=res+[(i,j),(i,j-1)]
