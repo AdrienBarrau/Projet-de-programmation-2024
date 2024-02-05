@@ -159,6 +159,25 @@ class Graph:
         return graph
 
 
+def generate_matrices(m,n):
+
+    res=[]   #tableau de matrices
+    def generate_permutations(mat, cur):
+        if (len(cur)== m*n):    #si len(cur)=m*n on a remplie une permetutation en entier         
+            res.append([cur[i:i+n] for i in range(0,len(cur),n)] ) 
+        else:
+            for i in range(len(mat)):
+                ind = mat[i]
+                m2 = mat[:i] + mat[i+1:]
+                generate_permutations(m2, cur + [ind])
+
+    
+    generate_permutations([i for i in range(1,m*n+1)], [])
+
+    return res
+
+
+
 
 
 graphe_ex=Graph ([1,2,3,4,5,6])
