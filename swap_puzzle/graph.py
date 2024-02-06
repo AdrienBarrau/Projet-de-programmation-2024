@@ -120,10 +120,7 @@ class Graph:
                 del(to_explore[0])
         return None
 
-    def all_states_graph(self,m,n):                                     # graphe de toutes les grilles
-        tableau=[[(i*m+j+1) for j in range(m)] for i in range (n)]      # grille résolue
-        grille=Grid(m,n,tableau)                                     
-        graphe=Graph([])                                               #il y a (m*n)! grilles possibles
+
 
 
     @classmethod
