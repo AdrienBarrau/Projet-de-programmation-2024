@@ -3,6 +3,9 @@ This is the graph module. It contains a minimalistic Graph class.
 """
 #Test commit
 
+from grid import Grid
+
+
 
 class Graph:
     """
@@ -120,9 +123,6 @@ class Graph:
                 del(to_explore[0])
         return None
 
-
-
-
     @classmethod
     def graph_from_file(cls, file_name):
         """
@@ -173,9 +173,18 @@ class Graph:
     
         return res
 
+    def generate_graph(m,n):
+        graph=Graph(Graph.generate_matrices)
+
+        
+    def solve_bfs(grille):
+        m=grille.m
+        n=grille.n
+        all_states_graph=Graph(Graph.generate_matrices(m,n))
+        return bfs(all_states_graph,grille.state,[[i*m+j+1 for j in range (n)] for i in range (m)])          # l'etat initial self est la source, la grille triee est la destination
 
 
-
+# idee: associer a chaque noeud(etat de la grille) une position dans un espace de dimension le nombre de swaps possibles
 
 graphe_ex=Graph ([1,2,3,4,5,6])
 graphe_ex.add_edge(1,2)
@@ -197,7 +206,4 @@ print(graphe_test.bfs(5,14))
 print(graphe_test.bfs(3,15))
 print(graphe_test.bfs(2,16))
 
-
-tab=Graph.generate_matrices(2,2)
-print(tab)
 
