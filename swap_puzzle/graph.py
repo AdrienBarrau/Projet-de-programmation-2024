@@ -180,12 +180,30 @@ class Graph:
     
         return res
 
+    """
     def generate_graph(m,n):
-        graph=Graph(Graph.generate_matrices)
+        print(Graph.generate_matrices(m,n))
+       graph=Graph(Graph.generate_matrices(m,n))
+       
         for mat in (graph.nodes):
             grid=Grid(m,n,mat)
-            for noeud in grid.adjacent_grids():
+            for noeud in Grid.adjacent_grids():
                 graph.add_edge(noeud,grid)       #on rajoute une aretes ssi noeud et mat sont a un swap l'un de l'autre
+
+        return graph
+"""
+    def generate_graph(m,n):
+        graph = Graph()
+        matrices = generate_matrices(m, n)
+        for mat in matrices:
+            graph.add_edge(tuple(mat))  
+        
+        for node in graph.nodes:
+            matrix = list(node)  
+            grid = Grid(m, n, matrix) 
+            for adjacent_matrix in grid.adjacent_matrices(): 
+                if tuple(adjacent_matrix) in graph.nodes: 
+                    graph.add_edge(node, tuple(adjacent_matrix))  
 
         return graph
 
