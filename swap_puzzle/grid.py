@@ -331,3 +331,46 @@ test_solution_naive(4,4,[[15,14,13,12],[9,8,7,10],[11,6,5,4],[16,3,2,1]])
 
 grille_ex=Grid(2,2,[[1,2],[3,4]])
 print(grille_ex.adjacent_grids())
+
+
+# graphique ( question 4 je crois)
+import matplotlib.pyplot as plt
+
+"""
+# définition d'une grille
+BROUILLON idée
+def affiche(grille):
+    #initialisation des paramètre
+    fig, ax = plt.subplots()
+    #création du nombre de compartiment avec texte
+    ax.set_xticks(range(len(grille[0])))
+    ax.set_yticks(range(len(grille)))
+    ax.set_xticklabels([])
+    ax.set_yticklabels([])
+    for i in range(len(grille[0])):
+        for j in range (len(grille)):
+            ax.text( i, j,grille[j][i])
+    # ajout grille
+    plt.grid(True,linewidth=2)
+    plt.show()
+
+
+ex_grille = [[1,2,3],[4,5,6]]
+affiche(ex_grille)
+"""
+grille=[[1,2,3],[4,5,6]]
+
+#initialisation des paramètre
+fig, ax = plt.subplots()
+#création du nombre de compartiment avec texte
+ax.set_xticks(range(len(grille[0])))
+ax.set_yticks(range(len(grille)))
+ax.set_xticklabels([])
+ax.set_yticklabels([])
+for i in range(len(grille[0])):
+    for j in range (len(grille)):
+        ax.text( i, j,grille[j][i])
+# ajout grille
+plt.grid(True,linewidth=2)
+plt.show()
+
