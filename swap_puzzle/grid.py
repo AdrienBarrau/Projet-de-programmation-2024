@@ -138,102 +138,106 @@ class Grid():
             grid = Grid(m, n, initial_state)
         return grid
     
-
-    
-    def get_solveur_hasard(self):
-        res=[]
-        n=self.n
+    def adjacent_grids(self):
         m=self.m
-        while not(self.is_sorted()):
-            print(self.is_sorted())
-            self.show()
-            
-            i=random.randint(0,m-1)
-            j=random.randint(0,n-1)
-            print((i,j))
-            direction=random.randint(0,3)
-            if (i==m-1 and j==n-1 and (direction%2==0)):  # coin bas a droite
-                self.swap((i,j),(i-1,j))
-                res=res+[((i,j),(i-1,j))]
-            elif (i==m-1 and j==n-1 and (direction%2==1)):
-                self.swap((i,j),(i,j-1))
-                res=res+[((i,j),(i,j-1))]
-            elif (i==m-1 and j==0 and (direction%2==0)): #coin bas gauche
-                self.swap((i,j),(i,j+1))
-                res=res+[((i,j),(i,j+1))]
-            elif (i==m-1 and j==0 and (direction%2==1)):
-                self.swap((i,j),(i-1,j))
-                res=res+[((i,j),(i-1,j))]
-            elif (i==0 and j==0 and (direction%2==0)):  #coin haut gauche
-                self.swap((i,j),(i,j+1))
-                res=res+[((i,j),(i,j+1))]
-            elif (i==0 and j==0 and (direction%2==1)):
-                self.swap((i,j),(i+1,j))
-                res=res+[((i,j),(i+1,j))]
-            elif (i==0 and j==n-1 and (direction%2==0)): #coin haut droit
-                self.swap((i,j),(i-1,j))
-                res=res+[((i,j),(i-1,j))]
-            elif (i==0 and j==n-1 and (direction%2==1)):
-                self.swap((i,j),(i-1,j))
-                res=res+[((i,j),(i-1,j))]
-            elif (i==0 ): # premiere ligne
-                if (direction==0):
-                    self.swap((i,j),(i+1,j))
-                    res=res+[((i,j),(i+1,j))]
-                elif (direction==1):
-                    self.swap((i,j),(i,j+1))
-                    res=res+[((i,j),(i,j+1))]
-                elif (direction==2):
-                    self.swap((i,j),(i,j-1))
-                    res=res+[((i,j),(i,j-1))]
+        n=self.n
+        res=[]
+        for i in range(m):
+            for j in range(n):
+                if (i==m-1 and j==n-1 ):  # coin bas a droite
+                    self.swap((i,j),(i-1,j))
+                    print(self.state)
+                    res=res+self.state     #on stocke une grille adjacente puis on reviens sur la grille initiale
+                    print(res)
+                    self.swap((i,j),(i-1,j))
                 
-            elif (i==m-1 ): # derniere ligne
-                if (direction==0):
-                    self.swap((i,j),(i-1,j))
-                    res=res+[((i,j),(i-1,j))]
-                elif (direction==1):
-                    self.swap((i,j),(i,j+1))
-                    res=res+[((i,j),(i,j+1))]
-                elif(direction==2):
                     self.swap((i,j),(i,j-1))
-                    res=res+[((i,j),(i,j-1))]
-            elif (j==0 ): #1ere colonne
-                if (direction==0):
-                    self.swap((i,j),(i+1,j))
-                    res=res+[((i,j),(i+1,j))]
-                elif (direction==1):
-                    self.swap((i,j),(i-1,j))
-                    res=res+[((i,j),(i-1,j))]
-                elif(direction==2):
-                    self.swap((i,j),(i,j+1))
-                    res=res+[((i,j),(i,j+1))]
-            
-            elif (j==n-1): #derniere colonne
-                if (direction==0):
-                    self.swap((i,j),(i+1,j))
-                    res=res+[((i,j),(i+1,j))]
-                elif (direction==1):
-                    self.swap((i,j),(i-1,j))
-                    res=res+[((i,j),(i-1,j))]
-                elif (direction==2):
+                    res=res+self.state
                     self.swap((i,j),(i,j-1))
-                    res=res+[((i,j),(i,j-1))]
-            else:        #cas general
-                if (direction==0):
+                elif (i==m-1 and j==0 ): #coin bas gauche
                     self.swap((i,j),(i,j+1))
-                    res=res+[((i,j),(i,j+1))]
-                elif (direction==1):
+                    res=res+self.state
+                    self.swap((i,j),(i,j+1))
+                elif (i==m-1 and j==0 ):
                     self.swap((i,j),(i-1,j))
-                    res=res+[((i,j),(i-1,j))]
-                elif(direction==2):
+                    res=res+self.state
+                    self.swap((i,j),(i-1,j))
+                elif (i==0 and j==0 ):  #coin haut gauche
+                    
                     self.swap((i,j),(i,j+1))
-                    res=res+[((i,j),(i,j+1))]
-                elif(direction==3):
+                    print(self.state)
+                    tmp=self.state
+                    res=res+tmp
+                    print(res)
+                    self.swap((i,j),(i,j+1))
+                   
+                elif (i==0 and j==0 ):
                     self.swap((i,j),(i+1,j))
-                    res=res+[((i,j),(i+1,j))]
-        self.show()
+                    res=res+self.state
+                    self.swap((i,j),(i+1,j))
+                elif (i==0 and j==n-1): #coin haut droit
+                    self.swap((i,j),(i-1,j))
+                    res=res+self.state
+                    self.swap((i,j),(i-1,j))
+                elif (i==0 and j==n-1 ):
+                    self.swap((i,j),(i-1,j))
+                    res=res+self.state
+                    self.swap((i,j),(i-1,j))
+                elif (i==0 ): # premiere ligne
+                    self.swap((i,j),(i+1,j))
+                    res=res+self.state
+                    self.swap((i,j),(i+1,j))
+                    self.swap((i,j),(i,j+1))
+                    res=res+self.state
+                    self.swap((i,j),(i,j+1))
+                    self.swap((i,j),(i,j-1))
+                    res=res+self.state
+                    self.swap((i,j),(i,j-1))
+                elif (i==m-1 ): # derniere ligne
+                    self.swap((i,j),(i-1,j))
+                    res=res+self.state
+                    self.swap((i,j),(i-1,j))
+                    self.swap((i,j),(i,j+1))
+                    res=res+self.state
+                    self.swap((i,j),(i,j+1))
+                    self.swap((i,j),(i,j-1))
+                    res=res+self.state
+                    self.swap((i,j),(i,j-1))
+                elif (j==0 ): #1ere colonne
+                    self.swap((i,j),(i+1,j))
+                    res=res+self.state
+                    self.swap((i,j),(i+1,j))
+                    self.swap((i,j),(i-1,j))
+                    res=res+self.state
+                    self.swap((i,j),(i-1,j))
+                    self.swap((i,j),(i,j+1))
+                    res=res+self.state
+                    self.swap((i,j),(i,j+1))
+                elif (j==n-1): #derniere colonne
+                    self.swap((i,j),(i+1,j))
+                    res=res+self.state
+                    self.swap((i,j),(i+1,j))
+                    self.swap((i,j),(i-1,j))
+                    res=res+self.state
+                    self.swap((i,j),(i-1,j))
+                    self.swap((i,j),(i,j-1))
+                    res=res+self.state
+                    self.swap((i,j),(i,j-1))
+                else:        #cas general
+                    self.swap((i,j),(i,j+1))
+                    res=res+self.state
+                    self.swap((i,j),(i,j+1))
+                    self.swap((i,j),(i-1,j))
+                    res=res+self.state
+                    self.swap((i,j),(i-1,j))
+                    self.swap((i,j),(i,j+1))
+                    res=res+self.state
+                    self.swap((i,j),(i,j+1))
+                    self.swap((i,j),(i+1,j))
+                    res=res+self.state
+                    self.swap((i,j),(i+1,j))
         return res
-
+    
     def go_to(self,cell1,cell2):     # on va d'abord a droite(ou a gauche) puis en haut!
         
         (i,j)=cell1
@@ -259,7 +263,6 @@ class Grid():
                 res=res+[(i+1,j),(i,j)]
                 i=i+1
         return res
-
 
     def get_solution_naive(self):
         """
@@ -322,3 +325,9 @@ def test_solution_naive(m,n,state):   # on a forcement len(res)<(m+n)*m*n
 #tests_swap_seq(3,3,[((0,0),(0,1)),((1,2),(1,1))],[[9,8,7],[6,5,4],[3,2,1]])
 
 test_solution_naive(4,4,[[15,14,13,12],[9,8,7,10],[11,6,5,4],[16,3,2,1]])  
+
+
+
+
+grille_ex=Grid(2,2,[[1,2],[3,4]])
+print(grille_ex.adjacent_grids())
