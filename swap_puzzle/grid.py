@@ -138,6 +138,13 @@ class Grid():
             grid = Grid(m, n, initial_state)
         return grid
     
+   def del_doublons(liste):
+        new_liste = [] 
+        for i in range (len(liste)): 
+            if liste[i] not in new_liste: 
+                new_liste.append(liste[i]) 
+        return new_liste
+        
     def adjacent_grids(self):
         m=self.m
         n=self.n
@@ -146,97 +153,92 @@ class Grid():
             for j in range(n):
                 if (i==m-1 and j==n-1 ):  # coin bas a droite
                     self.swap((i,j),(i-1,j))
-                    print(self.state)
-                    res=res+self.state     #on stocke une grille adjacente puis on reviens sur la grille initiale
-                    print(res)
+                   
+                    res.append([ligne[:] for ligne in self.state])    #on stocke une grille adjacente puis on reviens sur la grille initiale
+                    
                     self.swap((i,j),(i-1,j))
                 
                     self.swap((i,j),(i,j-1))
-                    res=res+self.state
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i,j-1))
                 elif (i==m-1 and j==0 ): #coin bas gauche
                     self.swap((i,j),(i,j+1))
-                    res=res+self.state
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i,j+1))
-                elif (i==m-1 and j==0 ):
                     self.swap((i,j),(i-1,j))
-                    res=res+self.state
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i-1,j))
                 elif (i==0 and j==0 ):  #coin haut gauche
                     
                     self.swap((i,j),(i,j+1))
-                    print(self.state)
-                    tmp=self.state
-                    res=res+tmp
-                    print(res)
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i,j+1))
-                   
-                elif (i==0 and j==0 ):
                     self.swap((i,j),(i+1,j))
-                    res=res+self.state
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i+1,j))
                 elif (i==0 and j==n-1): #coin haut droit
                     self.swap((i,j),(i-1,j))
-                    res=res+self.state
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i-1,j))
-                elif (i==0 and j==n-1 ):
                     self.swap((i,j),(i-1,j))
-                    res=res+self.state
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i-1,j))
                 elif (i==0 ): # premiere ligne
                     self.swap((i,j),(i+1,j))
-                    res=res+self.state
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i+1,j))
                     self.swap((i,j),(i,j+1))
-                    res=res+self.state
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i,j+1))
                     self.swap((i,j),(i,j-1))
-                    res=res+self.state
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i,j-1))
                 elif (i==m-1 ): # derniere ligne
                     self.swap((i,j),(i-1,j))
-                    res=res+self.state
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i-1,j))
                     self.swap((i,j),(i,j+1))
-                    res=res+self.state
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i,j+1))
                     self.swap((i,j),(i,j-1))
-                    res=res+self.state
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i,j-1))
                 elif (j==0 ): #1ere colonne
                     self.swap((i,j),(i+1,j))
-                    res=res+self.state
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i+1,j))
                     self.swap((i,j),(i-1,j))
-                    res=res+self.state
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i-1,j))
                     self.swap((i,j),(i,j+1))
-                    res=res+self.state
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i,j+1))
                 elif (j==n-1): #derniere colonne
                     self.swap((i,j),(i+1,j))
-                    res=res+self.state
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i+1,j))
                     self.swap((i,j),(i-1,j))
-                    res=res+self.state
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i-1,j))
                     self.swap((i,j),(i,j-1))
-                    res=res+self.state
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i,j-1))
                 else:        #cas general
                     self.swap((i,j),(i,j+1))
-                    res=res+self.state
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i,j+1))
                     self.swap((i,j),(i-1,j))
-                    res=res+self.state
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i-1,j))
                     self.swap((i,j),(i,j+1))
-                    res=res+self.state
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i,j+1))
                     self.swap((i,j),(i+1,j))
-                    res=res+self.state
+                    res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i+1,j))
-        return res
+        return Grid.del_doublons(res)
+
+
     
     def go_to(self,cell1,cell2):     # on va d'abord a droite(ou a gauche) puis en haut!
         
