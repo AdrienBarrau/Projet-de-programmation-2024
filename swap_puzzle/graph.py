@@ -156,6 +156,10 @@ class Graph:
         return graph
 
 
+
+
+
+
     def generate_matrices(m,n):
     
         res=[]   #tableau de matrices
@@ -164,8 +168,11 @@ class Graph:
                 res.append([cur[i:i+n] for i in range(0,len(cur),n)] ) 
             else:
                 for i in range(len(mat)):
+                    print(cur)
                     ind = mat[i]
                     m2 = mat[:i] + mat[i+1:]
+                    print(ind)
+                    print(m2)
                     generate_permutations(m2, cur + [ind])
     
         
@@ -175,8 +182,13 @@ class Graph:
 
     def generate_graph(m,n):
         graph=Graph(Graph.generate_matrices)
+        for mat in (graph.nodes):
+            grid=Grid(m,n,mat)
+            for noeud in grid.adjacent_grids():
+                graph.add_edge(noeud,grid)       #on rajoute une aretes ssi noeud et mat sont a un swap l'un de l'autre
 
-        
+        return graph
+
     def solve_bfs(grille):
         m=grille.m
         n=grille.n
@@ -207,3 +219,4 @@ print(graphe_test.bfs(3,15))
 print(graphe_test.bfs(2,16))
 
 
+print(Graph.generate_matrices(2,2))
