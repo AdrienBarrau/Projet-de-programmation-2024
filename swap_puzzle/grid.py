@@ -109,42 +109,7 @@ class Grid():
         for i in range (len(cell_pair_list)):
             (cell1,cell2)=cell_pair_list[i]
             self.swap(cell1,cell2)
-
-    @classmethod
-    def grid_from_file(cls, file_name): 
-        """
-        Creates a grid object from class Grid, initialized with the information from the file file_name.
-        
-        Parameters: 
-        -----------
-        file_name: str
-            Name of the file to load. The file must be of the format: 
-            - first line contains "m n" 
-            - next m lines contain n integers that represent the state of the corresponding cell
-
-        Output: 
-        -------
-        grid: Grid
-            The grid
-        """
-        with open(file_name, "r") as file:
-            m, n = map(int, file.readline().split())
-            initial_state = [[] for i_line in range(m)]
-            for i_line in range(m):
-                line_state = list(map(int, file.readline().split()))
-                if len(line_state) != n: 
-                    raise Exception("Format incorrect")
-                initial_state[i_line] = line_state
-            grid = Grid(m, n, initial_state)
-        return grid
     
-   def del_doublons(liste):
-        new_liste = [] 
-        for i in range (len(liste)): 
-            if liste[i] not in new_liste: 
-                new_liste.append(liste[i]) 
-        return new_liste
-        
     def adjacent_grids(self):
         m=self.m
         n=self.n
@@ -239,6 +204,42 @@ class Grid():
         return Grid.del_doublons(res)
 
 
+
+    @classmethod
+    def grid_from_file(cls, file_name): 
+        """
+        Creates a grid object from class Grid, initialized with the information from the file file_name.
+        
+        Parameters: 
+        -----------
+        file_name: str
+            Name of the file to load. The file must be of the format: 
+            - first line contains "m n" 
+            - next m lines contain n integers that represent the state of the corresponding cell
+
+        Output: 
+        -------
+        grid: Grid
+            The grid
+        """
+        with open(file_name, "r") as file:
+            m, n = map(int, file.readline().split())
+            initial_state = [[] for i_line in range(m)]
+            for i_line in range(m):
+                line_state = list(map(int, file.readline().split()))
+                if len(line_state) != n: 
+                    raise Exception("Format incorrect")
+                initial_state[i_line] = line_state
+            grid = Grid(m, n, initial_state)
+        return grid
+    
+    def del_doublons(liste):
+        new_liste = [] 
+        for i in range (len(liste)): 
+            if liste[i] not in new_liste: 
+                new_liste.append(liste[i]) 
+        return new_liste
+        
     
     def go_to(self,cell1,cell2):     # on va d'abord a droite(ou a gauche) puis en haut!
         
