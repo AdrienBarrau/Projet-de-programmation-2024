@@ -171,8 +171,6 @@ class Graph:
                     print(cur)
                     ind = mat[i]
                     m2 = mat[:i] + mat[i+1:]
-                    print(ind)
-                    print(m2)
                     generate_permutations(m2, cur + [ind])
     
         
@@ -180,42 +178,31 @@ class Graph:
     
         return res
 
-    """
-    def generate_graph(m,n):
-        print(Graph.generate_matrices(m,n))
-       graph=Graph(Graph.generate_matrices(m,n))
-       
-        for mat in (graph.nodes):
-            grid=Grid(m,n,mat)
-            for noeud in Grid.adjacent_grids():
-                graph.add_edge(noeud,grid)       #on rajoute une aretes ssi noeud et mat sont a un swap l'un de l'autre
+    def matrice_into_tuple(mat):
+        return tuple(tuple(i) for i in mat)
 
-        return graph
-"""
     def generate_graph(m,n):
-        graph = Graph()
-        matrices = generate_matrices(m, n)
+        matrices = Graph.generate_matrices(m,n)
+        nodes = [Graph.matrice_into_tuple(mat) for mat in matrices]
+        graph = Graph(nodes)     #initialisation du graph avec une liste de tout les etats possible (les tuples sont non mutables)
+
         for mat in matrices:
-            graph.add_edge(tuple(mat))  
-        
-        for node in graph.nodes:
-            matrix = list(node)  
-            grid = Grid(m, n, matrix) 
-            for adjacent_matrix in grid.adjacent_matrices(): 
-                if tuple(adjacent_matrix) in graph.nodes: 
-                    graph.add_edge(node, tuple(adjacent_matrix))  
+            grid = Grid(m,n,mat)
+            mat_tuple = Graph.matrice_into_tuple(mat)
+            for adjacent_matrice in grid.adjacent_grids():
+                graph.add_edge(mat_tuple, Graph.matrice_into_tuple(adjacent_matrice))
 
         return graph
 
     def solve_bfs(grille):
         m=grille.m
         n=grille.n
-        all_states_graph=Graph(Graph.generate_matrices(m,n))
-        return bfs(all_states_graph,grille.state,[[i*m+j+1 for j in range (n)] for i in range (m)])          # l'etat initial self est la source, la grille triee est la destination
+        all_states_graph=(Graph.generate_graph(m,n))
+        return all_states_graph.bfs(Graph.matrice_into_tuple(grille.state),Graph.matrice_into_tuple([[i*m+j+1 for j in range (n)] for i in range (m)]))          # l'etat initial self est la source, la grille triee est la destination
 
 
 # idee: associer a chaque noeud(etat de la grille) une position dans un espace de dimension le nombre de swaps possibles
-
+"""
 graphe_ex=Graph ([1,2,3,4,5,6])
 graphe_ex.add_edge(1,2)
 graphe_ex.add_edge(2,3)
@@ -235,6 +222,9 @@ graphe_test=Graph.graph_from_file('graph1.in')
 print(graphe_test.bfs(5,14))
 print(graphe_test.bfs(3,15))
 print(graphe_test.bfs(2,16))
-
+"""
 
 print(Graph.generate_matrices(2,2))
+Graph.generate_graph(2,2)
+grille3=Grid(2,2,[[4,3],[2,1]])
+Graph.solve_bfs(grille3)
