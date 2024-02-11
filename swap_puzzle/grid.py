@@ -309,10 +309,7 @@ def tests_swap_seq(m,n,liste_swap,state):
     Grille_ex.swap_seq(liste_swap)
     Grille_ex.show()
 
-def test_hasard(m,n,state):
 
-    Grille_ex2=Grid(m,n,state)
-    print(len(Grille_ex2.get_solveur_hasard()))
 
 def test_solution_naive(m,n,state):   # on a forcement len(res)<(m+n)*m*n
     Grille_ex2=Grid(m,n,state)
@@ -327,11 +324,11 @@ def test_solution_naive(m,n,state):   # on a forcement len(res)<(m+n)*m*n
 
 #tests_swap_seq(3,3,[((0,0),(0,1)),((1,2),(1,1))],[[9,8,7],[6,5,4],[3,2,1]])
 
-test_solution_naive(4,4,[[15,14,13,12],[9,8,7,10],[11,6,5,4],[16,3,2,1]])  
+#test_solution_naive(4,4,[[15,14,13,12],[9,8,7,10],[11,6,5,4],[16,3,2,1]])  
 
 
 
-
+"""
 grille_ex=Grid(2,2,[[1,2],[3,4]])
 print(grille_ex.adjacent_grids())
 
@@ -339,7 +336,7 @@ print(grille_ex.adjacent_grids())
 # graphique ( question 4 je crois)
 import matplotlib.pyplot as plt
 
-"""
+
 # définition d'une grille
 BROUILLON idée
 def affiche(grille):
@@ -360,7 +357,7 @@ def affiche(grille):
 
 ex_grille = [[1,2,3],[4,5,6]]
 affiche(ex_grille)
-"""
+
 grille=[[1,2,3],[4,5,6]]
 
 #initialisation des paramètre
@@ -454,4 +451,4 @@ while running:
 pygame.quit()
 sys.exit()
 
-
+"""
