@@ -19,5 +19,13 @@ class Solver():
         return res
 
 grille_ex=Grid(2,2,[[4,3],[2,1]])
-chemin1=Solver(Graph.solve_bfs(grille_ex))
-print(chemin1.get_solution())
+chemin1=Solver(Graph.solve_bfs(grille_ex)) 
+print(chemin1.get_solution())  #donne la liste des swaps a effectuer
+print(grille_ex.get_solution_naive()) #meme nombre de swaps pour une grille 2 sur 2 : 4 swaps
+
+grille_ex2=Grid(3,3,[[9,8,7],[6,5,4],[3,2,1]])
+chemin2=Solver(Graph.solve_bfs(grille_ex2)) 
+print(chemin2.get_solution())           #12 swaps pour une grille 3 sur 3
+print(grille_ex2.get_solution_naive())  #18 swaps pour une grille 3 sur 3
+
+
