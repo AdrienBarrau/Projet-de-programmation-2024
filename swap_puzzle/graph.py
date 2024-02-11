@@ -104,7 +104,7 @@ class Graph:
         """ 
         seen = set()  # tableau des vues
         to_explore = [src]
-        dict_pere={src: None}
+        dict_pere={src: None}     #une liste n'aurai pas permit d acceder a un element du type liste_pere[v] avec v un tuple
         while not (to_explore==[]):
             noeud_cur = to_explore.pop(0)
             if (noeud_cur == dst):
@@ -165,7 +165,7 @@ class Graph:
 
 
 
-    def generate_matrices(m,n):
+    def generate_matrices(m,n):   #renvoi la liste de (m*n)! matrices de taille m*n
     
         res=[]   #tableau de matrices
         def generate_permutations(mat, cur):
@@ -182,10 +182,10 @@ class Graph:
     
         return res
 
-    def matrice_into_tuple(mat):
+    def matrice_into_tuple(mat):    # conversion de matrice en tuple
         return tuple(tuple(i) for i in mat)
 
-    def generate_graph(m,n):
+    def generate_graph(m,n):   Initialisa le graphe avec (m*n)! de type hashable, d'ou l'utilisation des tuples
         matrices = Graph.generate_matrices(m,n)
         nodes = [Graph.matrice_into_tuple(mat) for mat in matrices]
         graph = Graph(nodes)     #initialisation du graph avec une liste de tout les etats possible (les tuples sont non mutables)
@@ -198,7 +198,7 @@ class Graph:
 
         return graph
 
-    def solve_bfs(grille):
+    def solve_bfs(grille):  
         m=grille.m
         n=grille.n
         all_states_graph=(Graph.generate_graph(m,n))
