@@ -102,25 +102,31 @@ class Graph:
         path: list[NodeType] | None
             The shortest path from src to dst. Returns None if dst is not reachable from src
         """ 
-        seen=[src]                          # on fait un tableau qui contient les noeuds visités
-        to_explore=[src] 
-        tableau_pere=[[src] for i in range (self.nb_nodes+1)]                #tableau de tableau qui contiennent les ancetres des noeuds(pour pouvoir reconstituer le parcours)                 
+        seen = set()  # tableau des vues
+        to_explore = [src]
+        dict_pere={src: None}
         while not (to_explore==[]):
-            noeud_cur=to_explore[0]
-            if (noeud_cur==dst):
-                                                                     #on inclu la destination dans le parcours d'ancetres
-                tableau_pere[noeud_cur].append(dst)
-                return tableau_pere[noeud_cur]
+            noeud_cur = to_explore.pop(0)
+            if (noeud_cur == dst):
+                
+                chemin = [noeud_cur]
+                while dict_pere[noeud_cur] is not src:
+                    print(noeud_cur)
+                    noeud_cur = dict_pere[noeud_cur]
+                    if not (noeud_cur in chemin):  # Vérifier si le noeud a déjà été visité lors de la reconstitution
+                        
+                        chemin.append(noeud_cur)
+                chemin.append(src)
+                chemin.reverse()
+                return chemin
 
-            else:
-                voisins=self.graph[noeud_cur]
-                for v in (voisins):
-                    if not(v in seen):
-                        seen.append(v)
-                        if not (noeud_cur in tableau_pere[v]):        
-                            tableau_pere[v].append(noeud_cur)
-                        to_explore.append(v)
-                del(to_explore[0])
+            voisins = self.graph[noeud_cur]
+            for v in voisins:
+                if v not in seen:
+                    seen.add(v)
+                    dict_pere[v] = noeud_cur
+                    to_explore.append(v)
+
         return None
 
     @classmethod
