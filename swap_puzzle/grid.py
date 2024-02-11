@@ -110,7 +110,7 @@ class Grid():
             (cell1,cell2)=cell_pair_list[i]
             self.swap(cell1,cell2)
     
-    def adjacent_grids(self):
+    def adjacent_grids(self):    #renvoi une liste des matrices correspondants aux etats atteignables en 1 swap
         m=self.m
         n=self.n
         res=[]
@@ -145,9 +145,9 @@ class Grid():
                     self.swap((i,j),(i-1,j))
                     res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i-1,j))
-                    self.swap((i,j),(i-1,j))
+                    self.swap((i,j),(i,j-1))
                     res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i-1,j))
+                    self.swap((i,j),(i,j-1))
                 elif (i==0 ): # premiere ligne
                     self.swap((i,j),(i+1,j))
                     res.append([ligne[:] for ligne in self.state])
@@ -249,31 +249,25 @@ class Grid():
         while not (j==j1):    #on traite d'abord les colonnes pour ne pas casser le tri
             if (j>j1):
                 self.swap((i,j),(i,j-1))       #on se rapproche de la cible
-                res=res+[(i,j),(i,j-1)]
+                res=res+[tuple([(i,j),(i,j-1)])]
                 j=j-1
             else:
                 self.swap((i,j),(i,j+1))       #on se rapproche de la cible
-                res=res+[(i,j),(i,j+1)]
+                res=res+[tuple([(i,j),(i,j+1)])]
                 j=j+1
         while not (i==i1): 
               
             if (i>i1):
                 self.swap((i-1,j),(i,j))       #on se rapproche de la cible
-                res=res+[(i-1,j),(i,j)]
+                res=res+[tuple([(i-1,j),(i,j)])]
                 i=i-1
             else:
                 self.swap((i+1,j),(i,j-1))       #on se rapproche de la cible
-                res=res+[(i+1,j),(i,j)]
+                res=res+[tuple([(i+1,j),(i,j)])]
                 i=i+1
         return res
 
     def get_solution_naive(self):
-        """
-        Solves the grid and returns the sequence of self.s at the format 
-        [((i1, j1), (i2, j2)), ((i1', j1'), (i2', j2')), ...]. 
-        """
-        # TODO: implement this function (and remove the line "raise NotImplementedError").
-        # NOTE: you can add other methods and subclasses as much as necessary. The only thing imposed is the format of the solution returned.
         m=self.m 
         n=self.n
         res=[]
@@ -313,18 +307,14 @@ def tests_swap_seq(m,n,liste_swap,state):
 
 def test_solution_naive(m,n,state):   # on a forcement len(res)<(m+n)*m*n
     Grille_ex2=Grid(m,n,state)
-    Grille_ex2.show()
-    print(len(Grille_ex2.get_solution_naive()))
-    Grille_ex2.show()
+    print(Grille_ex2.get_solution_naive())
+   
     
 
 
-
-#test_hasard(2,4,[[8,6,5,4],[7,3,2,1]])   37877 operations
-
 #tests_swap_seq(3,3,[((0,0),(0,1)),((1,2),(1,1))],[[9,8,7],[6,5,4],[3,2,1]])
 
-#test_solution_naive(4,4,[[15,14,13,12],[9,8,7,10],[11,6,5,4],[16,3,2,1]])  
+#test_solution_naive(4,4,[[15,14,13,12],[9,8,7,10],[11,6,5,4],[16,3,2,1]]) 
 
 
 
