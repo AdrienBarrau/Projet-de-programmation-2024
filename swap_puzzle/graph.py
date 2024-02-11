@@ -113,7 +113,7 @@ class Graph:
                 while dict_pere[noeud_cur] is not src:
                     noeud_cur = dict_pere[noeud_cur]
                     if not (noeud_cur in chemin):  # Vérifier si le noeud a déjà été visité lors de la reconstitution
-                        
+
                         chemin.append(noeud_cur)
                 chemin.append(src)
                 chemin.reverse()
@@ -205,8 +205,8 @@ class Graph:
         return all_states_graph.bfs(Graph.matrice_into_tuple(grille.state),Graph.matrice_into_tuple([[i*m+j+1 for j in range (n)] for i in range (m)]))          # l'etat initial self est la source, la grille triee est la destination
 
 
-# idee: associer a chaque noeud(etat de la grille) une position dans un espace de dimension le nombre de swaps possibles
-"""
+
+
 graphe_ex=Graph ([1,2,3,4,5,6])
 graphe_ex.add_edge(1,2)
 graphe_ex.add_edge(2,3)
@@ -226,7 +226,7 @@ graphe_test=Graph.graph_from_file('graph1.in')
 print(graphe_test.bfs(5,14))
 print(graphe_test.bfs(3,15))
 print(graphe_test.bfs(2,16))
-"""
+
 
 #print(Graph.generate_matrices(2,2))
 #print(Graph.generate_graph(2,2))
