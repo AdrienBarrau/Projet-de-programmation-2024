@@ -111,7 +111,6 @@ class Graph:
                 
                 chemin = [noeud_cur]
                 while dict_pere[noeud_cur] is not src:
-                    print(noeud_cur)
                     noeud_cur = dict_pere[noeud_cur]
                     if not (noeud_cur in chemin):  # Vérifier si le noeud a déjà été visité lors de la reconstitution
                         
@@ -174,7 +173,6 @@ class Graph:
                 res.append([cur[i:i+n] for i in range(0,len(cur),n)] ) 
             else:
                 for i in range(len(mat)):
-                    print(cur)
                     ind = mat[i]
                     m2 = mat[:i] + mat[i+1:]
                     generate_permutations(m2, cur + [ind])
@@ -230,7 +228,7 @@ print(graphe_test.bfs(3,15))
 print(graphe_test.bfs(2,16))
 """
 
-print(Graph.generate_matrices(2,2))
-Graph.generate_graph(2,2)
+#print(Graph.generate_matrices(2,2))
+#print(Graph.generate_graph(2,2))
 grille3=Grid(2,2,[[4,3],[2,1]])
-Graph.solve_bfs(grille3)
+print(Graph.solve_bfs(grille3))
