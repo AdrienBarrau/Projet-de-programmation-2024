@@ -1,8 +1,8 @@
 from grid import Grid
 from graph import Graph
-class Solver(): 
-         # chemin_grille est une liste de tuples de tuples contenant le chemin des grilles parcouru
-           
+
+class Solver(): # chemin_grille est une liste de tuples de tuples contenant le chemin des grilles parcouru
+          
     def __init__(self, chemin_grille=[]):
         self.chemin_grille=chemin_grille
 
@@ -18,14 +18,31 @@ class Solver():
             res=res+[tuple(tmp)]
         return res
 
+
+
+
+
 grille_ex=Grid(2,2,[[4,3],[2,1]])
 chemin1=Solver(Graph.solve_bfs(grille_ex)) 
+
+
 print(chemin1.get_solution())  #donne la liste des swaps a effectuer
+
 print(grille_ex.get_solution_naive()) #meme nombre de swaps pour une grille 2 sur 2 : 4 swaps
+
+
 
 grille_ex2=Grid(3,3,[[9,8,7],[6,5,4],[3,2,1]])
 chemin2=Solver(Graph.solve_bfs(grille_ex2)) 
-print(chemin2.get_solution())           #12 swaps pour une grille 3 sur 3
+
+
+
+
+print(chemin2.get_solution())           #16 swaps pour une grille 3 sur 3
 print(grille_ex2.get_solution_naive())  #18 swaps pour une grille 3 sur 3
 
+"""
 
+chemin3=Solver(Graph.solve_new_bfs(grille_ex))
+print(chemin3.get_solution())
+"""
