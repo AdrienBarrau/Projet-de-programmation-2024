@@ -5,7 +5,8 @@ This is the graph module. It contains a minimalistic Graph class.
 
 from grid import Grid
 
-
+def tuple_into_matrice(tup):
+    return [[tup[i][j] for j in range (len(tup[0])) ]for i in range (len(tup)) ]
 
 class Graph:
     """
@@ -128,6 +129,65 @@ class Graph:
 
         return None
 
+    def new_bfs(self, src, dst):     #on fait le graph au fur et à mesure
+        """
+        Finds a shortest path from src to dst by BFS.  
+
+        Parameters: 
+        -----------
+        src: NodeType
+            The source node.
+        dst: NodeType
+            The destination node.
+
+        Output: 
+        -------
+        path: list[NodeType] | None
+            The shortest path from src to dst. Returns None if dst is not reachable from src
+        """ 
+        seen = set()  # tableau des vues
+        to_explore = [src]
+        dict_pere={src: None}     #une liste n'aurai pas permit d acceder a un element du type liste_pere[v] avec v un tuple
+        while not (to_explore==[]):
+            noeud_cur = to_explore.pop(0)
+            if (noeud_cur == dst):
+                
+                chemin = [noeud_cur]
+               
+                while dict_pere[noeud_cur] is not src:
+                    noeud_cur = dict_pere[noeud_cur]
+                    if not (noeud_cur in chemin):  # Vérifier si le noeud a déjà été visité lors de la reconstitution
+
+                        chemin.append(noeud_cur)
+                
+                chemin.append(src)
+                chemin.reverse()
+                
+                return chemin
+
+            grille_init = Grid(len(src),len(src[0]),tuple_into_matrice(noeud_cur))
+            voisins=[]
+            
+            for grille in grille_init.adjacent_grids():
+                new=Graph.matrice_into_tuple(grille)
+                if new not in self.nodes:
+                    self.nodes=self.nodes+[new]
+                    voisins=self.nodes
+                    
+            for v in voisins:
+                if v not in seen:
+                    seen.add(v)
+                    dict_pere[v] = noeud_cur
+                   
+                    to_explore.append(v)
+                    
+
+        return None
+
+
+
+
+
     @classmethod
     def graph_from_file(cls, file_name):
         """
@@ -185,7 +245,7 @@ class Graph:
     def matrice_into_tuple(mat):    # conversion de matrice en tuple
         return tuple(tuple(i) for i in mat)
 
-    def generate_graph(m,n):   Initialisa le graphe avec (m*n)! de type hashable, d'ou l'utilisation des tuples
+    def generate_graph(m,n):  # Initialisa le graphe avec (m*n)! de type hashable, d'ou l'utilisation des tuples
         matrices = Graph.generate_matrices(m,n)
         nodes = [Graph.matrice_into_tuple(mat) for mat in matrices]
         graph = Graph(nodes)     #initialisation du graph avec une liste de tout les etats possible (les tuples sont non mutables)
@@ -232,3 +292,6 @@ print(graphe_test.bfs(2,16))
 #print(Graph.generate_graph(2,2))
 grille3=Grid(2,2,[[4,3],[2,1]])
 print(Graph.solve_bfs(grille3))
+
+x=Graph([])
+print(x.new_bfs(Graph.matrice_into_tuple(grille3.state),((1,2),(3,4))))
