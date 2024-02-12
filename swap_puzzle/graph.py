@@ -4,6 +4,7 @@ This is the graph module. It contains a minimalistic Graph class.
 #Test commit
 
 from grid import Grid
+import time
 
 def tuple_into_matrice(tup):
     return [[tup[i][j] for j in range (len(tup[0])) ]for i in range (len(tup)) ]
@@ -264,7 +265,11 @@ class Graph:
         all_states_graph=(Graph.generate_graph(m,n))
         return all_states_graph.bfs(Graph.matrice_into_tuple(grille.state),Graph.matrice_into_tuple([[i*m+j+1 for j in range (n)] for i in range (m)]))          # l'etat initial self est la source, la grille triee est la destination
 
-
+    def solve_new_bfs(grille):
+        m=grille.m
+        n=grille.n
+        x=Graph([])
+        return x.new_bfs(Graph.matrice_into_tuple(grille.state),Graph.matrice_into_tuple([[i*m+j+1 for j in range (n)] for i in range (m)]))
 
 
 graphe_ex=Graph ([1,2,3,4,5,6])
@@ -291,7 +296,12 @@ print(graphe_test.bfs(2,16))
 #print(Graph.generate_matrices(2,2))
 #print(Graph.generate_graph(2,2))
 grille3=Grid(2,2,[[4,3],[2,1]])
-print(Graph.solve_bfs(grille3))
 
-x=Graph([])
-print(x.new_bfs(Graph.matrice_into_tuple(grille3.state),((1,2),(3,4))))
+deb1=time.time()
+print(Graph.solve_bfs(grille3))
+fin1=time.time()
+print(fin1-deb1)
+deb2=time.time()
+print(Graph.solve_new_bfs(grille3))
+fin2=time.time()
+print(fin2-deb2)
