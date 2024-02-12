@@ -20,3 +20,84 @@ for i in range(len(grille[0])):
 plt.grid(True,linewidth=2)
 plt.show()
 
+
+# affichage avec méthode de pygame
+import pip._internal as pip
+
+pip install pygame
+
+
+
+
+
+
+# avec la méthode pygame
+# imports
+
+import pygame
+import sys
+pygame.init()
+
+# création d'une fenêtre d'affichage
+screen = pygame.display.set_mode((400,600))
+
+# modélisation tableau
+
+nb_lignes = 2
+nb_colonnes = 3
+ex_tabl= [[1,2,3],[4,5,6]]
+click=0
+
+
+def tableau(obj):
+    for x in range(0,nb_lignes+1):
+        pygame.draw.line(screen, (0, 0, 0), (x*200, 0),(x*200, 600))
+    for y in range(0, nb_colonnes + 1):
+        pygame.draw.line(screen, (0, 0, 0), (0, y*200), (400, y*200))
+    
+    #affichage des chiffres
+    font= pygame.font.SysFont(None, 45)
+    for i in range(nb_lignes):
+        for j in range(nb_colonnes):
+            number = font.render(str(obj[i][j]), True, (0,0,0), background= None)
+            numb_position = number.get_rect(center=(j*200+100, i*200+100))
+            screen.blit(number, numb_position)
+
+
+# boucle principale
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        # essai de construction d'une grille intéractive
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if click== 0:
+                click = 1
+                f_position = pygame.mouse.get_pos()
+                case_f_i= f_position[1]//200
+                case_f_j= f_position[0]//200
+                case_f = obj[case_f_i][case_f_j]
+            elif click==1:
+                click=0
+                s_position= pygame.mouse.get_pos()
+                case_s_i= s_position[1]//200
+                case_s_j= s_position[0]//200
+                case_s = obj[case_s_i][case_s_j]
+                swap(case_f,case_f)
+                # ici je suis pas sûre que juste swaper suffit pour changer représentation mmm
+            
+
+            
+
+# fond blanc
+    screen.fill((255, 255, 255))
+
+# affichage du tableau
+    tableau(ex_tabl)
+    pygame.display.flip()
+
+
+# fin pygame
+pygame.quit()
+sys.exit()
