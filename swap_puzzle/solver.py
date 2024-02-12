@@ -41,8 +41,4 @@ chemin2=Solver(Graph.solve_bfs(grille_ex2))
 print(chemin2.get_solution())           #16 swaps pour une grille 3 sur 3
 print(grille_ex2.get_solution_naive())  #18 swaps pour une grille 3 sur 3
 
-"""
 
-chemin3=Solver(Graph.solve_new_bfs(grille_ex))
-print(chemin3.get_solution())
-"""
