@@ -117,22 +117,14 @@ class Grid():
         for i in range(m):
             for j in range(n):
                 if (i==m-1 and j==n-1 ):  # coin bas a droite
-                    self.swap((i,j),(i-1,j))
+                    ()
                    
-                    res.append([ligne[:] for ligne in self.state])    #on stocke une grille adjacente puis on reviens sur la grille initiale
-                    
-                    self.swap((i,j),(i-1,j))
-                
-                    self.swap((i,j),(i,j-1))
-                    res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i,j-1))
-                elif (i==m-1 and j==0 ): #coin bas gauche
+                                                                    #on stocke une grille adjacente puis on reviens sur la grille initiale
+                                                                      # Pour éviter les doublons on fait des swaps uniquement vers la droite ou en bas
+                elif (i==m-1 and j==0 ):    #coin bas gauche
                     self.swap((i,j),(i,j+1))
                     res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i,j+1))
-                    self.swap((i,j),(i-1,j))
-                    res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i-1,j))
                 elif (i==0 and j==0 ):  #coin haut gauche
                     
                     self.swap((i,j),(i,j+1))
@@ -142,12 +134,9 @@ class Grid():
                     res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i+1,j))
                 elif (i==0 and j==n-1): #coin haut droit
-                    self.swap((i,j),(i-1,j))
+                    self.swap((i,j),(i+1,j))
                     res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i-1,j))
-                    self.swap((i,j),(i,j-1))
-                    res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i,j-1))
+                    self.swap((i,j),(i+1,j))
                 elif (i==0 ): # premiere ligne
                     self.swap((i,j),(i+1,j))
                     res.append([ligne[:] for ligne in self.state])
@@ -155,26 +144,14 @@ class Grid():
                     self.swap((i,j),(i,j+1))
                     res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i,j+1))
-                    self.swap((i,j),(i,j-1))
-                    res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i,j-1))
                 elif (i==m-1 ): # derniere ligne
-                    self.swap((i,j),(i-1,j))
-                    res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i-1,j))
                     self.swap((i,j),(i,j+1))
                     res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i,j+1))
-                    self.swap((i,j),(i,j-1))
-                    res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i,j-1))
                 elif (j==0 ): #1ere colonne
                     self.swap((i,j),(i+1,j))
                     res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i+1,j))
-                    self.swap((i,j),(i-1,j))
-                    res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i-1,j))
                     self.swap((i,j),(i,j+1))
                     res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i,j+1))
@@ -182,19 +159,7 @@ class Grid():
                     self.swap((i,j),(i+1,j))
                     res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i+1,j))
-                    self.swap((i,j),(i-1,j))
-                    res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i-1,j))
-                    self.swap((i,j),(i,j-1))
-                    res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i,j-1))
                 else:        #cas general
-                    self.swap((i,j),(i,j+1))
-                    res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i,j+1))
-                    self.swap((i,j),(i-1,j))
-                    res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i-1,j))
                     self.swap((i,j),(i,j+1))
                     res.append([ligne[:] for ligne in self.state])
                     self.swap((i,j),(i,j+1))
@@ -292,7 +257,6 @@ class Grid():
 def tests_swap(m,n,i1,j1,i2,j2,state):
 
     Grille_ex=Grid(m,n,state)
-    Grille_ex.show()
     Grille_ex.swap((i1,j1),(i2,j2))
     Grille_ex.show()
   
@@ -307,6 +271,7 @@ def tests_swap_seq(m,n,liste_swap,state):
 
 def test_solution_naive(m,n,state):   # on a forcement len(res)<(m+n)*m*n
     Grille_ex2=Grid(m,n,state)
+    print(Grille_ex2)
     print(Grille_ex2.get_solution_naive())
    
     
@@ -314,7 +279,7 @@ def test_solution_naive(m,n,state):   # on a forcement len(res)<(m+n)*m*n
 
 #tests_swap_seq(3,3,[((0,0),(0,1)),((1,2),(1,1))],[[9,8,7],[6,5,4],[3,2,1]])
 
-#test_solution_naive(4,4,[[15,14,13,12],[9,8,7,10],[11,6,5,4],[16,3,2,1]]) 
+test_solution_naive(4,4,[[15,14,13,12],[9,8,7,10],[11,6,5,4],[16,3,2,1]]) 
 
 
 
@@ -442,3 +407,6 @@ pygame.quit()
 sys.exit()
 
 """
+
+#grille_test=Grid(3,3,[[1,2,3],[4,5,6],[7,8,9]])
+#print(grille_test.adjacent_grids())
