@@ -7,6 +7,7 @@ class Solver(): # chemin_grille est une liste de tuples de tuples contenant le c
         self.chemin_grille=chemin_grille
 
     def get_solution(self):
+        "\n"
         liste=self.chemin_grille
         res=[]   #liste des swaps
         for k in range(0,len(liste)-1):
@@ -16,6 +17,7 @@ class Solver(): # chemin_grille est une liste de tuples de tuples contenant le c
                     if not(liste[k][i][j]==liste[k+1][i][j]):
                         tmp=tmp+[(i,j)]
             res=res+[tuple(tmp)]
+        print("Il y'a",len(res),"swaps pour resoudre la grille")
         return res
 
 
