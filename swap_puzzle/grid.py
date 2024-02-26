@@ -65,7 +65,6 @@ class Grid():
         """
         Checks is the current state of the grid is sorte and returns the answer as a boolean.
         """
-        # TODO: implement this function (and remove the line "raise NotImplementedError").
         m=self.m
         n=self.n
         for i in range (m):
@@ -85,7 +84,6 @@ class Grid():
         cell1, cell2: tuple[int]
             The two cells to self.. They must be in the format (i, j) where i is the line and j the column number of the cell. 
         """
-        # TODO: implement this function (and remove the line "raise NotImplementedError").
         (i1,j1)=cell1
         (i2,j2)=cell2
         if ((((i1==i2) and abs(j1-j2)==1) or ((j1==j2) and abs(i1-i2)==1)) 
@@ -105,7 +103,6 @@ class Grid():
             List of self.s, each self. being a tuple of two cells (each cell being a tuple of integers). 
             So the format should be [((i1, j1), (i2, j2)), ((i1', j1'), (i2', j2')), ...].
         """
-        # TODO: implement this function (and remove the line "raise NotImplementedError").
         for i in range (len(cell_pair_list)):
             (cell1,cell2)=cell_pair_list[i]
             self.swap(cell1,cell2)
@@ -410,3 +407,7 @@ sys.exit()
 
 #grille_test=Grid(3,3,[[1,2,3],[4,5,6],[7,8,9]])
 #print(grille_test.adjacent_grids())
+
+#tests_swap_seq(3,3,[((0,0),(0,1)),((1,2),(1,1))],[[9,8,7],[6,5,4],[3,2,1]])
+
+test_solution_naive(4,4,[[15,14,13,12],[9,8,7,10],[11,6,5,4],[16,3,2,1]])
