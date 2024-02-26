@@ -301,6 +301,9 @@ def chemin_a(start, goal):
         to_explore.append(next)
     return seen
 
+
+idee fonction distance: renvoi la somme des ecarts pour chaque coordonnee, cette dist surestime
+la vrai distance, peut etre faire pareil avec dist a vol d'oiseau.
 """
 
 graphe_ex=Graph ([1,2,3,4,5,6])
@@ -318,7 +321,7 @@ graphe_ex.add_edge(2,6)
 print(graphe_ex)
 print(graphe_ex.bfs(1,6))
 
-graphe_test=Graph.graph_from_file('graph1.in')
+graphe_test=Graph.graph_from_file('input/graph1.in')
 print(graphe_test.bfs(5,14))
 print(graphe_test.bfs(3,15))
 print(graphe_test.bfs(2,16))
