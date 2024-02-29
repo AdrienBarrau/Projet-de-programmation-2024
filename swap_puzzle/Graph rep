@@ -8,6 +8,9 @@ grille=[[1,2,3],[4,5,6]]
 
 #initialisation des paramètre
 fig, ax = plt.subplots()
+# inversion de l'ordre des éléments de la grille pour que ça
+#apparaisse dans le bon sens
+grille.reverse()
 #création du nombre de compartiment avec texte
 ax.set_xticks(range(len(grille[0]) + 1))
 ax.set_yticks(range(len(grille)+1))
@@ -21,9 +24,49 @@ plt.grid(True,linewidth=2)
 plt.show()
 
 
+
+#fonction d'affichage de la grille avec plt
+def afficher_plt(grille):
+    #initialisation des paramètre
+    fig, ax = plt.subplots()
+    # inversion de l'ordre des éléments de la grille pour que ça
+    #apparaisse dans le bon sens
+    grille.reverse()
+    #création du nombre de compartiment avec texte
+    ax.set_xticks(range(len(grille[0]) + 1))
+    ax.set_yticks(range(len(grille)+1))
+    ax.set_xticklabels([])
+    ax.set_yticklabels([])
+    for i in range(len(grille[0])):
+        for j in range (len(grille)):
+            ax.text( i+0.5, j+0.5, str(grille[j][i]), fontdict=None)
+    # ajout grille
+    plt.grid(True,linewidth=2)
+    plt.show()
+
+#construction exemple
+def construction_ex(lignes, colonnes):
+    example=[]
+    new= []
+    for i in range(lignes):
+        for j in range(colonnes):
+            new = new + [i*colonnes + j + 1]
+        example = example + [new]
+        new= []
+    return example
+
+#application
+liste= construction_ex(7,12)
+afficher_plt(liste)
+
+
+
+
+afficher_plt()
+
+
 # affichage avec méthode de pygame
 import pip._internal as pip
-
 pip install pygame
 
 
