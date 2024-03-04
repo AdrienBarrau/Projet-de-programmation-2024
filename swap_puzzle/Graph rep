@@ -3,28 +3,6 @@ import matplotlib.pyplot as plt
 import matplotlib.axes as ax
 
 
-# affichage grille avec méthode plt
-grille=[[1,2,3],[4,5,6]]
-
-#initialisation des paramètre
-fig, ax = plt.subplots()
-# inversion de l'ordre des éléments de la grille pour que ça
-#apparaisse dans le bon sens
-grille.reverse()
-#création du nombre de compartiment avec texte
-ax.set_xticks(range(len(grille[0]) + 1))
-ax.set_yticks(range(len(grille)+1))
-ax.set_xticklabels([])
-ax.set_yticklabels([])
-for i in range(len(grille[0])):
-    for j in range (len(grille)):
-        ax.text( i+0.5, j+0.5, str(grille[j][i]), fontdict=None)
-# ajout grille
-plt.grid(True,linewidth=2)
-plt.show()
-
-
-
 #fonction d'affichage de la grille avec plt
 def afficher_plt(grille):
     #initialisation des paramètre
@@ -62,21 +40,9 @@ afficher_plt(liste)
 
 
 
-afficher_plt()
 
 
 # affichage avec méthode de pygame
-import pip._internal as pip
-pip install pygame
-
-
-
-
-
-
-# avec la méthode pygame
-# imports
-
 import pygame
 import sys
 pygame.init()
@@ -88,24 +54,37 @@ screen = pygame.display.set_mode((400,600))
 
 nb_lignes = 2
 nb_colonnes = 3
-ex_tabl= [[1,2,3],[4,5,6]]
-click=0
+ex_tabl = [[1, 2, 3], [4, 5, 6]]
+click = 0
 
-
+"""
 def tableau(obj):
-    for x in range(0,nb_lignes+1):
-        pygame.draw.line(screen, (0, 0, 0), (x*200, 0),(x*200, 600))
-    for y in range(0, nb_colonnes + 1):
+    for x in range(0, len(obj)+1):
+        pygame.draw.line(screen, (0, 0, 0), (x*200, 0), (x*200, 600))
+    for y in range(0, len(obj[0]) + 1):
         pygame.draw.line(screen, (0, 0, 0), (0, y*200), (400, y*200))
     
-    #affichage des chiffres
-    font= pygame.font.SysFont(None, 45)
+    # affichage des chiffres
+    font = pygame.font.SysFont(None, 45)
     for i in range(nb_lignes):
         for j in range(nb_colonnes):
             number = font.render(str(obj[i][j]), True, (0,0,0), background= None)
             numb_position = number.get_rect(center=(j*200+100, i*200+100))
             screen.blit(number, numb_position)
+"""
 
+for x in range(0, len(ex_tabl)+1):
+    pygame.draw.line(screen, (0, 0, 0), (x*200, 0), (x*200, 600))
+for y in range(0, len(ex_tabl[0]) + 1):
+    pygame.draw.line(screen, (0, 0, 0), (0, y*200), (400, y*200))
+    
+    # affichage des chiffres
+    font = pygame.font.SysFont(None, 45)
+    for i in range(nb_lignes):
+        for j in range(nb_colonnes):
+            number = font.render(str(ex_tabl[i][j]), True, (0,0,0))
+            numb_position = number.get_rect(center=(j*200+100, i*200+100))
+            screen.blit(number, numb_position)
 
 # boucle principale
 running = True
@@ -114,7 +93,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         # essai de construction d'une grille intéractive
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        elif event.type == pygame.MOUSEBUTTONDOWN:
             if click== 0:
                 click = 1
                 f_position = pygame.mouse.get_pos()
@@ -137,7 +116,7 @@ while running:
     screen.fill((255, 255, 255))
 
 # affichage du tableau
-    tableau(ex_tabl)
+    # tableau(ex_tabl)
     pygame.display.flip()
 
 
