@@ -293,9 +293,6 @@ class Graph:
 """
 début d'essai de la fonction A* ( Diane)
 """
-def distance(start,goal):
-    N=0 # initialisation du nombre de noeuds pour arriver à la destination
-    # à continuer, poser des questions à partir de bfs ? est-ce qu'on peut faire avec ça ???
 
 def chemin_a(start, goal):
     to_explore = []
