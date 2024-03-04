@@ -9,6 +9,17 @@ import time
 def tuple_into_matrice(tup):
     return [[tup[i][j] for j in range (len(tup[0])) ]for i in range (len(tup)) ]
 
+def lexical_order(mat1,mat2):  #renvoi true si mat1 est prioritaire dans l'ordre lexicographique, sinon false
+        m=len(mat1)
+        n=len(mat2)
+        for i in range(m):
+            for j in range(n):
+                if (mat1[i][j]<mat2[i][j]):
+                    return True
+                if (mat1[i][j]>mat2[i][j]):
+                    return False
+        return False
+
 class Graph:
     """
     A class representing undirected graphs as adjacency lists. 
@@ -107,7 +118,9 @@ class Graph:
         seen = set()  # tableau des vues
         to_explore = [src]
         dict_pere={src: None}     #une liste n'aurai pas permit d acceder a un element du type liste_pere[v] avec v un tuple
+        i=0
         while not (to_explore==[]):
+            i=i+1
             noeud_cur = to_explore.pop(0)
             if (noeud_cur == dst):
                 
@@ -119,6 +132,7 @@ class Graph:
                         chemin.append(noeud_cur)
                 chemin.append(src)
                 chemin.reverse()
+                print(i)
                 return chemin
 
             voisins = self.graph[noeud_cur]
@@ -145,19 +159,21 @@ class Graph:
         -------
         path: list[NodeType] | None
             The shortest path from src to dst. Returns None if dst is not reachable from src
-        """ 
+        """
         seen = set()  # tableau des vues, on utilise un set() car aucun ordre n'est requis
         to_explore = [src]
         dict_pere={src: None}     #une liste n'aurai pas permit d acceder a un element du type liste_pere[v] avec v un tuple
+        i=0
         while not (to_explore==[]):
+            i=i+1
             noeud_cur = to_explore.pop(0)
             print(noeud_cur)
 
             if (noeud_cur == dst):
-               
+                
                 chemin = [noeud_cur]
-               
                 while dict_pere[noeud_cur] is not src:
+                    
                     noeud_cur = dict_pere[noeud_cur]
                     if not (noeud_cur in chemin):  # Vérifier si le noeud a déjà été visité lors de la reconstitution
 
@@ -166,24 +182,36 @@ class Graph:
                 chemin.append(src)
                 chemin.reverse()
                 
+                print(i)
                 return chemin
 
             grille_init = Grid(len(src),len(src[0]),tuple_into_matrice(noeud_cur))
             voisins=[]
-            
-            for grille in grille_init.adjacent_grids():
-                new=Graph.matrice_into_tuple(grille)
-                if new not in self.nodes:
+            print(voisins)
+            deb3=time.time()
+            for grille in grille_init.adjacent_grids():    # d'après la def de adjacent_grids(), grille est une matrice
+                print(grille)
+                d=time.time()
+                grille_init.adjacent_grids()
+                f=time.time()
+                print(f-d)
+                new=Graph.matrice_into_tuple(grille)                        #de 185 à 197: 0.0001s pour grille 3,2
+                
+                if (new not in self.nodes ):
+                    
                     self.nodes=self.nodes+[new]
                     voisins=self.nodes
-                    
-            for v in voisins:
+            fin3=time.time()
+            print(fin3-deb3)
+                                                  
+            for v in voisins:              #rapide
                 if v not in seen:
                     seen.add(v)
                     dict_pere[v] = noeud_cur
                    
                     to_explore.append(v)
-                    
+            
+                  
 
         return None
 
@@ -192,22 +220,6 @@ class Graph:
 
 
     @classmethod
-
-    def distance_heuristique(node) : #renvoi la distance a la solution, en somment la distance a vol d'oiseua entre chaque coefficients
-        mat=tuple_into_matrice(node)
-        m=len(node)
-        n=len(node[0])
-        res=0   #resultat
-        for i in range (m):
-            for j in range(n):
-                k=mat[i][j]
-                i1=int((k-1)/n)  #!i1 et j1 sont les coordonees de la valeur k dans la grille solution!
-
-                j1=(k-1)%n 
-
-                res=res+sqrt((i-i1)**2+(j-j1)**2)
-        return res
-
     def graph_from_file(cls, file_name):
         """
         Reads a text file and returns the graph as an object of the Graph class.
@@ -240,6 +252,20 @@ class Graph:
         return graph
 
 
+    def distance_heuristique(node) : #renvoi la distance a la solution, en somment la distance a vol d'oiseua entre chaque coefficients
+        mat=tuple_into_matrice(node)
+        m=len(node)
+        n=len(node[0])
+        res=0   #resultat
+        for i in range (m):
+            for j in range(n):
+                k=mat[i][j]
+                i1=int((k-1)/n)  #!i1 et j1 sont les coordonees de la valeur k dans la grille solution!
+
+                j1=(k-1)%n 
+
+                res=res+sqrt((i-i1)**2+(j-j1)**2)
+        return res
 
 
 
@@ -258,6 +284,7 @@ class Graph:
     
         
         generate_permutations([i for i in range(1,m*n+1)], [])
+
     
         return res
 
@@ -281,13 +308,14 @@ class Graph:
         m=grille.m
         n=grille.n
         all_states_graph=(Graph.generate_graph(m,n))
-        return all_states_graph.bfs(Graph.matrice_into_tuple(grille.state),Graph.matrice_into_tuple([[i*m+j+1 for j in range (n)] for i in range (m)]))          # l'etat initial self est la source, la grille triee est la destination
+        return all_states_graph.bfs(Graph.matrice_into_tuple(grille.state),Graph.matrice_into_tuple([[i*n+j+1 for j in range (n)] for i in range (m)]))          # l'etat initial self est la source, la grille triee est la destination
 
     def solve_new_bfs(grille):
         m=grille.m
         n=grille.n
         x=Graph([])
-        return x.new_bfs(Graph.matrice_into_tuple(grille.state),Graph.matrice_into_tuple([[i*m+j+1 for j in range (n)] for i in range (m)]))
+
+        return x.new_bfs(Graph.matrice_into_tuple(grille.state),Graph.matrice_into_tuple([[i*n+j+1 for j in range (n)] for i in range (m)]))
 
 
 """
