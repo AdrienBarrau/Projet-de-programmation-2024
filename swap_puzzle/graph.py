@@ -2,6 +2,7 @@
 This is the graph module. It contains a minimalistic Graph class.
 """
 #Test commit
+from collections import deque
 
 from grid import Grid
 import time
@@ -147,12 +148,12 @@ class Graph:
     def new_bfs(self, src, dst):     #on fait le graph au fur et à mesure
     
         seen = set()  # tableau des vues, on utilise un set() car aucun ordre n'est requis
-        to_explore = [src]
-        dict_pere={src: None}     #une liste n'aurai pas permit d acceder a un element du type liste_pere[v] avec v un tuple
+        to_explore = deque([src])   # pas d'ordre, moins couteux qu'une liste
+        dict_pere={src: None}     #une liste n'aurai pas permi d'acceder a un element du type liste_pere[v] avec v un tuple
         i=0
         while not (to_explore==[]):
             i=i+1
-            noeud_cur = to_explore.pop(0)
+            noeud_cur = to_explore.popleft()
             
 
             if (noeud_cur == dst):
@@ -172,27 +173,16 @@ class Graph:
                 return chemin
 
             grille_init = Grid(len(src),len(src[0]),tuple_into_matrice(noeud_cur))
-            voisins=[]
-           
-            deb3=time.time()
-            for grille in grille_init.adjacent_grids():    # d'après la def de adjacent_grids(), grille est une matrice
-                
-                grille_init.adjacent_grids()
-                
-                new=Graph.matrice_into_tuple(grille)                        #de 185 à 197: 0.0001s pour grille 3,2
-                
-                if (new not in self.nodes ):
-                    
+            voisins=grille_init.adjacent_grids()   
+
+            for grille in voisins:
+                new = Graph.matrice_into_tuple(grille)
+                if new not in self.nodes and new not in seen:
                     self.nodes=self.nodes+[new]
-                    voisins=self.nodes
-            
-                                                  
-            for v in voisins:              #rapide
-                if v not in seen:
-                    seen.add(v)
-                    dict_pere[v] = noeud_cur
-                   
-                    to_explore.append(v)
+                    dict_pere[new] = noeud_cur
+                    to_explore.append(new)
+                    seen.add(new)
+
         return None
 
 
@@ -363,10 +353,10 @@ print(graphe_test.bfs(2,16))
 
 #print(Graph.generate_matrices(2,2))
 #print(Graph.generate_graph(2,2))
-grille3=Grid(2,3,[[1,5,3],[2,4,6]])
+grille3=Grid(3,3,[[1,2,3],[9,8,7],[6,5,4]])
 
 deb1=time.time()
-print(Graph.solve_bfs(grille3))
+#print(Graph.solve_bfs(grille3))
 fin1=time.time()
 print(fin1-deb1)
 deb2=time.time()
