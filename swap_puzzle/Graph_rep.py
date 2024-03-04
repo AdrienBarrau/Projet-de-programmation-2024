@@ -1,24 +1,24 @@
-#imports programme
+#imports
 import matplotlib.pyplot as plt 
 import matplotlib.axes as ax
+import pygame
+import sys
 
-
-#fonction d'affichage de la grille avec plt
-def afficher_plt(grille):
+#function to display the grid with plt
+def display_plt(grid):
     #initialisation des paramètre
     fig, ax = plt.subplots()
-    # inversion de l'ordre des éléments de la grille pour que ça
-    #apparaisse dans le bon sens
-    grille.reverse()
-    #création du nombre de compartiment avec texte
-    ax.set_xticks(range(len(grille[0]) + 1))
-    ax.set_yticks(range(len(grille)+1))
+    # inversion of the order of the elements in order for the display not to be reversed
+    grid.reverse()
+    #creation of compartments with text
+    ax.set_xticks(range(len(grid[0]) + 1))
+    ax.set_yticks(range(len(grid)+1))
     ax.set_xticklabels([])
     ax.set_yticklabels([])
-    for i in range(len(grille[0])):
-        for j in range (len(grille)):
-            ax.text( i+0.5, j+0.5, str(grille[j][i]), fontdict=None)
-    # ajout grille
+    for i in range(len(grid[0])):
+        for j in range (len(grid)):
+            ax.text( i+0.5, j+0.5, str(grid[j][i]), fontdict=None)
+    # display
     plt.grid(True,linewidth=2)
     plt.show()
 
@@ -34,23 +34,17 @@ def construction_ex(lignes, colonnes):
     return example
 
 #application
-liste= construction_ex(7,12)
-afficher_plt(liste)
+app= construction_ex(7,12)
+display_plt(app)
 
 
-
-
-
-
-# affichage avec méthode de pygame
-import pygame
-import sys
+# interactive display with pygame
 pygame.init()
 
-# création d'une fenêtre d'affichage
+# creation of a display window
 screen = pygame.display.set_mode((400,600))
 
-# modélisation tableau
+# table modelization
 
 nb_lignes = 2
 nb_colonnes = 3
