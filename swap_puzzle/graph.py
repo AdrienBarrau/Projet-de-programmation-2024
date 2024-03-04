@@ -145,21 +145,7 @@ class Graph:
         return None
 
     def new_bfs(self, src, dst):     #on fait le graph au fur et à mesure
-        """
-        Finds a shortest path from src to dst by BFS.  
-
-        Parameters: 
-        -----------
-        src: NodeType
-            The source node.
-        dst: NodeType
-            The destination node.
-
-        Output: 
-        -------
-        path: list[NodeType] | None
-            The shortest path from src to dst. Returns None if dst is not reachable from src
-        """
+    
         seen = set()  # tableau des vues, on utilise un set() car aucun ordre n'est requis
         to_explore = [src]
         dict_pere={src: None}     #une liste n'aurai pas permit d acceder a un element du type liste_pere[v] avec v un tuple
@@ -167,7 +153,7 @@ class Graph:
         while not (to_explore==[]):
             i=i+1
             noeud_cur = to_explore.pop(0)
-            print(noeud_cur)
+            
 
             if (noeud_cur == dst):
                 
@@ -187,22 +173,19 @@ class Graph:
 
             grille_init = Grid(len(src),len(src[0]),tuple_into_matrice(noeud_cur))
             voisins=[]
-            print(voisins)
+           
             deb3=time.time()
             for grille in grille_init.adjacent_grids():    # d'après la def de adjacent_grids(), grille est une matrice
-                print(grille)
-                d=time.time()
+                
                 grille_init.adjacent_grids()
-                f=time.time()
-                print(f-d)
+                
                 new=Graph.matrice_into_tuple(grille)                        #de 185 à 197: 0.0001s pour grille 3,2
                 
                 if (new not in self.nodes ):
                     
                     self.nodes=self.nodes+[new]
                     voisins=self.nodes
-            fin3=time.time()
-            print(fin3-deb3)
+            
                                                   
             for v in voisins:              #rapide
                 if v not in seen:
@@ -210,9 +193,6 @@ class Graph:
                     dict_pere[v] = noeud_cur
                    
                     to_explore.append(v)
-            
-                  
-
         return None
 
 
@@ -383,7 +363,7 @@ print(graphe_test.bfs(2,16))
 
 #print(Graph.generate_matrices(2,2))
 #print(Graph.generate_graph(2,2))
-grille3=Grid(3,3,[[9,8,7],[6,5,4],[3,2,1]])
+grille3=Grid(2,3,[[1,5,3],[2,4,6]])
 
 deb1=time.time()
 print(Graph.solve_bfs(grille3))

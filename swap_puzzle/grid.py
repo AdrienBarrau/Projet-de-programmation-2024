@@ -107,62 +107,28 @@ class Grid():
             (cell1,cell2)=cell_pair_list[i]
             self.swap(cell1,cell2)
     
-    def adjacent_grids(self):    #renvoi une liste des matrices correspondants aux etats atteignables en 1 swap
-        m=self.m
-        n=self.n
-        res=[]
-    
+    def adjacent_grids(self):
+        m = self.m
+        n = self.n
+        res = []
+
         for i in range(m):
             for j in range(n):
-                if (i==m-1 and j==n-1 ):  # coin bas a droite
-                    ()                                                #on stocke une grille adjacente puis on reviens sur la grille initiale
-                                                                      # Pour éviter les doublons on fait des swaps uniquement vers la droite ou en bas
-                elif (i==m-1 and j==0 ):    #coin bas gauche
-                    self.swap((i,j),(i,j+1))
-                    res.append([ligne[:] for ligne in self.state])   # on ajoute un élement à res sans modifier l'état de la grille
-                    self.swap((i,j),(i,j+1))
-                elif (i==0 and j==0 ):  #coin haut gauche
-                    
-                    self.swap((i,j),(i,j+1))
-                    res.append([ligne[:] for ligne in self.state])   
-                    self.swap((i,j),(i,j+1))
-                    self.swap((i,j),(i+1,j))
-                    res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i+1,j))
-                elif (i==0 and j==n-1): #coin haut droit
-                    self.swap((i,j),(i+1,j))
-                    res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i+1,j))
-                elif (i==0 ): # premiere ligne
-                    self.swap((i,j),(i+1,j))
-                    res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i+1,j))
-                    self.swap((i,j),(i,j+1))
-                    res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i,j+1))
-                elif (i==m-1 ): # derniere ligne
-                    self.swap((i,j),(i,j+1))
-                    res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i,j+1))
-                elif (j==0 ): #1ere colonne
-                    self.swap((i,j),(i+1,j))
-                    res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i+1,j))
-                    self.swap((i,j),(i,j+1))
-                    res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i,j+1))
-                elif (j==n-1): #derniere colonne
-                    self.swap((i,j),(i+1,j))
-                    res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i+1,j))
-                else:        #cas general
-                    self.swap((i,j),(i,j+1))
-                    res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i,j+1))
-                    self.swap((i,j),(i+1,j))
-                    res.append([ligne[:] for ligne in self.state])
-                    self.swap((i,j),(i+1,j))
-        return Grid.del_doublons(res)
+                if j < n - 1:           # on fait un swap vers la droite
+                                                                        
+                    if 0 <= i < m and 0 <= j < n - 1:
+                        voisin = [ligne[:] for ligne in self.state]       #pour ne pas modifier l'état de la grille
+                        voisin[i][j], voisin[i][j + 1] = voisin[i][j + 1], voisin[i][j]
+                        res.append(voisin)
+
+                if i < m - 1:                            # on fait un swap vers le bas
+                                                                            
+                    if 0 <= i < m - 1 and 0 <= j < n:
+                        voisin = [ligne[:] for ligne in self.state]
+                        voisin[i][j], voisin[i + 1][j] = voisin[i + 1][j], voisin[i][j]
+                        res.append(voisin)
+
+        return res
 
 
 
@@ -193,14 +159,7 @@ class Grid():
                 initial_state[i_line] = line_state
             grid = Grid(m, n, initial_state)
         return grid
-    
-    def del_doublons(liste):
-        new_liste = [] 
-        for i in range (len(liste)): 
-            if liste[i] not in new_liste: 
-                new_liste.append(liste[i]) 
-        return new_liste
-        
+
     
     def go_to(self,cell1,cell2):     # on va d'abord a droite(ou a gauche) puis en haut!
         
