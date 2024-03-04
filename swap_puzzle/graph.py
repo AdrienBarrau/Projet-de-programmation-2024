@@ -292,7 +292,7 @@ class Graph:
 
 """
 début d'essai de la fonction A* ( Diane)
-
+"""
 def distance(start,goal):
     N=0 # initialisation du nombre de noeuds pour arriver à la destination
     # à continuer, poser des questions à partir de bfs ? est-ce qu'on peut faire avec ça ???
@@ -305,20 +305,20 @@ def chemin_a(start, goal):
     next = start
     current_d = -1
     while next!= goal:
-        neighbours = graph[to_explore[0]] # là pas le bon nom de fonction mais je cherche après 
+        neighbours = adjacent_grids[to_explore[0]] # là pas le bon nom de fonction mais je cherche après 
         for n in neighbours:
             to_explore.append(n)
-        to_explore.del(0) # voir pourquoi ya erreur ici et pas plus tard en plus quand je réutilise del?
+        to_explore.pop(0) # voir pourquoi ya erreur ici et pas plus tard en plus quand je réutilise del?
         while to_explore != []:
             new_d = distance(to_explore[0], goal) # fonction pas encore définie
             if new_d < current_d or current_d==-1 :
                 current_d = new_d
                 next = to_explore[0]
-            to_explore.del(0)
+            to_explore.pop(0)
         seen.append(next)
         to_explore.append(next)
     return seen
-
+"""
 
 idee fonction distance: renvoi la somme des ecarts pour chaque coordonnee, cette dist surestime
 la vrai distance, peut etre faire pareil avec dist a vol d'oiseau.
