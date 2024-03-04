@@ -313,12 +313,12 @@ def chemin_a(start):
     next = start
     current_d = -1
     while next != goal:
-        neighbours = grid.adjacent_grids[to_explore[0]] # là pas le bon nom de fonction mais je cherche après 
+        neighbours = grid.adjacent_grids[to_explore[0]]
         for n in neighbours:
             to_explore.append(n)
-        to_explore.pop(0) # voir pourquoi ya erreur ici et pas plus tard en plus quand je réutilise del?
+        to_explore.pop(0)
         while to_explore != []:
-            new_d = distance_heuristique(to_explore[0], goal) # fonction pas encore définie
+            new_d = distance_heuristique(to_explore[0], goal)
             if new_d < current_d or current_d == -1:
                 current_d = new_d
                 next = to_explore[0]
