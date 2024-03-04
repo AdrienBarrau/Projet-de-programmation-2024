@@ -293,28 +293,39 @@ class Graph:
 """
 début d'essai de la fonction A* ( Diane)
 """
+def construction_solution(lines, columns):
+    example=[]
+    new= []
+    for i in range(lines):
+        for j in range(columns):
+            new = new + [i*columns + j + 1]
+        example = example + [new]
+        new= []
+    return solution
 
-def chemin_a(start, goal):
+
+def chemin_a(start):
+    goal = construction_solution(len(start), len(start[0]))
     to_explore = []
-    seen = []
+    road = []
     to_explore.append(start)
-    seen.append(start)
+    road.append(start)
     next = start
     current_d = -1
-    while next!= goal:
-        neighbours = adjacent_grids[to_explore[0]] # là pas le bon nom de fonction mais je cherche après 
+    while next != goal:
+        neighbours = grid.adjacent_grids[to_explore[0]] # là pas le bon nom de fonction mais je cherche après 
         for n in neighbours:
             to_explore.append(n)
         to_explore.pop(0) # voir pourquoi ya erreur ici et pas plus tard en plus quand je réutilise del?
         while to_explore != []:
-            new_d = distance(to_explore[0], goal) # fonction pas encore définie
-            if new_d < current_d or current_d==-1 :
+            new_d = distance_heuristique(to_explore[0], goal) # fonction pas encore définie
+            if new_d < current_d or current_d == -1:
                 current_d = new_d
                 next = to_explore[0]
             to_explore.pop(0)
-        seen.append(next)
+        road.append(next)
         to_explore.append(next)
-    return seen
+    return road
 """
 
 idee fonction distance: renvoi la somme des ecarts pour chaque coordonnee, cette dist surestime

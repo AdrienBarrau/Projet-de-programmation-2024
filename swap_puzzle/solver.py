@@ -28,7 +28,7 @@ class Solver(): # chemin_grille est une liste de tuples de tuples contenant le c
 
 
 grille_ex=Grid(2,2,[[4,3],[2,1]])
-chemin1=Solver(Graph.solve_bfs(grille_ex)) 
+chemin1=Solver(Graphe.solve_bfs(grille_ex)) 
 
 
 print(chemin1.get_solution())  #donne la liste des swaps a effectuer
