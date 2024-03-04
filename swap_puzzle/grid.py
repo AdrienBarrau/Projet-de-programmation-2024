@@ -111,21 +111,20 @@ class Grid():
         m=self.m
         n=self.n
         res=[]
+    
         for i in range(m):
             for j in range(n):
                 if (i==m-1 and j==n-1 ):  # coin bas a droite
-                    ()
-                   
-                                                                    #on stocke une grille adjacente puis on reviens sur la grille initiale
+                    ()                                                #on stocke une grille adjacente puis on reviens sur la grille initiale
                                                                       # Pour éviter les doublons on fait des swaps uniquement vers la droite ou en bas
                 elif (i==m-1 and j==0 ):    #coin bas gauche
                     self.swap((i,j),(i,j+1))
-                    res.append([ligne[:] for ligne in self.state])
+                    res.append([ligne[:] for ligne in self.state])   # on ajoute un élement à res sans modifier l'état de la grille
                     self.swap((i,j),(i,j+1))
                 elif (i==0 and j==0 ):  #coin haut gauche
                     
                     self.swap((i,j),(i,j+1))
-                    res.append([ligne[:] for ligne in self.state])
+                    res.append([ligne[:] for ligne in self.state])   
                     self.swap((i,j),(i,j+1))
                     self.swap((i,j),(i+1,j))
                     res.append([ligne[:] for ligne in self.state])
@@ -287,3 +286,4 @@ test_solution_naive(4,4,[[15,14,13,12],[9,8,7,10],[11,6,5,4],[16,3,2,1]])
 #tests_swap_seq(3,3,[((0,0),(0,1)),((1,2),(1,1))],[[9,8,7],[6,5,4],[3,2,1]])
 
 test_solution_naive(4,4,[[15,14,13,12],[9,8,7,10],[11,6,5,4],[16,3,2,1]])
+
