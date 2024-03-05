@@ -154,7 +154,7 @@ class Graph:
         while not (to_explore==[]):
             i=i+1
             noeud_cur = to_explore.popleft()
-            
+            print(noeud_cur)
 
             if (noeud_cur == dst):
                 
@@ -177,7 +177,7 @@ class Graph:
 
             for grille in voisins:
                 new = Graph.matrice_into_tuple(grille)
-                if new not in self.nodes and new not in seen:
+                if new not in seen:
                     self.nodes=self.nodes+[new]
                     dict_pere[new] = noeud_cur
                     to_explore.append(new)
@@ -353,10 +353,10 @@ print(graphe_test.bfs(2,16))
 
 #print(Graph.generate_matrices(2,2))
 #print(Graph.generate_graph(2,2))
-grille3=Grid(3,3,[[1,2,3],[9,8,7],[6,5,4]])
+grille3=Grid(2,3,[[6,4,3],[2,1,5]])
 
 deb1=time.time()
-#print(Graph.solve_bfs(grille3))
+print(Graph.solve_bfs(grille3))
 fin1=time.time()
 print(fin1-deb1)
 deb2=time.time()
