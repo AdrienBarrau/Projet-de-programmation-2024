@@ -102,21 +102,6 @@ class Graph:
         self.edges.append((node1, node2))
 
     def bfs(self, src, dst): 
-        """
-        Finds a shortest path from src to dst by BFS.  
-
-        Parameters: 
-        -----------
-        src: NodeType
-            The source node.
-        dst: NodeType
-            The destination node.
-
-        Output: 
-        -------
-        path: list[NodeType] | None
-            The shortest path from src to dst. Returns None if dst is not reachable from src
-        """ 
         seen = set()  # tableau des vues
         to_explore = [src]
         dict_pere={src: None}     #une liste n'aurai pas permit d acceder a un element du type liste_pere[v] avec v un tuple
@@ -144,7 +129,7 @@ class Graph:
 
         return None
 
-    def new_bfs(self, src, dst):     #on fait le graph au fur et à mesure
+    def new_bfs(self, src, dst):     #On ne construit plus le graphe des le depart, on le parcours au fur et a mesure
     
         seen = set()  # tableau des vues, on utilise un set() car aucun ordre n'est requis
         to_explore = deque([src])   # pas d'ordre, moins couteux qu'une liste
@@ -177,20 +162,21 @@ class Graph:
 
         return None
 
-    def a_star(self,src, dst):
-        cur= [(Graph.distance_heuristique(src),0, src)]
+    def a_star(self,src, dst):     #testé avec différentes heuristiques, la distance de manhatan offre de bien meilleurs résulats que la distance a vol d'oiseau
+        cur= [(Graph.heuristique2(src),0, src)]
         seen = set()
         dict_pere = {src: None}
-        
+        i=0
         while not (cur==[]):
+            i=i+1
             new_dist,dist, noeud_cur = heapq.heappop(cur)
             if (noeud_cur == dst):
-                chemin = []
+                chemin=[noeud_cur]
                 while dict_pere[noeud_cur] is not src:
-                    chemin.append(noeud_cur)
                     noeud_cur = dict_pere[noeud_cur]
-                
+                    chemin.append(noeud_cur)
                 chemin.reverse()
+                print(i)
                 return chemin
 
             seen.add(noeud_cur)
@@ -200,7 +186,7 @@ class Graph:
                 new_node = Graph.matrice_into_tuple(voisin)
                 if new_node not in seen:
                     dist = dist + 1
-                    heapq.heappush(cur, (dist + Graph.distance_heuristique(new_node), dist, new_node))   #on ajoute dans le tas des triplets triés selon la premiere coordonées qui donne la distance totale en empruntant le noeud suivant
+                    heapq.heappush(cur, (dist + Graph.heuristique2(new_node), dist, new_node))   #on ajoute dans le tas des triplets triés selon la premiere coordonées qui donne la distance totale en empruntant le noeud suivant
                     dict_pere[new_node] = noeud_cur
                     
         return None
@@ -240,7 +226,7 @@ class Graph:
         return graph
 
 
-    def distance_heuristique(node) : #renvoi la distance a la solution, en somment la distance a vol d'oiseua entre chaque coefficients
+    def heuristique(node) : #renvoi la distance a la solution, en somment la distance a vol d'oiseua entre chaque coefficients
         mat=tuple_into_matrice(node)
         m=len(node)
         n=len(node[0])
@@ -255,6 +241,20 @@ class Graph:
                 res=res+((i-i1)**2+(j-j1)**2)**(1/2)
         return res
 
+    def heuristique2(node) : #renvoi la distance a la solution, en somment la distance a vol d'oiseua entre chaque coefficients,on multiplis par deux pour un meilleru resultat
+        mat=tuple_into_matrice(node)
+        m=len(node)
+        n=len(node[0])
+        res=0   #resultat
+        for i in range (m):
+            for j in range(n):
+                k=mat[i][j]
+                i1=int((k-1)/n)  #!i1 et j1 sont les coordonees de la valeur k dans la grille solution!
+
+                j1=(k-1)%n 
+
+                res=res+abs(i1-i)+abs(j1-j)
+        return res*2
 
 
 
@@ -377,7 +377,7 @@ print(graphe_test.bfs(2,16))
 
 #print(Graph.generate_matrices(2,2))
 #print(Graph.generate_graph(2,2))
-grille3=Grid(2,3,[[6,4,3],[2,1,5]])
+grille3=Grid(3,3,[[6,4,3],[7,8,9],[2,5,1]])
 
 deb1=time.time()
 print(Graph.solve_bfs(grille3))
@@ -388,5 +388,7 @@ print(Graph.solve_new_bfs(grille3))
 fin2=time.time()
 print(fin2-deb2)
 
-
+deb3=time.time()
 print(Graph.solve_a_star(grille3))
+fin3=time.time()
+print(fin3-deb3)
