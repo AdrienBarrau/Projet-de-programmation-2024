@@ -1,6 +1,5 @@
 #imports
-import matplotlib.pyplot as plt 
-import matplotlib.axes as ax
+import matplotlib.pyplot as plt
 import pygame
 import sys
 
@@ -23,7 +22,9 @@ def display_plt(grid):
     plt.show()
 
 #construction exemple
-def construction_ex(lignes, colonnes):
+def construction_ex():
+    lignes= int(input("Saisir le nombre de lignes: "))
+    colonnes= int(input("Saisir le nombre de colonnes: "))
     example=[]
     new= []
     for i in range(lignes):
@@ -34,7 +35,8 @@ def construction_ex(lignes, colonnes):
     return example
 
 #application
-app= construction_ex(7,12)
+
+app= construction_ex()
 display_plt(app)
 
 
