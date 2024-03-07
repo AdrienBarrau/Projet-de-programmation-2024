@@ -169,13 +169,14 @@ class Graph:
         i=0
         while not (cur==[]):
             i=i+1
-            print(i)
+           
             new_dist,dist, noeud_cur = heapq.heappop(cur)
             if (noeud_cur == dst):
                 chemin=[noeud_cur]
                 while dict_pere[noeud_cur] is not src:
                     noeud_cur = dict_pere[noeud_cur]
                     chemin.append(noeud_cur)
+                chemin.append(src)
                 chemin.reverse()
                 print(i)
                 return chemin
@@ -247,6 +248,7 @@ class Graph:
         m=len(node)
         n=len(node[0])
         res=0   #resultat
+        poid=20       #augmenter le poid acclère la recherche mais la rend plus imprécise
         for i in range (m):
             for j in range(n):
                 k=mat[i][j]
@@ -255,7 +257,8 @@ class Graph:
                 j1=(k-1)%n 
 
                 res=res+abs(i1-i)+abs(j1-j)
-        return res*2
+
+        return res*poid       # Si le poid est grand, on surestime la distance a la solution , on parcours moins de noeuds, le temps de calcul est plus court mais la solution n'est pas optimale.
 
 
 
@@ -378,7 +381,7 @@ print(graphe_test.bfs(2,16))
 
 #print(Graph.generate_matrices(2,2))
 #print(Graph.generate_graph(2,2))
-grille3=Grid(3,4,[[9,8,7,10],[6,5,4,11],[12,1,2,3]])
+grille3=Grid(5,5,[[25,24,23,21,22],[20,16,15,14,13],[19,12,11,10,9],[17,8,7,6,5],[18,4,3,2,1]])
 
 deb1=time.time()
 #print(Graph.solve_bfs(grille3))
