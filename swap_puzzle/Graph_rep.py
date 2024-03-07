@@ -108,6 +108,7 @@ pygame.quit()
 sys.exit()
 
 '''
+# interactive display with pygame
 pygame.init()
 
 # creation of a display window
@@ -120,8 +121,8 @@ nb_colonnes = 3
 ex_tabl = [[1, 2, 3], [4, 5, 6]]
 click = 0
 
-
-
+# fond blanc
+screen.fill((255, 255, 255))
     
 for x in range(0, len(ex_tabl)+1):
     pygame.draw.line(screen, (0, 0, 0), (x*200, 0), (x*200, 600))
@@ -146,27 +147,32 @@ while running:
             running = False
         # essai de construction d'une grille interactive
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            if click== 0:
-                click = 1
-                f_position = pygame.mouse.get_pos()
-                case_f_i= f_position[1]//200
-                case_f_j= f_position[0]//200
-                case_f = ex_tabl[case_f_i][case_f_j]
-            elif click==1:
-                click=0
-                s_position= pygame.mouse.get_pos()
-                case_s_i= s_position[1]//200
-                case_s_j= s_position[0]//200
-                case_s = ex_tabl[case_s_i][case_s_j]
-                Grid.swap(case_f,case_s)
-                # ici je suis pas sûre que juste swaper suffit pour changer représentation mmm
-            
-
-            
-
-# fond blanc
-    screen.fill((255, 255, 255))
-
+            if event.button ==1:
+                if click== 0:
+                    click = 1
+                    f_position = pygame.mouse.get_pos()
+                    for i in range(nb_lignes):
+                        if i*200<f_position[1] < (i+1)*200:
+                            case_f_i= i
+                    for j in range(nb_colonnes):
+                        if j*200<f_position[0] < (j+1)*200:
+                            case_f_j= j
+                    case_f = ex_tabl[case_f_i][case_f_j]
+                elif click==1:
+                    click=0
+                    s_position= pygame.mouse.get_pos()
+                    for i in range(nb_lignes):
+                        if i*200<s_position[1] < (i+1)*200:
+                            case_s_i= i
+                    for j in range(nb_colonnes):
+                        if j*200<s_position[0] < (j+1)*200:
+                            case_s_j= j
+                    case_s_i= s_position[1]//200
+                    case_s_j= s_position[0]//200
+                    case_s = ex_tabl[case_s_i][case_s_j]
+                    Grid.swap(case_f,case_s)
+                    # ici je suis pas sûre que juste swaper suffit pour changer représentation mmm
+                
 # affichage du tableau
     # tableau(ex_tabl)
     pygame.display.flip()
@@ -175,3 +181,4 @@ while running:
 # fin pygame
 pygame.quit()
 sys.exit()
+"""
