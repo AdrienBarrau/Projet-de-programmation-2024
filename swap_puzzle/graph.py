@@ -101,7 +101,7 @@ class Graph:
         self.nb_edges += 1
         self.edges.append((node1, node2))
 
-    def bfs(self, src, dst): 
+    def bfs(self, src, dst):    # on veut creer (m*n)! sommets donc on ne peut pas esperer resoudre des tailles inferieur ou égale à 3*3, car (4*3)! fait deja 479 millions de noeuds à initialiser et une grande partie à parcourir 
         seen = set()  # tableau des vues
         to_explore = [src]
         dict_pere={src: None}     #une liste n'aurai pas permit d acceder a un element du type liste_pere[v] avec v un tuple
@@ -169,6 +169,7 @@ class Graph:
         i=0
         while not (cur==[]):
             i=i+1
+            print(i)
             new_dist,dist, noeud_cur = heapq.heappop(cur)
             if (noeud_cur == dst):
                 chemin=[noeud_cur]
@@ -377,14 +378,14 @@ print(graphe_test.bfs(2,16))
 
 #print(Graph.generate_matrices(2,2))
 #print(Graph.generate_graph(2,2))
-grille3=Grid(3,3,[[6,4,3],[7,8,9],[2,5,1]])
+grille3=Grid(3,4,[[9,8,7,10],[6,5,4,11],[12,1,2,3]])
 
 deb1=time.time()
-print(Graph.solve_bfs(grille3))
+#print(Graph.solve_bfs(grille3))
 fin1=time.time()
 print(fin1-deb1)
 deb2=time.time()
-print(Graph.solve_new_bfs(grille3))
+#print(Graph.solve_new_bfs(grille3))
 fin2=time.time()
 print(fin2-deb2)
 
