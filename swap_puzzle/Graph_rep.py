@@ -175,10 +175,10 @@ while running:
                     Grid.swap(case_f,case_s) #ici changer pour que ça modifie bien le tableau exemple
                     screen.fill((255, 255, 255),(case_f_j*200, case_f_i*200), ((case_f_j+1)*200, (case_f_i*200+1)*200))
                     screen.fill((255, 255, 255),(case_s_i*200, case_s_j*200), ((case_s_i+1)*200, (case_s_j+1)*200))
-                    newcase_f = font.render(str(ex_tabl[case_f_j][case_f_i]), True, (0,0,0))
+                    newcase_f = font.render(str(ex_tabl[case_f_i][case_f_j]), True, (0,0,0))
                     new_f_position = number.get_rect(center=(case_f_j*200+100, case_f_i*200+100))
                     screen.blit(newcase_f, new_f_position)
-                    newcase_s = font.render(str(ex_tabl[case_s_j][case_s_i]), True, (0,0,0))
+                    newcase_s = font.render(str(ex_tabl[case_s_i][case_s_j]), True, (0,0,0))
                     new_s_position = number.get_rect(center=(case_s_j*200+100, case_s_i*200+100))
                     screen.blit(newcase_s, new_s_position)
                     
@@ -204,10 +204,6 @@ def display_pygame(tableau):
     screen = pygame.display.set_mode((600,600)) #à adapter selon taille de l'écran, jcp combien ça représente
 
 # table modelization
-
-nb_lignes = 2
-nb_colonnes = 3
-ex_tabl = [[1, 2, 3], [4, 5, 6]]
     click = 0
 #rajouter ici les variables pas def pour après si ça marche pas
 
