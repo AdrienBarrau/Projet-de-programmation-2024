@@ -1,5 +1,6 @@
 from grid import Grid
 from graph import Graph
+import time
 
 class Solver(): # chemin_grille est une liste de tuples de tuples contenant le chemin des grilles parcouru
           
@@ -23,12 +24,26 @@ class Solver(): # chemin_grille est une liste de tuples de tuples contenant le c
         print("Il y'a",len(res),"swaps pour resoudre la grille")
         return res
 
+#nos fonctions solutions étant construitent, on veut en évaluer la plus value par rapport à la solution naive, qui est très imprécise mais imbattable en temps d'éxécution
+# Pour cela on va faire tourner nos solutions sur des matrices choisi au hasard de taille m*n avec m et n raisonnablement petits
+
+
+
 def time_and_swaps_bfs(liste_mat):     #pour une liste de matrices, on calcule combien de temps le bfs amélioré met de temps, et combien swaps contient son chemin le plus court (optimal)
-    for i in range (len(liste_mat)):    # on renvoi un liste de triplet contenant (le temps de resolution, la liste des swaps,le nombre de swaps, la matrice)
+    res=[]
+    for i in range (len(liste_mat)):    # on renvoi un liste de quadruplets contenant (le temps de resolution, la liste des swaps,le nombre de swaps, la matrice)
         m=len(liste_mat[i])
-        n=len(liste_mat[i][0])              # determination des dimensiosn de la matrice
+        n=len(liste_mat[i][0])              # détermination des dimensions de la matrice
         grille=Grid(m,n,liste_mat[i])
-        chemin=Solver(Graph.solve_bfs(grille_ex)) 
+        deb=time.time()
+        chemin=Solver(Graph.solve_bfs(grille)) 
+        fin=time.time()
+        tps=fin-deb
+        swaps=chemin.get_solution()
+        res.append((tps,swaps,len(swaps),liste_mat[i]))
+    return res
+
+print(time_and_swaps_bfs([[[4,3],[2,1]],[[4,3],[1,2]]]))
 
 
 
