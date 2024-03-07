@@ -6,6 +6,7 @@ from collections import deque
 
 from grid import Grid
 import time
+import heapq
 
 def tuple_into_matrice(tup):
     return [[tup[i][j] for j in range (len(tup[0])) ]for i in range (len(tup)) ]
@@ -128,14 +129,12 @@ class Graph:
                 chemin = [noeud_cur]
                 while dict_pere[noeud_cur] is not src:
                     noeud_cur = dict_pere[noeud_cur]
-                    if not (noeud_cur in chemin):  # Vérifier si le noeud a déjà été visité lors de la reconstitution
-
-                        chemin.append(noeud_cur)
+                    chemin.append(noeud_cur)
                 chemin.append(src)
                 chemin.reverse()
                 print(i)
                 return chemin
-
+            
             voisins = self.graph[noeud_cur]
             for v in voisins:
                 if v not in seen:
@@ -152,40 +151,59 @@ class Graph:
         dict_pere={src: None}     #une liste n'aurai pas permi d'acceder a un element du type liste_pere[v] avec v un tuple
         i=0
         while not (to_explore==[]):
-            i=i+1
             noeud_cur = to_explore.popleft()
-            print(noeud_cur)
-
+            i=i+1
             if (noeud_cur == dst):
                 
                 chemin = [noeud_cur]
                 while dict_pere[noeud_cur] is not src:
                     
                     noeud_cur = dict_pere[noeud_cur]
-                    if not (noeud_cur in chemin):  # Vérifier si le noeud a déjà été visité lors de la reconstitution
-
-                        chemin.append(noeud_cur)
-                
+                    chemin.append(noeud_cur)
                 chemin.append(src)
                 chemin.reverse()
-                
                 print(i)
                 return chemin
 
             grille_init = Grid(len(src),len(src[0]),tuple_into_matrice(noeud_cur))
             voisins=grille_init.adjacent_grids()   
-
+            seen.add(noeud_cur)
             for grille in voisins:
                 new = Graph.matrice_into_tuple(grille)
                 if new not in seen:
-                    self.nodes=self.nodes+[new]
                     dict_pere[new] = noeud_cur
                     to_explore.append(new)
                     seen.add(new)
 
         return None
 
+    def a_star(self,src, dst):
+        cur= [(Graph.distance_heuristique(src),0, src)]
+        seen = set()
+        dict_pere = {src: None}
+        
+        while not (cur==[]):
+            new_dist,dist, noeud_cur = heapq.heappop(cur)
+            if (noeud_cur == dst):
+                chemin = []
+                while dict_pere[noeud_cur] is not src:
+                    chemin.append(noeud_cur)
+                    noeud_cur = dict_pere[noeud_cur]
+                
+                chemin.reverse()
+                return chemin
 
+            seen.add(noeud_cur)
+            grid_init=Grid(len(src),len(src[0]),tuple_into_matrice(noeud_cur))
+            
+            for voisin in grid_init.adjacent_grids():
+                new_node = Graph.matrice_into_tuple(voisin)
+                if new_node not in seen:
+                    dist = dist + 1
+                    heapq.heappush(cur, (dist + Graph.distance_heuristique(new_node), dist, new_node))   #on ajoute dans le tas des triplets triés selon la premiere coordonées qui donne la distance totale en empruntant le noeud suivant
+                    dict_pere[new_node] = noeud_cur
+                    
+        return None
 
 
 
@@ -234,7 +252,7 @@ class Graph:
 
                 j1=(k-1)%n 
 
-                res=res+sqrt((i-i1)**2+(j-j1)**2)
+                res=res+((i-i1)**2+(j-j1)**2)**(1/2)
         return res
 
 
@@ -286,6 +304,12 @@ class Graph:
         x=Graph([])
 
         return x.new_bfs(Graph.matrice_into_tuple(grille.state),Graph.matrice_into_tuple([[i*n+j+1 for j in range (n)] for i in range (m)]))
+
+    def solve_a_star(grille):
+       m=grille.m
+       n=grille.n
+       x=Graph([])
+       return x.a_star(Graph.matrice_into_tuple(grille.state),Graph.matrice_into_tuple([[i*n+j+1 for j in range (n)] for i in range (m)]))
 
 
 """
@@ -363,3 +387,6 @@ deb2=time.time()
 print(Graph.solve_new_bfs(grille3))
 fin2=time.time()
 print(fin2-deb2)
+
+
+print(Graph.solve_a_star(grille3))
