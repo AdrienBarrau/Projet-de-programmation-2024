@@ -107,7 +107,9 @@ while running:
 pygame.quit()
 sys.exit()
 
-'''
+
+# ESSAI AVEC GRILLE 2/3
+
 # interactive display with pygame
 pygame.init()
 
@@ -124,7 +126,7 @@ click = 0
 # fond blanc
 screen.fill((255, 255, 255))
     
-for x in range(0, len(ex_tabl)+1):
+for x in range(0, len(ex_tabl)+1):#vérifier si je me suis pas trompée pour l'indice
     pygame.draw.line(screen, (0, 0, 0), (x*200, 0), (x*200, 600))
 for y in range(0, len(ex_tabl[0]) + 1):
      pygame.draw.line(screen, (0, 0, 0), (0, y*200), (400, y*200))
@@ -170,8 +172,17 @@ while running:
                     case_s_i= s_position[1]//200
                     case_s_j= s_position[0]//200
                     case_s = ex_tabl[case_s_i][case_s_j]
-                    Grid.swap(case_f,case_s)
-                    # ici je suis pas sûre que juste swaper suffit pour changer représentation mmm
+                    Grid.swap(case_f,case_s) #ici changer pour que ça modifie bien le tableau exemple
+                    screen.fill((255, 255, 255),(case_f_j*200, case_f_i*200), ((case_f_j+1)*200, (case_f_i*200+1)*200))
+                    screen.fill((255, 255, 255),(case_s_i*200, case_s_j*200), ((case_s_i+1)*200, (case_s_j+1)*200))
+                    newcase_f = font.render(str(ex_tabl[case_f_j][case_f_i]), True, (0,0,0))
+                    new_f_position = number.get_rect(center=(case_f_j*200+100, case_f_i*200+100))
+                    screen.blit(newcase_f, new_f_position)
+                    newcase_s = font.render(str(ex_tabl[case_s_j][case_s_i]), True, (0,0,0))
+                    new_s_position = number.get_rect(center=(case_s_j*200+100, case_s_i*200+100))
+                    screen.blit(newcase_s, new_s_position)
+                    
+                    
                 
 # affichage du tableau
     # tableau(ex_tabl)
@@ -181,4 +192,94 @@ while running:
 # fin pygame
 pygame.quit()
 sys.exit()
-"""
+
+
+# FONCTION PYGAME POUR TOUTES LES GRILLES
+def display_pygame(tableau):
+
+# interactive display with pygame
+    pygame.init()
+
+# creation of a display window
+    screen = pygame.display.set_mode((600,600)) #à adapter selon taille de l'écran, jcp combien ça représente
+
+# table modelization
+
+nb_lignes = 2
+nb_colonnes = 3
+ex_tabl = [[1, 2, 3], [4, 5, 6]]
+    click = 0
+#rajouter ici les variables pas def pour après si ça marche pas
+
+#lecture du nombre de lignes et colonnes du tableau
+    lines= len(tableau)
+    columns= len(tableau[0])
+
+# fond blanc
+    screen.fill((255, 255, 255))
+    
+    for x in range(0, len(columns)+1): #vérifier que je me suis pas trompée
+        pygame.draw.line(screen, (0, 0, 0), (x*600/columns, 0), (x*600/columns, 600)) #voir si je mets des moins pour aller vers le bas ? voir orientation
+    for y in range(0, len(lines) + 1):
+         pygame.draw.line(screen, (0, 0, 0), (0, y*600/lines), (600, y*600/lines))
+    
+# affichage des chiffres
+    font = pygame.font.SysFont(None, 45)
+    for i in range(lines):
+        for j in range(columns):
+            number = font.render(str(tableau[i][j]), True, (0,0,0))
+            numb_position = number.get_rect(center=(j*600/columns+300/columns, i*600/lines+300/lines))
+            screen.blit(number, numb_position)
+
+
+# boucle principale
+    running = True
+    while running:
+        click=0
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        # essai de construction d'une grille interactive
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button ==1:
+                    if click== 0:
+                        click = 1
+                        f_position = pygame.mouse.get_pos()
+                        for i in range(nb_lignes):
+                            if i*600/lines<f_position[1] < (i+1)*600/lines:
+                                case_f_i= i
+                        for j in range(nb_colonnes):
+                            if j*600/columns<f_position[0] < (j+1)*600/columns:
+                                case_f_j= j
+                        case_f = tableau[case_f_i][case_f_j]
+                    elif click==1:
+                        click=0
+                        s_position= pygame.mouse.get_pos()
+                        for i in range(nb_lignes):
+                            if i*600/lines<s_position[1] < (i+1)*600/lines:
+                                case_s_i= i
+                        for j in range(nb_colonnes):
+                            if j*600/columns <s_position[0] < (j+1)*600/columns:
+                                case_s_j= j
+                        case_s = tableau[case_s_i][case_s_j]
+                        Grid.swap(case_f,case_s) #ici changer pour que ça modifie bien le tableau exemple
+                        screen.fill((255, 255, 255),(case_f_j*600/columns, case_f_i*600/lines), ((case_f_j+1)*600/columns, (case_f_i*+1)*600/lines))
+                        screen.fill((255, 255, 255),(case_s_j*600/columns, case_s_i*600/lines), ((case_s_j+1)*600/columns, (case_s_i+1)*600/lines))
+                        newcase_f = font.render(str(tableau[case_f_i][case_f_j]), True, (0,0,0))
+                        new_f_position = number.get_rect(center=(case_f_j*600/columns+300/columns, case_f_i*600/lines+300/lines))
+                        screen.blit(newcase_f, new_f_position)
+                        newcase_s = font.render(str(ex_tabl[case_s_i][case_s_j]), True, (0,0,0))
+                        new_s_position = number.get_rect(center=(case_s_j*600/columns+300/columns, case_s_i*600/lines+300/lines))
+                        screen.blit(newcase_s, new_s_position)
+                    
+                    
+                
+# affichage du tableau
+    # tableau(ex_tabl)
+        pygame.display.flip()
+
+
+# fin pygame
+    pygame.quit()
+    sys.exit()
+
