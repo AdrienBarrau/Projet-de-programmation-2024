@@ -91,6 +91,8 @@ class Grid():
             tmp=self.state[i1][j1]
             self.state[i1][j1]=self.state[i2][j2]
             self.state[i2][j2]=tmp
+        else:
+            return "Impossible"
 
 
     def swap_seq(self, cell_pair_list):
