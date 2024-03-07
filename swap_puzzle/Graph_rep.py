@@ -51,7 +51,7 @@ nb_colonnes = 3
 ex_tabl = [[1, 2, 3], [4, 5, 6]]
 click = 0
 
-"""
+
 def tableau(obj):
     for x in range(0, len(obj)+1):
         pygame.draw.line(screen, (0, 0, 0), (x*200, 0), (x*200, 600))
@@ -65,20 +65,7 @@ def tableau(obj):
             number = font.render(str(obj[i][j]), True, (0,0,0), background= None)
             numb_position = number.get_rect(center=(j*200+100, i*200+100))
             screen.blit(number, numb_position)
-"""
 
-for x in range(0, len(ex_tabl)+1):
-    pygame.draw.line(screen, (0, 0, 0), (x*200, 0), (x*200, 600))
-for y in range(0, len(ex_tabl[0]) + 1):
-    pygame.draw.line(screen, (0, 0, 0), (0, y*200), (400, y*200))
-    
-    # affichage des chiffres
-    font = pygame.font.SysFont(None, 45)
-    for i in range(nb_lignes):
-        for j in range(nb_colonnes):
-            number = font.render(str(ex_tabl[i][j]), True, (0,0,0))
-            numb_position = number.get_rect(center=(j*200+100, i*200+100))
-            screen.blit(number, numb_position)
 
 # boucle principale
 running = True
