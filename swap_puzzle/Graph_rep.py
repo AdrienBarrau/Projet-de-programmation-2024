@@ -128,9 +128,9 @@ click = 0
 screen.fill((255, 255, 255))
     
 for x in range(0, len(ex_tabl[0])+1):#vérifier si je me suis pas trompée pour l'indice
-    pygame.draw.line(screen, (0, 0, 0), (x*200, 0), (x*200, 600))
+    pygame.draw.line(screen, (0, 0, 0), (x*200, 0), (x*200, 400))
 for y in range(0, len(ex_tabl) + 1):
-     pygame.draw.line(screen, (0, 0, 0), (0, y*200), (400, y*200))
+     pygame.draw.line(screen, (0, 0, 0), (0, y*200), (600, y*200))
     
 # affichage des chiffres
 font = pygame.font.SysFont(None, 45)
