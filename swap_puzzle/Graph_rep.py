@@ -195,7 +195,7 @@ sys.exit()
 
 
 # FONCTION PYGAME POUR TOUTES LES GRILLES
-def display_pygame(tableau):
+def display_pygame(tableau, to_do, to_have):
 
 # interactive display with pygame
     pygame.init()
@@ -220,7 +220,7 @@ def display_pygame(tableau):
          pygame.draw.line(screen, (0, 0, 0), (0, y*600/lines), (600, y*600/lines))
     
 # affichage des chiffres
-    font = pygame.font.SysFont(None, 45)
+    font = pygame.font.SysFont(None, 45) # vérifier que police est ok pur l'affichage
     for i in range(lines):
         for j in range(columns):
             number = font.render(str(tableau[i][j]), True, (0,0,0))
@@ -230,8 +230,16 @@ def display_pygame(tableau):
 
 # boucle principale
     running = True
+    swaps= 0
     while running:
         click=0
+        if swaps == to_do and tableau == to_have: #vérifier que swap change bien tableau mais aussi que on peut faire égalité
+            screen.fill((255, 255, 255))
+            text= font.render("YOU WIN", True, (0,0,0))
+            # running = False : je pense pas que ce soit necessaire
+        elif swaps == to_do and tableau != to_have:
+            screen.fill((0, 0, 0))
+            text= font.render("YOU LOSE", True, (255,255,255))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -267,6 +275,7 @@ def display_pygame(tableau):
                         newcase_s = font.render(str(ex_tabl[case_s_i][case_s_j]), True, (0,0,0))
                         new_s_position = number.get_rect(center=(case_s_j*600/columns+300/columns, case_s_i*600/lines+300/lines))
                         screen.blit(newcase_s, new_s_position)
+                        swaps= swaps +1
                     
                     
                 
