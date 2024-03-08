@@ -113,23 +113,19 @@ class Grid():
         m = self.m
         n = self.n
         res = []
-
         for i in range(m):
             for j in range(n):
-                if j < n - 1:           # on fait un swap vers la droite
-                                                                        
-                    if 0 <= i < m and 0 <= j < n - 1:
+                if (j<n-1):           # on fait un swap vers la droite
+                    if (0<=i and i<m and 0<=j and j<n-1):
                         voisin = [ligne[:] for ligne in self.state]       #pour ne pas modifier l'état de la grille
-                        voisin[i][j], voisin[i][j + 1] = voisin[i][j + 1], voisin[i][j]
+                        voisin[i][j],voisin[i][j+1] = voisin[i][j+1],voisin[i][j]  
                         res.append(voisin)
 
-                if i < m - 1:                            # on fait un swap vers le bas
-                                                                            
-                    if 0 <= i < m - 1 and 0 <= j < n:
+                if (i<m-1):                            # on fait un swap vers le bas
+                    if (0<=i and i<m-1 and 0<=j and j<n):
                         voisin = [ligne[:] for ligne in self.state]
-                        voisin[i][j], voisin[i + 1][j] = voisin[i + 1][j], voisin[i][j]
+                        voisin[i][j],voisin[i+1][j]=voisin[i+1][j],voisin[i][j]
                         res.append(voisin)
-
         return res
 
 
@@ -165,8 +161,8 @@ class Grid():
     
     def go_to(self,cell1,cell2):     # on va d'abord a droite(ou a gauche) puis en haut!
         
-        (i,j)=cell1
-        (i1,j1)=cell2
+        (i,j)=cell1        #départ
+        (i1,j1)=cell2      #cible
         res=[]
         while not (j==j1):    #on traite d'abord les colonnes pour ne pas casser le tri
             if (j>j1):
@@ -235,7 +231,7 @@ def test_solution_naive(m,n,state):   # on a forcement len(res)<(m+n)*m*n
 
 
 #tests_swap_seq(3,3,[((0,0),(0,1)),((1,2),(1,1))],[[9,8,7],[6,5,4],[3,2,1]])
-
+'''
 test_solution_naive(4,4,[[15,14,13,12],[9,8,7,10],[11,6,5,4],[16,3,2,1]]) 
 
 
@@ -248,3 +244,4 @@ test_solution_naive(4,4,[[15,14,13,12],[9,8,7,10],[11,6,5,4],[16,3,2,1]])
 
 test_solution_naive(4,4,[[15,14,13,12],[9,8,7,10],[11,6,5,4],[16,3,2,1]])
 
+'''

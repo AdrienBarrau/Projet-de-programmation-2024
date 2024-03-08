@@ -117,7 +117,7 @@ class Graph:
                     chemin.append(noeud_cur)
                 chemin.append(src)
                 chemin.reverse()
-                print(i)
+                #print(i)
                 return chemin
             
             voisins = self.graph[noeud_cur]
@@ -130,7 +130,6 @@ class Graph:
         return None
 
     def new_bfs(self, src, dst):     #On ne construit plus le graphe des le depart, on le parcours au fur et a mesure
-    
         seen = set()  # tableau des vues, on utilise un set() car aucun ordre n'est requis
         to_explore = deque([src])   # pas d'ordre, moins couteux qu'une liste
         dict_pere={src: None}     #une liste n'aurai pas permi d'acceder a un element du type liste_pere[v] avec v un tuple
@@ -147,7 +146,7 @@ class Graph:
                     chemin.append(noeud_cur)
                 chemin.append(src)
                 chemin.reverse()
-                print(i)
+                #print(i)
                 return chemin
 
             grille_init = Grid(len(src),len(src[0]),tuple_into_matrice(noeud_cur))
@@ -178,7 +177,7 @@ class Graph:
                     chemin.append(noeud_cur)
                 chemin.append(src)
                 chemin.reverse()
-                print(i)
+                #print(i)
                 return chemin
 
             seen.add(noeud_cur)
@@ -315,49 +314,8 @@ class Graph:
        x=Graph([])
        return x.a_star(Graph.matrice_into_tuple(grille.state),Graph.matrice_into_tuple([[i*n+j+1 for j in range (n)] for i in range (m)]))
 
-
-"""
-début d'essai de la fonction A* ( Diane)
-"""
-def construction_solution(lines, columns):
-    example=[]
-    new= []
-    for i in range(lines):
-        for j in range(columns):
-            new = new + [i*columns + j + 1]
-        example = example + [new]
-        new= []
-    return solution
-
-
-def chemin_a(start):
-    goal = construction_solution(len(start), len(start[0]))
-    to_explore = []
-    road = []
-    to_explore.append(start)
-    road.append(start)
-    next = start
-    current_d = -1
-    while next != goal:
-        neighbours = grid.adjacent_grids[to_explore[0]]
-        for n in neighbours:
-            to_explore.append(n)
-        to_explore.pop(0)
-        while to_explore != []:
-            new_d = distance_heuristique(to_explore[0], goal)
-            if new_d < current_d or current_d == -1:
-                current_d = new_d
-                next = to_explore[0]
-            to_explore.pop(0)
-        road.append(next)
-        to_explore.append(next)
-    return road
-"""
-
-idee fonction distance: renvoi la somme des ecarts pour chaque coordonnee, cette dist surestime
-la vrai distance, peut etre faire pareil avec dist a vol d'oiseau.
-"""
-
+#quelques tests, enlever ou rajouter des # si besoins
+'''
 graphe_ex=Graph ([1,2,3,4,5,6])
 graphe_ex.add_edge(1,2)
 graphe_ex.add_edge(2,3)
@@ -381,14 +339,14 @@ print(graphe_test.bfs(2,16))
 
 #print(Graph.generate_matrices(2,2))
 #print(Graph.generate_graph(2,2))
-grille3=Grid(5,5,[[25,24,23,21,22],[20,16,15,14,13],[19,12,11,10,9],[17,8,7,6,5],[18,4,3,2,1]])
+grille3=Grid(3,3,[[9,8,7],[6,5,4],[3,2,1]])
 
 deb1=time.time()
 #print(Graph.solve_bfs(grille3))
 fin1=time.time()
 print(fin1-deb1)
 deb2=time.time()
-#print(Graph.solve_new_bfs(grille3))
+print(Graph.solve_new_bfs(grille3))
 fin2=time.time()
 print(fin2-deb2)
 
@@ -396,3 +354,4 @@ deb3=time.time()
 print(Graph.solve_a_star(grille3))
 fin3=time.time()
 print(fin3-deb3)
+'''

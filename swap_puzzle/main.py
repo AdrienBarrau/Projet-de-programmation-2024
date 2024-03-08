@@ -27,7 +27,7 @@ def game():
     level = input("Tapez 'facile', 'moyen' ou 'difficile' :")
     if level == "facile":
         while solution >3:
-        range = randrange(1,lines*columns)
+        range = randrange(1,lines*columns)    #pour prendre une matrice au hasard il faudrai plutot tirer un nb au hasard entre 0 et (m*n)!-1
         all = Graph.generate_matrices(lines, columns)
         for_game = all[range]
     # déterminer le nb de swaps optimal (et afficher que c'est le nombre de swaps nécessaire pour gagner=> en bas du pygame ?)
