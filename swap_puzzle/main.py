@@ -2,6 +2,7 @@ from grid import Grid
 from graph import Graph
 from random import randrange
 from solver import Solver
+from Graph_rep import Graphics
 
 g = Grid(2, 3)
 print(g)
@@ -22,6 +23,7 @@ def game():
     # on détermine forme matrice et solution
     lines = int(input("nombre de lignes: "))
     columns = int(input("Nombre de colonnes: "))
+    
     # déterminer si fonction solver ou fonction A* est la plus optimale pour trouver solution, retourner une valeur à optimal
     # choix de la difficulté ( facile = peu de swaps, moyen = plus de swaps, dur = + de swap et des barrières)
     level = input("Tapez 'facile', 'moyen' ou 'difficile' :")
@@ -47,5 +49,6 @@ def game():
             solution = len(for_game.Solver.get_solution(self))
     elif level == "difficile": #voir selon si on a le temps de faire les barrières
     # modéliser la grille avec pygame, avec tous les trucs nécessaires, rajouter l'option réussite et l'options pas réussite
+    Graphics.display_pygame(for_game, solution, )
     
 
