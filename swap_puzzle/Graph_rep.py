@@ -115,7 +115,7 @@ sys.exit()
 pygame.init()
 
 # creation of a display window
-screen = pygame.display.set_mode((400,600))
+screen = pygame.display.set_mode((600,600))
 
 # table modelization
 
