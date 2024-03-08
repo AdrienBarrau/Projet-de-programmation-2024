@@ -2,6 +2,7 @@ from grid import Grid
 from graph import Graph
 import random
 import time
+import statistics
 
 class Solver(): # chemin_grille est une liste de tuples de tuples contenant le chemin des grilles parcouru
           
@@ -88,24 +89,67 @@ def generate_random_matrices(m,n,nb):         # (m,n) sont les dimensions des ma
 
 #print(generate_random_matrices(3,9,5))    #fonctionne bien
 
-#liste_mat=generate_random_matrices(2,3,100)
-liste_mat=Graph.generate_matrices(2,2)
-liste_mat.remove([[i*2+j+1 for j in range (2)] for i in range (2)])
+
 #(time_and_swaps_bfs(liste_mat))
 #time_and_solve_new_bfs(liste_mat)
 #time_and_solve_a_star(liste_mat)
+
+
+
+
+'''generation de la database dans un fichier txt'''
+#liste_mat=generate_random_matrices(2,3,100)
+liste_mat=Graph.generate_matrices(2,2)
+liste_mat.remove([[i*2+j+1 for j in range (2)] for i in range (2)])
+time_and_solve_new_bfs(liste_mat)
 
 def write_results_to_file(results, filename):
     with open(filename, 'w') as file:
         for result in results:
             file.write(f"Temps: {result[0]}, Swaps: {result[1]}, Nombre de swaps: {result[2]}\n")
-            file.write(f"Matrix:\n")
+            file.write(f"Grille:\n")
             for ligne in result[3]:
                 file.write(f"{ligne}\n")
             file.write("\n")
 
 
-write_results_to_file(time_and_solve_new_bfs(liste_mat), "new_bfs_2_2_results.txt")
+#write_results_to_file(time_and_solve_new_bfs(liste_mat), "new_bfs_2_2_results.txt")       data base (2,2),(3,2) et (2,3)
+write_results_to_file(time_and_solve_a_star(liste_mat), "new_bfs_2_2_results.txt")
+
+
+
+# Genère 50 matrices (3,3)
+liste_mat2=generate_random_matrices(3,3,50)
+
+new_bfs_tps = []
+new_bfs_swaps = []
+a_star_tps = []
+a_star_swaps = []
+
+for mat in liste_mat2:
+
+    new_bfs_result = time_and_solve_new_bfs([mat])
+    new_bfs_tps.append(new_bfs_result[0][0])
+    new_bfs_swaps.append(new_bfs_result[0][2])
+
+    a_star_result = time_and_solve_a_star([mat])
+    a_star_tps.append(a_star_result[0][0])
+    a_star_swaps.append(a_star_result[0][2])
+
+
+
+new_bfs_tps_moy = statistics.mean(new_bfs_tps)
+new_bfs_swaps_moy = statistics.mean(new_bfs_swaps)
+
+a_star_tps_moy = statistics.mean(a_star_tps)
+a_star_swaps_moy = statistics.mean(a_star_swaps)
+
+
+
+print(f"Temps moyen de new_BFS en (3,3) : {new_bfs_tps_moy}, nb swaps moyen: {new_bfs_swaps_moy}")
+
+print(f" temps moyen de A star en (3,3): {a_star_tps_moy}, nb swaps moyen: {a_star_swaps_moy}") # pour un grand nombre d'essais on tombe environ sur 10 swaps (un peu moins) et un temps de 0.0013
+
 
 
 
