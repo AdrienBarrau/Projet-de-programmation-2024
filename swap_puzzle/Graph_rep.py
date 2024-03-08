@@ -127,9 +127,9 @@ click = 0
 # fond blanc
 screen.fill((255, 255, 255))
     
-for x in range(0, len(ex_tabl)+1):#vérifier si je me suis pas trompée pour l'indice
+for x in range(0, len(ex_tabl[0])+1):#vérifier si je me suis pas trompée pour l'indice
     pygame.draw.line(screen, (0, 0, 0), (x*200, 0), (x*200, 600))
-for y in range(0, len(ex_tabl[0]) + 1):
+for y in range(0, len(ex_tabl) + 1):
      pygame.draw.line(screen, (0, 0, 0), (0, y*200), (400, y*200))
     
 # affichage des chiffres
