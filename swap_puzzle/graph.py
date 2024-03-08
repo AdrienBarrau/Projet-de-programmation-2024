@@ -247,7 +247,7 @@ class Graph:
         m=len(node)
         n=len(node[0])
         res=0   #resultat
-        poid=20       #augmenter le poid acclère la recherche mais la rend plus imprécise
+        poid=10      #augmenter le poid acclère la recherche mais la rend plus imprécise
         for i in range (m):
             for j in range(n):
                 k=mat[i][j]
