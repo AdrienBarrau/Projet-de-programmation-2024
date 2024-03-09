@@ -155,7 +155,7 @@ print(f" temps moyen de A star en (3,3): {a_star_tps_moy}, nb swaps moyen: {a_st
 
 
 '''  tests
-grille_ex=Grid(2,2,[[1,2],[3,4]])
+grille_ex=Grid(2,2,[[4,3],[2,1]])
 chemin1=Solver(Graph.solve_bfs(grille_ex)) 
 
 
