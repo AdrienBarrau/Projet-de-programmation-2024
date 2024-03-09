@@ -216,9 +216,9 @@ sys.exit()
     # fond blanc
         screen.fill((255, 255, 255))
     
-        for x in range(0, len(columns)+1): #vérifier que je me suis pas trompée
+        for x in range(0, columns+1): #vérifier que je me suis pas trompée
             pygame.draw.line(screen, (0, 0, 0), (x*1000/columns, 0), (x*1000/columns, 1000)) #voir si je mets des moins pour aller vers le bas ? voir orientation
-        for y in range(0, len(lines) + 1):
+        for y in range(0, lines + 1):
              pygame.draw.line(screen, (0, 0, 0), (0, y*1000/lines), (1000, y*600/lines))
     
     # affichage des chiffres
