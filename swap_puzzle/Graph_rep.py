@@ -206,6 +206,7 @@ sys.exit()
 
     # table modelization
         click = 0
+        swaps = 0
     #rajouter ici les variables pas def pour après si ça marche pas
 
     #lecture du nombre de lignes et colonnes du tableau
@@ -232,9 +233,7 @@ sys.exit()
 
     # boucle principale
         running = True
-        swaps= 0
         while running:
-            click=0
             if swaps == to_do and grille.Grid.is_sorted == True: #vérifier que swap change bien tableau mais aussi que on peut faire égalité
                 screen.fill((255, 255, 255))
                 text= font.render("YOU WIN", True, (0,0,0))
@@ -246,7 +245,7 @@ sys.exit()
                     running = False
             # essai de construction d'une grille interactive
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button ==1:
+                    if event.button ==0:
                         if click== 0:
                             click = 1
                             f_position = pygame.mouse.get_pos()
@@ -276,10 +275,6 @@ sys.exit()
                             screen.blit(newcase_s, new_s_position)
                             swaps= swaps +1
                     
-                    
-                
-    # affichage du tableau
-        # tableau(ex_tabl)
             pygame.display.flip()
 
 
