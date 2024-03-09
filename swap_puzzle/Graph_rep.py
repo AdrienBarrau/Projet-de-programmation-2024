@@ -196,13 +196,13 @@ sys.exit()
 
 """
     # FONCTION PYGAME POUR TOUTES LES GRILLES
-    def display_pygame(tableau, to_do, to_have):
+    def display_pygame(tableau, to_do):
 
     # interactive display with pygame
         pygame.init()
 
     # creation of a display window
-        screen = pygame.display.set_mode((600,600)) #à adapter selon taille de l'écran, jcp combien ça représente
+        screen = pygame.display.set_mode((1000,1000)) #à adapter selon taille de l'écran, jcp combien ça représente
 
     # table modelization
         click = 0
@@ -217,9 +217,9 @@ sys.exit()
         screen.fill((255, 255, 255))
     
         for x in range(0, len(columns)+1): #vérifier que je me suis pas trompée
-            pygame.draw.line(screen, (0, 0, 0), (x*600/columns, 0), (x*600/columns, 600)) #voir si je mets des moins pour aller vers le bas ? voir orientation
+            pygame.draw.line(screen, (0, 0, 0), (x*1000/columns, 0), (x*1000/columns, 1000)) #voir si je mets des moins pour aller vers le bas ? voir orientation
         for y in range(0, len(lines) + 1):
-             pygame.draw.line(screen, (0, 0, 0), (0, y*600/lines), (600, y*600/lines))
+             pygame.draw.line(screen, (0, 0, 0), (0, y*1000/lines), (1000, y*600/lines))
     
     # affichage des chiffres
         font = pygame.font.SysFont(None, 45) # vérifier que police est ok pur l'affichage
@@ -235,11 +235,11 @@ sys.exit()
         swaps= 0
         while running:
             click=0
-            if swaps == to_do and tableau == to_have: #vérifier que swap change bien tableau mais aussi que on peut faire égalité
+            if swaps == to_do and grille.Grid.is_sorted == True: #vérifier que swap change bien tableau mais aussi que on peut faire égalité
                 screen.fill((255, 255, 255))
                 text= font.render("YOU WIN", True, (0,0,0))
                 # running = False : je pense pas que ce soit necessaire
-            elif swaps == to_do and tableau != to_have:
+            elif swaps == to_do and grille.Grid.is_sorted == False:
                 screen.fill((0, 0, 0))
                 text= font.render("YOU LOSE", True, (255,255,255))
             for event in pygame.event.get():
@@ -257,7 +257,6 @@ sys.exit()
                             for j in range(nb_colonnes):
                                 if j*600/columns<f_position[0] < (j+1)*600/columns:
                                     case_f_j= j
-                            case_f = tableau[case_f_i][case_f_j]
                         elif click==1:
                             click=0
                             s_position= pygame.mouse.get_pos()
@@ -267,14 +266,13 @@ sys.exit()
                             for j in range(nb_colonnes):
                                 if j*600/columns <s_position[0] < (j+1)*600/columns:
                                     case_s_j= j
-                            case_s = tableau[case_s_i][case_s_j]
-                            Grid.swap(case_f,case_s) #ici changer pour que ça modifie bien le tableau exemple
+                            grille.Grid.swap((case_f_i,case_f_j),(case_s_i,case_s_j)) #ici changer pour que ça modifie bien le tableau exemple
                             screen.fill((255, 255, 255),(case_f_j*600/columns, case_f_i*600/lines), ((case_f_j+1)*600/columns, (case_f_i*+1)*600/lines))
                             screen.fill((255, 255, 255),(case_s_j*600/columns, case_s_i*600/lines), ((case_s_j+1)*600/columns, (case_s_i+1)*600/lines))
-                            newcase_f = font.render(str(tableau[case_f_i][case_f_j]), True, (0,0,0))
+                            newcase_f = font.render(str(grille[case_f_i][case_f_j]), True, (0,0,0))
                             new_f_position = number.get_rect(center=(case_f_j*600/columns+300/columns, case_f_i*600/lines+300/lines))
                             screen.blit(newcase_f, new_f_position)
-                            newcase_s = font.render(str(ex_tabl[case_s_i][case_s_j]), True, (0,0,0))
+                            newcase_s = font.render(str(grille[case_s_i][case_s_j]), True, (0,0,0))
                             new_s_position = number.get_rect(center=(case_s_j*600/columns+300/columns, case_s_i*600/lines+300/lines))
                             screen.blit(newcase_s, new_s_position)
                             swaps= swaps +1
