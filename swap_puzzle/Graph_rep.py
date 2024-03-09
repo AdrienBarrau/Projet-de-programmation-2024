@@ -219,14 +219,14 @@ sys.exit()
         for x in range(0, columns+1): #vérifier que je me suis pas trompée
             pygame.draw.line(screen, (0, 0, 0), (x*1000/columns, 0), (x*1000/columns, 1000)) #voir si je mets des moins pour aller vers le bas ? voir orientation
         for y in range(0, lines + 1):
-             pygame.draw.line(screen, (0, 0, 0), (0, y*1000/lines), (1000, y*600/lines))
+             pygame.draw.line(screen, (0, 0, 0), (0, y*1000/lines), (1000, y*1000/lines))
     
     # affichage des chiffres
         font = pygame.font.SysFont(None, 45) # vérifier que police est ok pur l'affichage
         for i in range(lines):
             for j in range(columns):
                 number = font.render(str(tableau[i][j]), True, (0,0,0))
-                numb_position = number.get_rect(center=(j*600/columns+300/columns, i*600/lines+300/lines))
+                numb_position = number.get_rect(center=(j*1000/columns+500/columns, i*1000/lines+500/lines))
                 screen.blit(number, numb_position)
 
 
@@ -238,7 +238,6 @@ sys.exit()
             if swaps == to_do and grille.Grid.is_sorted == True: #vérifier que swap change bien tableau mais aussi que on peut faire égalité
                 screen.fill((255, 255, 255))
                 text= font.render("YOU WIN", True, (0,0,0))
-                # running = False : je pense pas que ce soit necessaire
             elif swaps == to_do and grille.Grid.is_sorted == False:
                 screen.fill((0, 0, 0))
                 text= font.render("YOU LOSE", True, (255,255,255))
@@ -251,29 +250,29 @@ sys.exit()
                         if click== 0:
                             click = 1
                             f_position = pygame.mouse.get_pos()
-                            for i in range(nb_lignes):
-                                if i*600/lines<f_position[1] < (i+1)*600/lines:
+                            for i in range(lines):
+                                if i*1000/lines<f_position[1] < (i+1)*1000/lines:
                                     case_f_i= i
-                            for j in range(nb_colonnes):
-                                if j*600/columns<f_position[0] < (j+1)*600/columns:
+                            for j in range(columns):
+                                if j*1000/columns<f_position[0] < (j+1)*1000/columns:
                                     case_f_j= j
                         elif click==1:
                             click=0
                             s_position= pygame.mouse.get_pos()
-                            for i in range(nb_lignes):
-                                if i*600/lines<s_position[1] < (i+1)*600/lines:
+                            for i in range(lines):
+                                if i*1000/lines<s_position[1] < (i+1)*1000/lines:
                                     case_s_i= i
-                            for j in range(nb_colonnes):
-                                if j*600/columns <s_position[0] < (j+1)*600/columns:
+                            for j in range(columns):
+                                if j*1000/columns <s_position[0] < (j+1)*1000/columns:
                                     case_s_j= j
                             grille.Grid.swap((case_f_i,case_f_j),(case_s_i,case_s_j)) #ici changer pour que ça modifie bien le tableau exemple
-                            screen.fill((255, 255, 255),(case_f_j*600/columns, case_f_i*600/lines), ((case_f_j+1)*600/columns, (case_f_i*+1)*600/lines))
-                            screen.fill((255, 255, 255),(case_s_j*600/columns, case_s_i*600/lines), ((case_s_j+1)*600/columns, (case_s_i+1)*600/lines))
+                            screen.fill((255, 255, 255),(case_f_j*1000/columns, case_f_i*1000/lines), ((case_f_j+1)*1000/columns, (case_f_i*+1)*1000/lines))
+                            screen.fill((255, 255, 255),(case_s_j*1000/columns, case_s_i*1000/lines), ((case_s_j+1)*1000/columns, (case_s_i+1)*1000/lines))
                             newcase_f = font.render(str(grille[case_f_i][case_f_j]), True, (0,0,0))
-                            new_f_position = number.get_rect(center=(case_f_j*600/columns+300/columns, case_f_i*600/lines+300/lines))
+                            new_f_position = number.get_rect(center=(case_f_j*1000/columns+500/columns, case_f_i*1000/lines+500/lines))
                             screen.blit(newcase_f, new_f_position)
                             newcase_s = font.render(str(grille[case_s_i][case_s_j]), True, (0,0,0))
-                            new_s_position = number.get_rect(center=(case_s_j*600/columns+300/columns, case_s_i*600/lines+300/lines))
+                            new_s_position = number.get_rect(center=(case_s_j*1000/columns+500/columns, case_s_i*1000/lines+500/lines))
                             screen.blit(newcase_s, new_s_position)
                             swaps= swaps +1
                     
