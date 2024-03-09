@@ -245,7 +245,7 @@ sys.exit()
                     running = False
             # essai de construction d'une grille interactive
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button ==0:
+                    if event.button ==1:
                         if click== 0:
                             click = 1
                             f_position = pygame.mouse.get_pos()
