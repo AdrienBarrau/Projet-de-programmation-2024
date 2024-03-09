@@ -24,7 +24,7 @@ def game():
     lines = int(input("nombre de lignes: "))
     columns = int(input("Nombre de colonnes: "))
     destination= Graphics.construction_ex(lines, columns)
-    # déterminer si fonction solver ou fonction A* est la plus optimale pour trouver solution, retourner une valeur à optimal
+    # déterminer le bon lambda pour utiliser A* ( voir fonction Adrien)
     # choix de la difficulté ( facile = peu de swaps, moyen = plus de swaps, dur = + de swap et des barrières)
     level = input("Tapez 'facile', 'moyen' ou 'difficile' :")
     if level == "facile":
@@ -33,22 +33,16 @@ def game():
         all = Graph.generate_matrices(lines, columns)
         for_game = all[range]
     # déterminer le nb de swaps optimal (et afficher que c'est le nombre de swaps nécessaire pour gagner=> en bas du pygame ?)
-        if optimal == 1:
-            solution = Graph.a_star(self, for_game, destination) # en rajoutant un truc pour que retourne nb de swaps optimaux
-        elif optimal == 0:
-            solution = len(for_game.Solver.get_solution(self))
+        solution = Graph.a_star(self, for_game, destination) # en rajoutant un truc pour que retourne nb de swaps optimaux
     elif level == "moyen":
         while solution <4:
         range = randrange(1,lines*columns)
         all = Graph.generate_matrices(lines, columns)
         for_game = all[range]
     # déterminer le nb de swaps optimal (et afficher que c'est le nombre de swaps nécessaire pour gagner=> en bas du pygame ?)
-        if optimal == 1:
-            solution = Graph.a_star(self, for_game, destination) # en rajoutant un truc pour que retourne nb de swaps optimaux
-        elif optimal == 0:
-            solution = len(for_game.Solver.get_solution(self))
+        solution = Graph.a_star(self, for_game, destination) # en rajoutant un truc pour que retourne nb de swaps optimaux
     elif level == "difficile": #voir selon si on a le temps de faire les barrières
     # modéliser la grille avec pygame, avec tous les trucs nécessaires, rajouter l'option réussite et l'options pas réussite
-    Graphics.display_pygame(for_game, solution, destination )
+    Graphics.display_pygame(for_game, solution)
     
 
