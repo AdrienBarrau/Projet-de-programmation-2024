@@ -29,7 +29,19 @@ class Solver(): # chemin_grille est une liste de tuples de tuples contenant le c
 #nos fonctions solutions étant construitent, on veut en évaluer la plus value par rapport à la solution naive, qui est très imprécise mais imbattable en temps d'éxécution
 # Pour cela on va utiliser nos solutions sur des matrices choisi au hasard de taille m*n avec m et n raisonnablement petits
 
-
+def time_and_swaps_bfs(liste_mat):     #pour une liste de matrices, on calcule combien de temps le bfs met de temps, et combien swaps contient son chemin le plus court (optimal)
+    res=[]
+    for i in range (len(liste_mat)):    # on renvoi un liste de quadruplets contenant (le temps de resolution, la liste des swaps,le nombre de swaps, la matrice)
+        m=len(liste_mat[i])
+        n=len(liste_mat[i][0])              # détermination des dimensions de la matrice
+        grille=Grid(m,n,liste_mat[i])
+        deb=time.time()
+        chemin=Solver(Graph.solve_bfs(grille)) 
+        fin=time.time()
+        tps=fin-deb
+        swaps=chemin.get_solution()
+        res.append((tps,swaps,len(swaps),liste_mat[i]))
+    return res
 
 def time_and_swaps_bfs(liste_mat):     #pour une liste de matrices, on calcule combien de temps le bfs amélioré met de temps, et combien swaps contient son chemin le plus court (optimal)
     res=[]
@@ -121,13 +133,18 @@ write_results_to_file(time_and_solve_a_star(liste_mat), "new_bfs_2_2_results.txt
 # Genère 50 matrices (3,3)
 liste_mat2=generate_random_matrices(3,3,50)
 
+naive_tps = []
+naive_swaps = []
 new_bfs_tps = []
 new_bfs_swaps = []
 a_star_tps = []
 a_star_swaps = []
 
 for mat in liste_mat2:
-
+    naive_result = time_and_solve_naive([mat])
+    naive_tps.append(naive_result[0][0])
+    naive_swaps.append(naive_result[0][2])
+          
     new_bfs_result = time_and_solve_new_bfs([mat])
     new_bfs_tps.append(new_bfs_result[0][0])
     new_bfs_swaps.append(new_bfs_result[0][2])
@@ -136,7 +153,8 @@ for mat in liste_mat2:
     a_star_tps.append(a_star_result[0][0])
     a_star_swaps.append(a_star_result[0][2])
 
-
+naive_tps_moy = statistics.mean(naive_tps)
+naive_swaps_moy = statistics.mean(naive_swaps)
 
 new_bfs_tps_moy = statistics.mean(new_bfs_tps)
 new_bfs_swaps_moy = statistics.mean(new_bfs_swaps)
@@ -145,7 +163,7 @@ a_star_tps_moy = statistics.mean(a_star_tps)
 a_star_swaps_moy = statistics.mean(a_star_swaps)
 
 
-
+print(f"Temps moyen de solution_naive en (3,3) : {naive_tps_moy}, nb swaps moyen: {naive_swaps_moy}")
 print(f"Temps moyen de new_BFS en (3,3) : {new_bfs_tps_moy}, nb swaps moyen: {new_bfs_swaps_moy}")
 
 print(f" temps moyen de A star en (3,3): {a_star_tps_moy}, nb swaps moyen: {a_star_swaps_moy}") # pour un grand nombre d'essais on tombe environ sur 10 swaps (un peu moins) et un temps de 0.0013
