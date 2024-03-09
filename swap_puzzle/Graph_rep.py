@@ -211,6 +211,7 @@ sys.exit()
     #lecture du nombre de lignes et colonnes du tableau
         lines= len(tableau)
         columns= len(tableau[0])
+        grille= Grid(lines,columns,tableau)
 
     # fond blanc
         screen.fill((255, 255, 255))
