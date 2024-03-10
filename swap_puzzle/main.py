@@ -67,7 +67,7 @@ def game():
         print("Vous ne pouvez pas swapper les cases: ")
         for a in range(len(walls_i)):
             print(str(walls_i[a])+ "et"+ str(walls_j[a]))
-        Graphics.display_pygame(for_game, walls)
+        Graphics.display_pygame_walls(for_game, walls)
             
         
         
