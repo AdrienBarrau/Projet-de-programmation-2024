@@ -166,7 +166,7 @@ def a_star_performance(liste_mat):    #teste les perfs de a_star sur nb grilles 
 '''modifiez liste_mat ci dessous pour etudier les performances des solutions! '''
 
 liste_mat=generate_random_matrices(3,2,100)    #les deux premiers arguments donnent les dimensions, le troisieme est le nombre de matrices aleatoires
-
+print(liste_mat)
 
   
 '''ne pas modifier'''
