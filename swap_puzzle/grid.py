@@ -115,7 +115,7 @@ class Grid():
         cell2= [-100,-100]
         for wall in range(nombre):
             for idem in range(len(liste_walls_i)):
-                while cell1 == liste_walls_i[idem] and cell2 == liste_walls_j[idem]:
+                while (cell1 == liste_walls_i[idem] and cell2 == liste_walls_j[idem]) or (cell1 == liste_walls_i[idem] and cell2 == liste_walls_j[idem]):
                     new_wall_i = random.randrange(len(self.state)*len(self.state[0])- 1)
                     new_wall_j=-100
                     while new_wall_j != new_wall_i +1 and new_wall_j != new_wall_i -1 and new_wall_j != new_wall_i +3 and new_wall_j != new_wall_i -3:
@@ -135,7 +135,9 @@ class Grid():
         
         (i1,j1)=cell1
         (i2,j2)=cell2
-        if ((((i1==i2) and abs(j1-j2)==1) or ((j1==j2) and abs(i1-i2)==1)) and (all(i1 !=liste_walls_i[index][0] or j1 !=liste_walls_i[index][1] or i2 !=liste_walls_j[index][0] or j2 !=liste_walls_j[index][1] for index in range(len(liste_walls_i))))
+        if ((((i1==i2) and abs(j1-j2)==1) or ((j1==j2) and abs(i1-i2)==1)) and (all(i1 !=liste_walls_i[index][0] or j1 !=liste_walls_i[index][1] or 
+        i2 !=liste_walls_j[index][0] or j2 !=liste_walls_j[index][1] for index in range(len(liste_walls_i))) and (all(i1 !=liste_walls_j[index][0] or 
+        j1 !=liste_walls_j[index][1] or i2 !=liste_walls_i[index][0] or j2 !=liste_walls_i[index][1] for index in range(len(liste_walls_i))))
         and (i1,i2 <= self.n-1) and (j1,j2 <= self.m-1)and (i1,i2 >= 0) and (j1,j2 >= 0)):
             tmp=self.state[i1][j1]
             self.state[i1][j1]=self.state[i2][j2]
@@ -174,6 +176,29 @@ class Grid():
 
                 if (i<m-1):                            # on fait un swap vers le bas
                     if (0<=i and i<m-1 and 0<=j and j<n):
+                        voisin = [ligne[:] for ligne in self.state]
+                        voisin[i][j],voisin[i+1][j]=voisin[i+1][j],voisin[i][j]
+                        res.append(voisin)
+        return res
+
+    def adjacent_grid_walls(self):
+        m = self.m
+        n = self.n
+        res = []
+        for i in range(m):
+            for j in range(n):
+                if (j<n-1):           # on fait un swap vers la droite
+                    if ((0<=i and i<m and 0<=j and j<n-1)and (all(i1 !=liste_walls_i[index][0] or j1 !=liste_walls_i[index][1] or 
+        i2 !=liste_walls_j[index][0] or j2 !=liste_walls_j[index][1] for index in range(len(liste_walls_i)))) and (all(i1 !=liste_walls_j[index][0] or 
+        j1 !=liste_walls_j[index][1] or i2 !=liste_walls_i[index][0] or j2 !=liste_walls_i[index][1] for index in range(len(liste_walls_i))))):
+                        voisin = [ligne[:] for ligne in self.state]       #pour ne pas modifier l'état de la grille
+                        voisin[i][j],voisin[i][j+1] = voisin[i][j+1],voisin[i][j]  
+                        res.append(voisin)
+
+                if (i<m-1):                            # on fait un swap vers le bas
+                    if ((0<=i and i<m-1 and 0<=j and j<n) and (all(i1 !=liste_walls_i[index][0] or j1 !=liste_walls_i[index][1] or 
+        i2 !=liste_walls_j[index][0] or j2 !=liste_walls_j[index][1] for index in range(len(liste_walls_i)))) and (all(i1 !=liste_walls_j[index][0] or 
+        j1 !=liste_walls_j[index][1] or i2 !=liste_walls_i[index][0] or j2 !=liste_walls_i[index][1] for index in range(len(liste_walls_i))))):
                         voisin = [ligne[:] for ligne in self.state]
                         voisin[i][j],voisin[i+1][j]=voisin[i+1][j],voisin[i][j]
                         res.append(voisin)
