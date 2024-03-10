@@ -21,12 +21,15 @@ print(g)
 
 def game():
     # on détermine forme matrice et solution
+    # regle = ...
+    print(regles)
     lines = int(input("nombre de lignes: "))
     columns = int(input("Nombre de colonnes: "))
     # déterminer le bon lambda pour utiliser A* ( voir fonction Adrien)
     # choix de la difficulté ( facile = peu de swaps, moyen = plus de swaps, dur = + de swap et des barrières)
     level = input("Tapez 'facile', 'moyen' ou 'difficile' :")
     if level == "facile":
+        solution=100
         while solution >3:
             range = randrange(1,lines*columns)    #pour prendre une matrice au hasard il faudrai plutot tirer un nb au hasard entre 0 et (m*n)!-1
             all = Graph.generate_matrices(lines, columns)
@@ -37,6 +40,7 @@ def game():
         elif lines + columns > 6
             solution = time_and_solve_a_star([for_game])[0][2]
     elif level == "moyen":
+        solution=-100
         while solution <4:
             range = randrange(1,lines*columns)
             all = Graph.generate_matrices(lines, columns)
@@ -46,8 +50,14 @@ def game():
         elif lines + columns > 6
             solution = time_and_solve_a_star([for_game])[0][2]
     elif level == "difficile": #voir selon si on a le temps de faire les barrières
-        print("hahaha")
-    print(solution)
+        range = randrange(1,lines*columns)
+        all = Graph.generate_matrices(lines, columns)
+        for_game = all[range]
+        number_walls= int(input("Combien de murs voulez vous insérez ( au maximum, vous pouvez en mettre"+ str(columns*(lines-1) + lines*(columns-1)- 3)+ ": "))
+        walls= for_game.creation(number_walls)
+        
+        
+    print("Pour gagner, vous devez ordonner la grille en "+ str(solution) + "swaps")
     # modéliser la grille avec pygame, avec tous les trucs nécessaires, rajouter l'option réussite et l'options pas réussite
     Graphics.display_pygame(for_game, solution)
     
