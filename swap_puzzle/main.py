@@ -30,27 +30,27 @@ def game():
     level = input("Tapez 'facile', 'moyen' ou 'difficile' :")
     if level == "facile":
         solution=100
-        while solution >3:
+        while solution >2:
             range = randrange(1,lines*columns)    #pour prendre une matrice au hasard il faudrai plutot tirer un nb au hasard entre 0 et (m*n)!-1
             all = Graph.generate_matrices(lines, columns)
             for_game = all[range]
     # déterminer le nb de swaps optimal
-        if lines + columns <= 6:
+        if lines + columns <= 4:
             solution = time_and_solve_new_bfs([for_game])[0][2]
-        elif lines + columns > 6:
+        elif lines + columns > 4:
             solution = time_and_solve_a_star([for_game])[0][2]
         print("Pour gagner, vous devez ordonner la grille en "+ str(solution) + "swaps")
         # modéliser la grille avec pygame, avec tous les trucs nécessaires, rajouter l'option réussite et l'options pas réussite
         Graphics.display_pygame(for_game, solution)
     elif level == "moyen":
         solution=-100
-        while solution <4:
+        while solution <=2:
             range = randrange(1,lines*columns)
             all = Graph.generate_matrices(lines, columns)
             for_game = all[range]
-        if lines + columns <= 6:
+        if lines + columns <= 4:
             solution = time_and_solve_new_bfs([for_game])[0][2]
-        elif lines + columns > 6:
+        elif lines + columns > 4:
             solution = time_and_solve_a_star([for_game])[0][2]
         print("Pour gagner, vous devez ordonner la grille en "+ str(solution) + "swaps")
         # modéliser la grille avec pygame, avec tous les trucs nécessaires, rajouter l'option réussite et l'options pas réussite
