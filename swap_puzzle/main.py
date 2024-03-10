@@ -60,7 +60,8 @@ def game():
         all = Graph.generate_matrices(lines, columns)
         for_game = all[range]
         number_walls= int(input("Combien de murs voulez vous insérez ( au maximum, vous pouvez en mettre"+ str(columns*(lines-1) + lines*(columns-1)- 3)+ ": "))
-        walls= for_game.creation(number_walls)
+        gfor_game = Grid(lines, columns, for_game)
+        walls= gfor_game.creation(number_walls)
         walls_i= walls[0]
         walls_j= walls[1]
         print("Vous ne pouvez pas swapper les cases: ")
