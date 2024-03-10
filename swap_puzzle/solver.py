@@ -3,6 +3,7 @@ from graph import Graph
 import random
 import time
 import statistics
+import numpy as np
 
 class Solver(): # chemin_grille est une liste de tuples de tuples contenant le chemin des grilles parcouru
           
@@ -107,49 +108,68 @@ write_results_to_file(time_and_solve_a_star(liste_mat), "new_bfs_2_2_results.txt
 '''
 
 
-def naive_performance(m,n,nb):    #teste les perfs de solution_naive sur nb grilles de taille m,n
+def naive_performance(liste_mat):    #teste les perfs de solution_naive sur nb grilles de taille m,n
+
   tps=[]
   swaps=[]
-  liste_mat=generate_random_matrices(m,n,nb)
+  m=len(liste_mat[0])
+  n=len(liste_mat[0][0])
+  id=[[i*n+j+1 for j in range (n)] for i in range (m)]
+
   for mat in liste_mat :
-    naive_result = time_and_solve_naive([mat])
-    tps.append(naive_result[0][0])
-    swaps.append(naive_result[0][2])
+    if not (mat==id):
+      naive_result = time_and_solve_naive([mat])
+      tps.append(naive_result[0][0])
+      swaps.append(naive_result[0][2])
+      
   tps_moy = statistics.mean(tps)
   swaps_moy = statistics.mean(swaps)
   print(f"Temps moyen de solution_naive : {tps_moy}, nb swaps moyen: {swaps_moy}")
 
-def new_bfs_performance(m,n,nb):    #teste les perfs de solution_naive sur nb grilles de taille m,n
+def new_bfs_performance(liste_mat):    #teste les perfs de solution_naive sur nb grilles de taille m,n
   tps=[]
   swaps=[]
-  liste_mat=generate_random_matrices(m,n,nb)
+  m=len(liste_mat[0])
+  n=len(liste_mat[0][0])
+ 
+  id=[[i*n+j+1 for j in range (n)] for i in range (m)]
+    
   for mat in liste_mat :
-    new_bfs_result = time_and_solve_new_bfs([mat])
-    tps.append(new_bfs_result[0][0])
-    swaps.append(new_bfs_result[0][2])
+    if not (mat==id):
+      new_bfs_result = time_and_solve_new_bfs([mat])
+      tps.append(new_bfs_result[0][0])
+      swaps.append(new_bfs_result[0][2])
+
   tps_moy = statistics.mean(tps)
   swaps_moy = statistics.mean(swaps)
   print(f"Temps moyen de solution_new_bfs : {tps_moy}, nb swaps moyen: {swaps_moy}")
 
-def a_star_performance(m,n,nb):    #teste les perfs de a_star sur nb grilles de taille m,n
+def a_star_performance(liste_mat):    #teste les perfs de a_star sur nb grilles de taille m,n
   tps=[]
   swaps=[]
-  liste_mat=generate_random_matrices(m,n,nb)
+  m=len(liste_mat[0])
+  n=len(liste_mat[0][0])
+  id=[[i*n+j+1 for j in range (n)] for i in range (m)]
+  
   for mat in liste_mat :
-    a_star_result = time_and_solve_a_star([mat])
-   
-    tps.append(a_star_result[0][0])
-    swaps.append(a_star_result[0][2])
+    if not (mat==id):
+      a_star_result = time_and_solve_a_star([mat])
+    
+      tps.append(a_star_result[0][0])
+      swaps.append(a_star_result[0][2])
     
   tps_moy = statistics.mean(tps)
   swaps_moy = statistics.mean(swaps)
   print(f" temps moyen de A star: {tps_moy}, nb swaps moyen: {swaps_moy}")
 
 
+'''modifiez liste_mat ci dessous pour etudier les performances des solutions! '''
+
+liste_mat=generate_random_matrices(3,2,100)    #les deux premiers arguments donnent les dimensions, le troisieme est le nombre de matrices aleatoires
 
 
-
-
-naive_performance(6,6,10)   #les deux premiers arguments donnent les dimensions, le troisieme est le nombre de matrices aleatoires
-new_bfs_performance(2,2,10)
-a_star_performance(5,5,4)
+  
+'''ne pas modifier'''
+new_bfs_performance(liste_mat)
+a_star_performance(liste_mat)
+naive_performance(liste_mat)
