@@ -116,8 +116,8 @@ display_plt(app)
                                 if j*1000/columns <s_position[0] < (j+1)*1000/columns:
                                     case_s_j= j
                             grille.swap((case_f_i,case_f_j),(case_s_i,case_s_j)) #ici changer pour que ça modifie bien le tableau exemple
-                            screen.fill((255, 255, 255),(case_f_j*1000/columns, case_f_i*1000/lines), ((case_f_j+1)*1000/columns, (case_f_i*+1)*1000/lines))
-                            screen.fill((255, 255, 255),(case_s_j*1000/columns, case_s_i*1000/lines), ((case_s_j+1)*1000/columns, (case_s_i+1)*1000/lines))
+                            screen.fill((255, 255, 255),(int(case_f_j*1000/columns) + 1, int(case_f_i*1000/lines) + 1, int((case_f_j+1)*1000/columns)+ 1, int((case_f_i*+1)*1000/lines)+ 1))
+                            screen.fill((255, 255, 255),(int(case_s_j*1000/columns) + 1, int(case_s_i*1000/lines) + 1, int((case_s_j+1)*1000/columns)+ 1, int((case_s_i*+1)*1000/lines)+ 1))
                             newcase_f = font.render(str(grille[case_f_i][case_f_j]), True, (0,0,0))
                             new_f_position = number.get_rect(center=(case_f_j*1000/columns+500/columns, case_f_i*1000/lines+500/lines))
                             screen.blit(newcase_f, new_f_position)
