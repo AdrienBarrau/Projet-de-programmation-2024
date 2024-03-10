@@ -39,6 +39,9 @@ def game():
             solution = time_and_solve_new_bfs([for_game])[0][2]
         elif lines + columns > 6
             solution = time_and_solve_a_star([for_game])[0][2]
+        print("Pour gagner, vous devez ordonner la grille en "+ str(solution) + "swaps")
+        # modéliser la grille avec pygame, avec tous les trucs nécessaires, rajouter l'option réussite et l'options pas réussite
+        Graphics.display_pygame(for_game, solution)
     elif level == "moyen":
         solution=-100
         while solution <4:
@@ -49,16 +52,24 @@ def game():
             solution = time_and_solve_new_bfs([for_game])[0][2]
         elif lines + columns > 6
             solution = time_and_solve_a_star([for_game])[0][2]
+        print("Pour gagner, vous devez ordonner la grille en "+ str(solution) + "swaps")
+        # modéliser la grille avec pygame, avec tous les trucs nécessaires, rajouter l'option réussite et l'options pas réussite
+        Graphics.display_pygame(for_game, solution)
     elif level == "difficile": #voir selon si on a le temps de faire les barrières
         range = randrange(1,lines*columns)
         all = Graph.generate_matrices(lines, columns)
         for_game = all[range]
         number_walls= int(input("Combien de murs voulez vous insérez ( au maximum, vous pouvez en mettre"+ str(columns*(lines-1) + lines*(columns-1)- 3)+ ": "))
         walls= for_game.creation(number_walls)
+        walls_i= walls[0]
+        walls_j= walls[1]
+        print("Vous ne pouvez pas swapper les cases: ")
+        for print in range(len(walls_i)):
+            print(str(walls_i[print])+ "et"+ str(walls_j[print]))
+        Graphics.display_pygame(for_game, walls)
+            
         
         
-    print("Pour gagner, vous devez ordonner la grille en "+ str(solution) + "swaps")
-    # modéliser la grille avec pygame, avec tous les trucs nécessaires, rajouter l'option réussite et l'options pas réussite
-    Graphics.display_pygame(for_game, solution)
+    
     
 
