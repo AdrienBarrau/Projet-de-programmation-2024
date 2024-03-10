@@ -37,7 +37,7 @@ def game():
     # déterminer le nb de swaps optimal
         if lines + columns <= 6:
             solution = time_and_solve_new_bfs([for_game])[0][2]
-        elif lines + columns > 6
+        elif lines + columns > 6:
             solution = time_and_solve_a_star([for_game])[0][2]
         print("Pour gagner, vous devez ordonner la grille en "+ str(solution) + "swaps")
         # modéliser la grille avec pygame, avec tous les trucs nécessaires, rajouter l'option réussite et l'options pas réussite
@@ -50,7 +50,7 @@ def game():
             for_game = all[range]
         if lines + columns <= 6:
             solution = time_and_solve_new_bfs([for_game])[0][2]
-        elif lines + columns > 6
+        elif lines + columns > 6:
             solution = time_and_solve_a_star([for_game])[0][2]
         print("Pour gagner, vous devez ordonner la grille en "+ str(solution) + "swaps")
         # modéliser la grille avec pygame, avec tous les trucs nécessaires, rajouter l'option réussite et l'options pas réussite
@@ -64,8 +64,8 @@ def game():
         walls_i= walls[0]
         walls_j= walls[1]
         print("Vous ne pouvez pas swapper les cases: ")
-        for print in range(len(walls_i)):
-            print(str(walls_i[print])+ "et"+ str(walls_j[print]))
+        for a in range(len(walls_i)):
+            print(str(walls_i[a])+ "et"+ str(walls_j[a]))
         Graphics.display_pygame(for_game, walls)
             
         
