@@ -124,8 +124,7 @@ class Grid():
         walls= [liste_walls_i, liste_walls_j]
         return walls       
 
-    def swap_when_walls(self, cell1, cell2, nombre):
-        walls= self.creation_walls(nombre) #enlever ça
+    def swap_when_walls(self, cell1, cell2, walls):
         liste_walls_i = walls[0] # garder comme ça
         liste_walls_j= walls[1]
         walls_i= Grid(nombre, 2, liste_walls_i)
@@ -133,7 +132,7 @@ class Grid():
         
         (i1,j1)=cell1
         (i2,j2)=cell2
-        if ((((i1==i2) and abs(j1-j2)==1) or ((j1==j2) and abs(i1-i2)==1)) and ()
+        if ((((i1==i2) and abs(j1-j2)==1) or ((j1==j2) and abs(i1-i2)==1)) and (all(i1 !=liste_walls_i[index][0] or j1 !=liste_walls_i[index][1] or i2 !=liste_walls_j[index][0] or j2 !=liste_walls_j[index][1] for index in range(len(liste_walls_i))))
         and (i1,i2 <= self.n-1) and (j1,j2 <= self.m-1)and (i1,i2 >= 0) and (j1,j2 >= 0)):
             tmp=self.state[i1][j1]
             self.state[i1][j1]=self.state[i2][j2]
