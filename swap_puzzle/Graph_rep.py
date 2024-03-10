@@ -81,13 +81,12 @@ display_plt(app)
     # boucle principale
         running = True
         while running:
-            success = grille.is_sorted
-            if swaps == to_do and success == True: #vérifier que swap change bien tableau mais aussi que on peut faire égalité
+            if swaps == to_do and grille.is_sorted() == True: #vérifier que swap change bien tableau mais aussi que on peut faire égalité
                 screen.fill((255, 255, 255))
                 text= font.render("YOU WIN", True, (0,0,0))
                 place= text.get_rect(center=(500,500))
                 screen.blit(text,place)
-            elif swaps == to_do and success == False:
+            elif swaps == to_do and grille.is_sorted() == False:
                 screen.fill((0, 0, 0))
                 text= font.render("YOU LOSE", True, (255,255,255))
                 place= text.get_rect(center=(500,500))
