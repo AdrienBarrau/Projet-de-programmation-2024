@@ -136,7 +136,7 @@ class Grid():
         (i1,j1)=cell1
         (i2,j2)=cell2
         if ((((i1==i2) and abs(j1-j2)==1) or ((j1==j2) and abs(i1-i2)==1)) and (all(i1 !=liste_walls_i[index][0] or j1 !=liste_walls_i[index][1] or 
-        i2 !=liste_walls_j[index][0] or j2 !=liste_walls_j[index][1] for index in range(len(liste_walls_i))) and (all(i1 !=liste_walls_j[index][0] or 
+        i2 !=liste_walls_j[index][0] or j2 !=liste_walls_j[index][1] for index in range(len(liste_walls_i)))) and (all(i1 !=liste_walls_j[index][0] or 
         j1 !=liste_walls_j[index][1] or i2 !=liste_walls_i[index][0] or j2 !=liste_walls_i[index][1] for index in range(len(liste_walls_i))))
         and (i1,i2 <= self.n-1) and (j1,j2 <= self.m-1)and (i1,i2 >= 0) and (j1,j2 >= 0)):
             tmp=self.state[i1][j1]
