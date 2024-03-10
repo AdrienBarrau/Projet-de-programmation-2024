@@ -34,13 +34,6 @@ class Graphics:
             example = example + [new]
             new= []
         return example
-"""
-#application
-
-app= construction_ex()
-display_plt(app)
-
-"""
 
     # FONCTION PYGAME POUR TOUTES LES GRILLES
     def display_pygame(tableau, to_do):
@@ -224,3 +217,10 @@ display_plt(app)
         pygame.quit()
         sys.exit()
 
+"""
+#application
+
+app= construction_ex()
+display_plt(app)
+
+"""
