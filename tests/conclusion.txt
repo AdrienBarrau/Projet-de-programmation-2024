@@ -1,0 +1,35 @@
+Resultats: 
+Pour 100 grilles (2,2) au hasard:
+Temps moyen de solution_new_bfs : 0.0001276915835351059, nb swaps moyen: 2.216494845360825
+ temps moyen de A star: 7.262426553313265e-05, nb swaps moyen: 2.216494845360825
+Temps moyen de solution_naive : 1.0178261196490416e-05, nb swaps moyen: 2.6082474226804124
+
+
+Temps moyen de solution_new_bfs : 0.0073847794532775875, nb swaps moyen: 4.9
+ temps moyen de A star: 0.000357515811920166, nb swaps moyen: 4.94
+Temps moyen de solution_naive : 1.8701553344726562e-05, nb swaps moyen: 5.76
+
+(3,3):
+
+Temps moyen de solution_new_bfs : 8.816101956367493, nb swaps moyen: 9.7
+ temps moyen de A star: 0.0014864683151245117, nb swaps moyen: 10.1
+Temps moyen de solution_naive : 3.979206085205078e-05, nb swaps moyen: 11.7
+  
+(5,5) :
+temps moyen de A star: 1.1326886415481567, nb swaps moyen: 57.5
+Temps moyen de solution_naive : 0.00018973350524902343, nb swaps moyen: 66.1
+
+(6,6) :
+temps moyen de A star: 13.437949419021606, nb swaps moyen: 90.1
+Temps moyen de solution_naive : 0.0004558563232421875, nb swaps moyen: 120.7
+
+(7,7):
+temps moyen de A star: 11.646000862121582, nb swaps moyen: 151
+Temps moyen de solution_naive : 0.0011606216430664062, nb swaps moyen: 189
+  
+  
+Et ainsi de suite pour les grandes dimensions.
+En conclusion, A_star permet de résoudre en partie le problème posé. 
+Cet algorithme est flexible et modifiable pour mettre l’accent sur la vitesse de résolution, 
+ou bien sur la précision de la solution.
+
