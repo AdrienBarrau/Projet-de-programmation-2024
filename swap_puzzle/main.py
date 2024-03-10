@@ -21,9 +21,7 @@ print(g)
 
 def game():
     # on détermine forme matrice et solution
-    regles = "Le but de ce jeu est d'ordonner en le moins de swaps possibles une grille dont vous choisissez les dimensions. Vous ne pouvez échanger que les cases mitoyennes. \n  Il y a trois niveaux de difficultés que vous pouvez 
-    choisir. \n Le niveau facile correspond à ordonner une grille qui est quasi-ordonnée. \n Le niveau moyen consiste en ordonner une grille qui est moins ordonnée. \n
-    Dans le niveau difficile, on choisit également un nombre de murs et on doit résoudre le problème mais sans pouvoir échanger certaines cases qu'avant on pouvait échanger"
+    regles = "Le but de ce jeu est d'ordonner en le moins de swaps possibles une grille dont vous choisissez les dimensions. Vous ne pouvez échanger que les cases mitoyennes. \n  Il y a trois niveaux de difficultés que vous pouvezchoisir. \n Le niveau facile correspond à ordonner une grille qui est quasi-ordonnée. \n Le niveau moyen consiste en ordonner une grille qui est moins ordonnée. \n Dans le niveau difficile, on choisit également un nombre de murs et on doit résoudre le problème mais sans pouvoir échanger certaines cases qu'avant on pouvait échanger"
     
     print(regles)
     lines = int(input("nombre de lignes: "))
