@@ -94,10 +94,12 @@ class Grid():
             self.state[i2][j2]=tmp
         else:
             return "Impossible"
-    def identification(self,cell)
+            
+    def identification(self,cell):
         id = i*len(self.state[0]) + j
         return id
-    def origin_id(self, id)
+        
+    def origin_id(self, id):
         for line in range(len(self.state)):
             if line*len(self.state[0])<= id<(line+1)*len(self.state[0]):
                 i= line
