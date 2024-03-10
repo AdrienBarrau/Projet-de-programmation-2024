@@ -150,6 +150,6 @@ def a_star_performance(m,n,nb):    #teste les perfs de a_star sur nb grilles de 
 
 
 
-naive_performance(6,6,10)
+naive_performance(6,6,10)   #les deux premiers arguments donnent les dimensions, le troisieme est le nombre de matrices aleatoires
 new_bfs_performance(2,2,10)
 a_star_performance(5,5,4)
