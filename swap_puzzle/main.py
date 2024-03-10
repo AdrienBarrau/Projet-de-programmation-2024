@@ -31,9 +31,9 @@ def game():
     if level == "facile":
         solution=100
         while solution >2:
-            range = randrange(1,lines*columns)    #pour prendre une matrice au hasard il faudrai plutot tirer un nb au hasard entre 0 et (m*n)!-1
+            random_range = randrange(1,lines*columns)    #pour prendre une matrice au hasard il faudrai plutot tirer un nb au hasard entre 0 et (m*n)!-1
             all = Graph.generate_matrices(lines, columns)
-            for_game = all[range]
+            for_game = all[random_range]
     # déterminer le nb de swaps optimal
             if lines + columns <= 4:
                 solution = time_and_solve_new_bfs([for_game])[0][2]
@@ -45,9 +45,9 @@ def game():
     elif level == "moyen":
         solution=-100
         while solution <=2:
-            range = randrange(1,lines*columns)
+            random_range = randrange(1,lines*columns)
             all = Graph.generate_matrices(lines, columns)
-            for_game = all[range]
+            for_game = all[random_range]
             if lines + columns <= 4:
                 solution = time_and_solve_new_bfs([for_game])[0][2]
             elif lines + columns > 4:
