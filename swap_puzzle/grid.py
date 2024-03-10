@@ -96,6 +96,7 @@ class Grid():
             return "Impossible"
             
     def identification(self,cell):
+        (i,j)= cell
         id = i*len(self.state[0]) + j
         return id
         
