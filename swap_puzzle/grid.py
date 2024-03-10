@@ -129,8 +129,6 @@ class Grid():
     def swap_when_walls(self, cell1, cell2, walls):
         liste_walls_i = walls[0] # garder comme ça
         liste_walls_j= walls[1]
-        walls_i= Grid(nombre, 2, liste_walls_i)
-        walls_j= Grid(nombre, 2, liste_walls_j)
         
         (i1,j1)=cell1
         (i2,j2)=cell2
