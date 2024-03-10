@@ -121,9 +121,11 @@ class Grid():
                     while new_wall_j != new_wall_i +1 and new_wall_j != new_wall_i -1 and new_wall_j != new_wall_i +3 and new_wall_j != new_wall_i -3:
                         new_wall_j = random.randrange(len(self.state)*len(self.state[0])- 1)
                     cell1 = self.origin_id(new_wall_i)
-                    cell2= self.origin_id(new_wall_i)
+                    cell2= self.origin_id(new_wall_j)
             liste_walls_i.append(cell1)
             liste_walls_j.append(cell2)
+        liste_walls_i.pop(0)
+        liste_walls_j.pop(0)
         walls= [liste_walls_i, liste_walls_j]
         return walls       
 
