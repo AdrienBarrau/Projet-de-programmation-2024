@@ -4,6 +4,7 @@ This is the grid module. It contains the Grid class and its associated methods.
 
 import random
 import numpy as np
+from random import randrange
 
 
 class Grid():
@@ -93,6 +94,54 @@ class Grid():
             self.state[i2][j2]=tmp
         else:
             return "Impossible"
+    def identification(self,cell)
+        id = i*len(self.state[0]) + j
+        return id
+    def origin_id(self, id)
+        for line in range(len(self.state)):
+            if line*len(self.state[0])<= id<(line+1)*len(self.state[0]):
+                i= line
+        j= id - i*len(self.state[0])
+        cell= [i,j]
+        return cell
+
+    def creation_walls(self, nombre):
+        liste_walls_i= [[-100,-100]]
+        liste_walls_j= [[-100,-100]]
+        cell1 = [-100,-100]
+        cell2= [-100,-100]
+        for wall in range(nombre):
+            for idem in range(len(liste_walls_i)):
+                while cell1 == liste_walls_i[idem] and cell2 == liste_walls_j[idem]:
+                    new_wall_i = random.randrange(len(self.state)*len(self.state[0])- 1)
+                    new_wall_j=-100
+                    while new_wall_j != new_wall_i +1 and new_wall_j != new_wall_i -1 and new_wall_j != new_wall_i +3 and new_wall_j != new_wall_i -3:
+                        new_wall_j = random.randrange(len(self.state)*len(self.state[0])- 1)
+                    cell1 = self.origin_id(new_wall_i)
+                    cell2= self.origin_id(new_wall_i)
+            liste_walls_i.append(cell1)
+            liste_walls_j.append(cell2)
+        walls= [liste_walls_i, liste_walls_j]
+        return walls       
+
+    def swap_when_walls(self, cell1, cell2, nombre):
+        walls= self.creation_walls(nombre) #enlever ça
+        liste_walls_i = walls[0] # garder comme ça
+        liste_walls_j= walls[1]
+        walls_i= Grid(nombre, 2, liste_walls_i)
+        walls_j= Grid(nombre, 2, liste_walls_j)
+        
+        (i1,j1)=cell1
+        (i2,j2)=cell2
+        if ((((i1==i2) and abs(j1-j2)==1) or ((j1==j2) and abs(i1-i2)==1)) and ()
+        and (i1,i2 <= self.n-1) and (j1,j2 <= self.m-1)and (i1,i2 >= 0) and (j1,j2 >= 0)):
+            tmp=self.state[i1][j1]
+            self.state[i1][j1]=self.state[i2][j2]
+            self.state[i2][j2]=tmp
+        else:
+            return "Impossible"
+    
+
 
 
     def swap_seq(self, cell_pair_list):
