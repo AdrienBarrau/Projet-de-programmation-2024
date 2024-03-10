@@ -56,9 +56,9 @@ def game():
         # modéliser la grille avec pygame, avec tous les trucs nécessaires, rajouter l'option réussite et l'options pas réussite
         Graphics.display_pygame(for_game, solution)
     elif level == "difficile": #voir selon si on a le temps de faire les barrières
-        range = randrange(1,lines*columns)
+        random_range = randrange(1,lines*columns)
         all = Graph.generate_matrices(lines, columns)
-        for_game = all[range]
+        for_game = all[random_range]
         number_walls= int(input("Combien de murs voulez vous insérez ( au maximum, vous pouvez en mettre"+ str(columns*(lines-1) + lines*(columns-1)- 3)+ ": "))
         gfor_game = Grid(lines, columns, for_game)
         walls= gfor_game.creation_walls(number_walls)
