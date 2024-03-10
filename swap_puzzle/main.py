@@ -32,16 +32,22 @@ def game():
         range = randrange(1,lines*columns)    #pour prendre une matrice au hasard il faudrai plutot tirer un nb au hasard entre 0 et (m*n)!-1
         all = Graph.generate_matrices(lines, columns)
         for_game = all[range]
-    # déterminer le nb de swaps optimal (et afficher que c'est le nombre de swaps nécessaire pour gagner=> en bas du pygame ?)
-        solution = Graph.a_star(self, for_game, destination) # en rajoutant un truc pour que retourne nb de swaps optimaux
+    # déterminer le nb de swaps optimal
+        if lines + columns =< 6:
+            solution = time_and_solve_new_bfs([for_game])[2]
+        elif lines + columns > 6
+            solution = time_and_solve_a_star([for_game])[2]
     elif level == "moyen":
         while solution <4:
         range = randrange(1,lines*columns)
         all = Graph.generate_matrices(lines, columns)
         for_game = all[range]
-    # déterminer le nb de swaps optimal (et afficher que c'est le nombre de swaps nécessaire pour gagner=> en bas du pygame ?)
-        solution = Graph.a_star(self, for_game, destination) # en rajoutant un truc pour que retourne nb de swaps optimaux
+        if lines + columns =< 6:
+            solution = time_and_solve_new_bfs([for_game])[2]
+        elif lines + columns > 6
+            solution = time_and_solve_a_star([for_game])[2]
     elif level == "difficile": #voir selon si on a le temps de faire les barrières
+    print(solution)
     # modéliser la grille avec pygame, avec tous les trucs nécessaires, rajouter l'option réussite et l'options pas réussite
     Graphics.display_pygame(for_game, solution)
     
