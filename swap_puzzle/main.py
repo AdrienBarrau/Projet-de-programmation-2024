@@ -52,14 +52,14 @@ def game():
                 solution = time_and_solve_new_bfs([for_game])[0][2]
             elif lines + columns > 4:
                 solution = time_and_solve_a_star([for_game])[0][2]
-        print("Pour gagner, vous devez ordonner la grille en "+ str(solution) + "swaps")
+        print("Pour gagner, vous devez ordonner la grille en "+ str(solution) + " swaps")
         # modéliser la grille avec pygame, avec tous les trucs nécessaires, rajouter l'option réussite et l'options pas réussite
         Graphics.display_pygame(for_game, solution)
     elif level == "difficile": #voir selon si on a le temps de faire les barrières
         random_range = randrange(1,lines*columns)
         all = Graph.generate_matrices(lines, columns)
         for_game = all[random_range]
-        number_walls= int(input("Combien de murs voulez vous insérez ( au maximum, vous pouvez en mettre"+ str(columns*(lines-1) + lines*(columns-1)- 3)+ ": "))
+        number_walls= int(input("Combien de murs voulez vous insérez ( au maximum, vous pouvez en mettre "+ str(columns*(lines-1) + lines*(columns-1)- 3)+ "): "))
         gfor_game = Grid(lines, columns, for_game)
         walls= gfor_game.creation_walls(number_walls)
         walls_i= walls[0]
