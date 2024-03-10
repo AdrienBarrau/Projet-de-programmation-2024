@@ -35,10 +35,10 @@ def game():
             all = Graph.generate_matrices(lines, columns)
             for_game = all[range]
     # déterminer le nb de swaps optimal
-        if lines + columns <= 4:
-            solution = time_and_solve_new_bfs([for_game])[0][2]
-        elif lines + columns > 4:
-            solution = time_and_solve_a_star([for_game])[0][2]
+            if lines + columns <= 4:
+                solution = time_and_solve_new_bfs([for_game])[0][2]
+            elif lines + columns > 4:
+                solution = time_and_solve_a_star([for_game])[0][2]
         print("Pour gagner, vous devez ordonner la grille en "+ str(solution) + "swaps")
         # modéliser la grille avec pygame, avec tous les trucs nécessaires, rajouter l'option réussite et l'options pas réussite
         Graphics.display_pygame(for_game, solution)
@@ -48,10 +48,10 @@ def game():
             range = randrange(1,lines*columns)
             all = Graph.generate_matrices(lines, columns)
             for_game = all[range]
-        if lines + columns <= 4:
-            solution = time_and_solve_new_bfs([for_game])[0][2]
-        elif lines + columns > 4:
-            solution = time_and_solve_a_star([for_game])[0][2]
+            if lines + columns <= 4:
+                solution = time_and_solve_new_bfs([for_game])[0][2]
+            elif lines + columns > 4:
+                solution = time_and_solve_a_star([for_game])[0][2]
         print("Pour gagner, vous devez ordonner la grille en "+ str(solution) + "swaps")
         # modéliser la grille avec pygame, avec tous les trucs nécessaires, rajouter l'option réussite et l'options pas réussite
         Graphics.display_pygame(for_game, solution)
