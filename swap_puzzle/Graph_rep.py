@@ -80,51 +80,53 @@ display_plt(app)
 
     # boucle principale
         running = True
+        success = grille.is_sorted
         while running:
-            if swaps == to_do and grille.is_sorted == True: #vérifier que swap change bien tableau mais aussi que on peut faire égalité
+            if swaps == to_do and success == True: #vérifier que swap change bien tableau mais aussi que on peut faire égalité
                 screen.fill((255, 255, 255))
                 text= font.render("YOU WIN", True, (0,0,0))
                 place= text.get_rect(center=(500,500))
                 screen.blit(text,place)
-            elif swaps == to_do and grille.is_sorted == False:
+            elif swaps == to_do and success == False:
                 screen.fill((0, 0, 0))
                 text= font.render("YOU LOSE", True, (255,255,255))
                 place= text.get_rect(center=(500,500))
                 screen.blit(text,place)
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
+            else:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        running = False
             # essai de construction d'une grille interactive
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button ==1:
-                        if click== 0:
-                            click = 1
-                            f_position = pygame.mouse.get_pos()
-                            for i in range(lines):
-                                if i*1000/lines<f_position[1] < (i+1)*1000/lines:
-                                    case_f_i= i
-                            for j in range(columns):
-                                if j*1000/columns<f_position[0] < (j+1)*1000/columns:
-                                    case_f_j= j
-                        elif click==1:
-                            click=0
-                            s_position= pygame.mouse.get_pos()
-                            for i in range(lines):
-                                if i*1000/lines<s_position[1] < (i+1)*1000/lines:
-                                    case_s_i= i
-                            for j in range(columns):
-                                if j*1000/columns <s_position[0] < (j+1)*1000/columns:
-                                    case_s_j= j
-                            grille.swap((case_f_i,case_f_j),(case_s_i,case_s_j)) #ici changer pour que ça modifie bien le tableau exemple
-                            screen.fill((255, 255, 255),(int(case_f_j*1000/columns) + 1, int(case_f_i*1000/lines) + 1, int((case_f_j+1)*1000/columns)- 1, int((case_f_i*+1)*1000/lines)- 1))
-                            screen.fill((255, 255, 255),(int(case_s_j*1000/columns) + 1, int(case_s_i*1000/lines) + 1, int((case_s_j+1)*1000/columns)-1, int((case_s_i*+1)*1000/lines)- 1))
-                            newcase_f = font.render(str(grille.state[case_f_i][case_f_j]), True, (0,0,0))
-                            new_f_position = number.get_rect(center=(case_f_j*1000/columns+500/columns, case_f_i*1000/lines+500/lines))
-                            screen.blit(newcase_f, new_f_position)
-                            newcase_s = font.render(str(grille.state[case_s_i][case_s_j]), True, (0,0,0))
-                            new_s_position = number.get_rect(center=(case_s_j*1000/columns+500/columns, case_s_i*1000/lines+500/lines))
-                            screen.blit(newcase_s, new_s_position)
-                            swaps= swaps +1
+                    elif event.type == pygame.MOUSEBUTTONDOWN:
+                        if event.button ==1:
+                            if click== 0:
+                                click = 1
+                                f_position = pygame.mouse.get_pos()
+                                for i in range(lines):
+                                    if i*1000/lines<f_position[1] < (i+1)*1000/lines:
+                                        case_f_i= i
+                                for j in range(columns):
+                                    if j*1000/columns<f_position[0] < (j+1)*1000/columns:
+                                        case_f_j= j
+                            elif click==1:
+                                click=0
+                                s_position= pygame.mouse.get_pos()
+                                for i in range(lines):
+                                    if i*1000/lines<s_position[1] < (i+1)*1000/lines:
+                                        case_s_i= i
+                                for j in range(columns):
+                                    if j*1000/columns <s_position[0] < (j+1)*1000/columns:
+                                        case_s_j= j
+                                grille.swap((case_f_i,case_f_j),(case_s_i,case_s_j)) #ici changer pour que ça modifie bien le tableau exemple
+                                screen.fill((255, 255, 255),(int(case_f_j*1000/columns) + 1, int(case_f_i*1000/lines) + 1, int((case_f_j+1)*1000/columns)- 1, int((case_f_i*+1)*1000/lines)- 1))
+                                screen.fill((255, 255, 255),(int(case_s_j*1000/columns) + 1, int(case_s_i*1000/lines) + 1, int((case_s_j+1)*1000/columns)-1, int((case_s_i*+1)*1000/lines)- 1))
+                                newcase_f = font.render(str(grille.state[case_f_i][case_f_j]), True, (0,0,0))
+                                new_f_position = number.get_rect(center=(case_f_j*1000/columns+500/columns, case_f_i*1000/lines+500/lines))
+                                screen.blit(newcase_f, new_f_position)
+                                newcase_s = font.render(str(grille.state[case_s_i][case_s_j]), True, (0,0,0))
+                                new_s_position = number.get_rect(center=(case_s_j*1000/columns+500/columns, case_s_i*1000/lines+500/lines))
+                                screen.blit(newcase_s, new_s_position)
+                                swaps= swaps +1
                     
             pygame.display.flip()
 
