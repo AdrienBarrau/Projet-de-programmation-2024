@@ -118,7 +118,7 @@ class Grid():
                 while (cell1 == liste_walls_i[idem] and cell2 == liste_walls_j[idem]) or (cell1 == liste_walls_i[idem] and cell2 == liste_walls_j[idem]):
                     new_wall_i = random.randrange(len(self.state)*len(self.state[0])- 1)
                     new_wall_j=-100
-                    while new_wall_j != new_wall_i +1 and new_wall_j != new_wall_i -1 and new_wall_j != new_wall_i +3 and new_wall_j != new_wall_i -3:
+                    while new_wall_j != new_wall_i +1 and new_wall_j != new_wall_i -1 and new_wall_j != new_wall_i +len(self.state[0]) and new_wall_j != new_wall_i - len(self.state[0]):
                         new_wall_j = random.randrange(len(self.state)*len(self.state[0])- 1)
                     cell1 = self.origin_id(new_wall_i)
                     cell2= self.origin_id(new_wall_j)
