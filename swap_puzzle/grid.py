@@ -76,7 +76,7 @@ class Grid():
 
 
 
-    def swap(self, cell1, cell2):
+    def swap(self, cell1, cell2):   #Complexite en O(1)
         """
         Implements the self. operation between two cells. Raises an exception if the self. is not allowed.
 
@@ -162,7 +162,7 @@ class Grid():
             (cell1,cell2)=cell_pair_list[i]
             self.swap(cell1,cell2)
     
-    def adjacent_grids(self):
+    def adjacent_grids(self):     #complexite en O(mn)
         m = self.m
         n = self.n
         res = []
@@ -235,7 +235,7 @@ class Grid():
         return grid
 
     
-    def go_to(self,cell1,cell2):     # on va d'abord a droite(ou a gauche) puis en haut!
+    def go_to(self,cell1,cell2):     # on va d'abord a droite(ou a gauche) puis en haut! O(mn) dans le pire cas
         
         (i,j)=cell1        #départ
         (i1,j1)=cell2      #cible
@@ -261,7 +261,7 @@ class Grid():
                 i=i+1
         return res
 
-    def get_solution_naive(self):
+    def get_solution_naive(self):   # O(m*m*n*n), moins dans la pratique (on surestime la complexite de go_to)
         m=self.m 
         n=self.n
         res=[]
